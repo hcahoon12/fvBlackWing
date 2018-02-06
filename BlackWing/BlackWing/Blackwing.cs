@@ -10,12 +10,11 @@ namespace BlackWing
         private Texture2D BlackWingTexture;
         KeyboardState oldState;
         private Rectangle BlackWingbox;
-        Vector2 position;
         Vector2 velocity;
         bool jumped;
         public BlackWing(Vector2 newposition)
         {
-            position = newposition;
+            BlackWingbox = new Rectangle((int)newposition.X, (int)newposition.Y, 100, 100);
             jumped = true;
             oldState = Keyboard.GetState();
 
@@ -39,19 +38,19 @@ namespace BlackWing
         public  void Update(KeyboardState keyState)
         {
             //jump
-            position += velocity;
+            BlackWingbox.Y += (int)velocity.Y;
             if((keyState.IsKeyDown(Keys.Up)) && jumped == false)
             {
-                position.Y -= 10f;
-                velocity.Y = -5f;
+                BlackWingbox.Y -=10;
+                velocity.Y = -6f;
                 jumped = true;
             }
             if (jumped == true)
             {
-                float i = 1;
+                float i = 1.5f;
                 velocity.Y += 0.15f * i;
             }
-            if(position.Y + BlackWingTexture.Height >= 450)
+            if(BlackWingbox.Y + BlackWingTexture.Height >= 450)
             {
                 jumped = false;
             }
@@ -89,7 +88,7 @@ namespace BlackWing
         public  void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
-            spriteBatch.Draw(BlackWingTexture,new Rectangle(BlackWingbox.X,BlackWingbox.Y,100,100), Color.White);
+            spriteBatch.Draw(BlackWingTexture,new Rectangle(BlackWingbox.X,BlackWingbox.Y,70,70), Color.White);
             spriteBatch.End();
 
 
