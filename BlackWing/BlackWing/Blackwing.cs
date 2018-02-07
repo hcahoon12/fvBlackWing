@@ -14,7 +14,7 @@ namespace BlackWing
         bool jumped;
         public BlackWing(Vector2 newposition)
         {
-            BlackWingbox = new Rectangle((int)newposition.X, (int)newposition.Y, 100, 100);
+            BlackWingbox = new Rectangle(0, 400, 100, 100);
             jumped = true;
             oldState = Keyboard.GetState();
 
@@ -50,7 +50,7 @@ namespace BlackWing
                 float i = 1.5f;
                 velocity.Y += 0.15f * i;
             }
-            if(BlackWingbox.Y + BlackWingTexture.Height >= 450)
+            if(BlackWingbox.Y + BlackWingTexture.Height >= 800)
             {
                 jumped = false;
             }
@@ -88,7 +88,7 @@ namespace BlackWing
         public  void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
-            spriteBatch.Draw(BlackWingTexture,new Rectangle(BlackWingbox.X,BlackWingbox.Y,70,70), Color.White);
+            spriteBatch.Draw(BlackWingTexture,new Rectangle(0,400,70,70), Color.White);
             spriteBatch.End();
 
 
