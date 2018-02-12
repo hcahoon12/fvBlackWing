@@ -9,12 +9,13 @@ namespace BlackWing
     {
         private Texture2D BlackWingTexture;
         KeyboardState oldState;
-        private Rectangle BlackWingbox;
+        public Rectangle BlackWingbox;
         Vector2 velocity;
         bool jumped;
+
         public BlackWing(Vector2 newposition)
         {
-            BlackWingbox = new Rectangle(0, 400, 100, 100);
+            BlackWingbox = new Rectangle((int)newposition.X, (int)newposition.Y, 100, 100);
             jumped = true;
             oldState = Keyboard.GetState();
 
@@ -42,15 +43,15 @@ namespace BlackWing
             if((keyState.IsKeyDown(Keys.Up)) && jumped == false)
             {
                 BlackWingbox.Y -=10;
-                velocity.Y = -6f;
+                velocity.Y = -11f;
                 jumped = true;
             }
             if (jumped == true)
             {
-                float i = 1.5f;
+                float i = 1.85f;
                 velocity.Y += 0.15f * i;
             }
-            if(BlackWingbox.Y + BlackWingTexture.Height >= 800)
+            if(BlackWingbox.Y + BlackWingTexture.Height >= 850)
             {
                 jumped = false;
             }
@@ -61,9 +62,9 @@ namespace BlackWing
 
             //movement
             if (keyState.IsKeyDown(Keys.Right))
-                BlackWingbox.X+= 5;
+                BlackWingbox.X+= 12;
             if (keyState.IsKeyDown(Keys.Left))
-                BlackWingbox.X-= 5;
+                BlackWingbox.X-= 12;
             //boundaries
             if (BlackWingbox.X <= 0)
             {
@@ -73,9 +74,9 @@ namespace BlackWing
             {
                 BlackWingbox.Y = 0;
             }
-            if (BlackWingbox.Y >= 380)
+            if (BlackWingbox.Y >= 520)
             {
-                BlackWingbox.Y = 380;
+                BlackWingbox.Y = 520;
             }
 
 
@@ -86,13 +87,8 @@ namespace BlackWing
         }
 
         public  void Draw(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Begin();
-            spriteBatch.Draw(BlackWingTexture,new Rectangle(0,400,70,70), Color.White);
-            spriteBatch.End();
-
-
-         
+        {  
+            spriteBatch.Draw(BlackWingTexture,new Rectangle(BlackWingbox.X,BlackWingbox.Y,90,90), Color.White);
         }
     }
 }
