@@ -24,6 +24,7 @@ namespace BlackWing
         bool Flseen;
         bool Slseen;
         bool Tlseen;
+
         bool Filseen;
         bool sixlseen;
         bool sevlseen;
@@ -107,6 +108,8 @@ namespace BlackWing
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+
+            SLtexture = Content.Load<Texture2D>("Secret Level 1 (2)");
             titlescreentexture = Content.Load<Texture2D>("Heros War");
             FLtexture = Content.Load<Texture2D>("startlvl");
             TLtexture = Content.Load<Texture2D>("Forest Level");
@@ -142,6 +145,14 @@ namespace BlackWing
         {
             KeyboardState keyState = Keyboard.GetState();
             //collision with recs
+            if (graphics.IsFullScreen == true && keyState.IsKeyDown(Keys.Escape))
+            {
+                graphics.IsFullScreen = false;
+            }
+            else if (graphics.IsFullScreen == false && keyState.IsKeyDown(Keys.Escape))
+            {
+                graphics.IsFullScreen = true;
+            }
             if (blackWing.health > 0)
             {
                 blackWing.Update(keyState, Lines);
@@ -211,6 +222,7 @@ namespace BlackWing
                     blackWing.BlackWingbox.Y = 520;
                 }
             }
+
             else if (Filseen == true)
             {
                 if (blackWing.BlackWingbox.X >= 900)
@@ -475,6 +487,7 @@ namespace BlackWing
             {
                 blackWing.Draw(spriteBatch);
             }
+
 
             spriteBatch.End();
 
