@@ -13,22 +13,44 @@ namespace BlackWing
     class Star
     {
         Texture2D startexture;
+        public Rectangle starbox;
+        public int speed;
+        public bool isvisible;
+       
 
-        public Star()
+        public Star(Texture2D StarTexture, int X , int Y, int direction)
         {
-            List<int> starlist = new List<int>();
+            speed = 10 * direction;
+            int xOffset;
+            int yOffset;
+            if(direction < 0)
+            {
+                xOffset = 0;
+                yOffset = 10;
+                //left
+            }
+            else
+            {
+                xOffset = 60;
+                yOffset = 10;
+                //right
+            }
+            starbox = new Rectangle(X+xOffset, Y+yOffset , 20, 20);
+            isvisible = true;
+            startexture = StarTexture; 
         }
-        public void LoadContent(ContentManager Content)
+      
+        public void Update()
         {
-            startexture = Content.Load<Texture2D>("starrrr");
-        }
-        public void Update(KeyboardState keyState)
-        {
-
+            starbox.X += speed;
+            if (starbox.X>= 960 || starbox.X<=0)
+            { 
+                isvisible = false;
+            }
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-
+            spriteBatch.Draw(startexture, starbox, Color.White);
         }
     }
 }
