@@ -233,7 +233,7 @@ namespace BlackWing
                     starlist.Add(newStar);
                 }
             }
-          
+
             // reset delay
             if(stardelay == 0)
             {
@@ -286,6 +286,7 @@ namespace BlackWing
                     }
 
                 }
+
             }
         }
     }
