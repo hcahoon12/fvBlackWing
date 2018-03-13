@@ -589,16 +589,15 @@ namespace BlackWing
         private void TwelveLevelLoad()
         {
             Lines.Clear();
-            Lines.Add(new Line(Content.Load<Texture2D>("CCTexture"), new Vector2(108, 520), 700, 7, Color.Gold));
-            Lines.Add(new Line(Content.Load<Texture2D>("CCTexture"), new Vector2(608, 463), 110, 7, Color.Gold));
-            Lines.Add(new Line(Content.Load<Texture2D>("CCTexture"), new Vector2(608, 463), 110, 7, Color.Gold));
-            Lines.Add(new Line(Content.Load<Texture2D>("CCTexture"), new Vector2(608, 463), 110, 7, Color.Gold));
-            Lines.Add(new Line(Content.Load<Texture2D>("CCTexture"), new Vector2(608, 463), 110, 7, Color.Gold));
-            Lines.Add(new Line(Content.Load<Texture2D>("CCTexture"), new Vector2(608, 463), 110, 7, Color.Gold));
-            Lines.Add(new Line(Content.Load<Texture2D>("CCTexture"), new Vector2(608, 463), 110, 7, Color.Gold));
-            Lines.Add(new Line(Content.Load<Texture2D>("CCTexture"), new Vector2(608, 463), 110, 7, Color.Gold));
-            Lines.Add(new Line(Content.Load<Texture2D>("CCTexture"), new Vector2(608, 463), 110, 7, Color.Gold));
-            Lines.Add(new Line(Content.Load<Texture2D>("CCTexture"), new Vector2(608, 463), 110, 7, Color.Gold));
+            Lines.Add(new Line(Content.Load<Texture2D>("CCTexture"), new Vector2(145, 540), 810, 7, Color.Gold));
+            Lines.Add(new Line(Content.Load<Texture2D>("CCTexture"), new Vector2(0, 404), 167, 7, Color.Gold));
+            Lines.Add(new Line(Content.Load<Texture2D>("CCTexture"), new Vector2(289, 404), 700, 7, Color.Gold));
+            Lines.Add(new Line(Content.Load<Texture2D>("CCTexture"), new Vector2(954, 274), 7, 450, Color.Gold));
+            Lines.Add(new Line(Content.Load<Texture2D>("CCTexture"), new Vector2(508, 404), 450, 7, Color.Gold));
+            Lines.Add(new Line(Content.Load<Texture2D>("CCTexture"), new Vector2(0, 279), 790, 7, Color.Gold));
+            Lines.Add(new Line(Content.Load<Texture2D>("CCTexture"), new Vector2(0, 173), 390, 7, Color.Gold));
+            Lines.Add(new Line(Content.Load<Texture2D>("CCTexture"), new Vector2(73, 84), 125, 7, Color.Gold));
+            Lines.Add(new Line(Content.Load<Texture2D>("CCTexture"), new Vector2(280, 84), 60, 7, Color.Gold));
         }
     }
 }

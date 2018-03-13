@@ -380,6 +380,7 @@
 /processorParam:TextureFormat=Color
 /build:EnemyStrong.png
 
+#begin GREY.png
 #begin RED.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -390,6 +391,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
+/build:GREY.png
 /build:RED.png
 
 #begin Secret Level 1 (2).png
