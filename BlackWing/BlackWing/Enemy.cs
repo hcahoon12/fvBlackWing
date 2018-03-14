@@ -10,17 +10,11 @@ using Microsoft.Xna.Framework.Content;
 
 namespace BlackWing
 {
-    class Star
+    class Enemy
     {
-        Texture2D startexture;
-
-        public Star()
+        public Enemy()
         {
-            List<int> starlist = new List<int>();
-        }
-        public void LoadContent(ContentManager Content)
-        {
-            startexture = Content.Load<Texture2D>("starrrr");
+          
         }
         public void Update(KeyboardState keyState)
         {
@@ -30,5 +24,7 @@ namespace BlackWing
         {
 
         }
+
     }
+
 }
