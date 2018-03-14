@@ -38,9 +38,7 @@ namespace BlackWing
         bool fiftlseen;
         bool sixtlseen;
         bool sevtlseen;
-        // cut scene bool etlseen;
         bool goseen;
-
         //textures
         Texture2D titlescreentexture;
         Texture2D FLtexture;
@@ -153,8 +151,8 @@ namespace BlackWing
                 if (keyState.IsKeyDown(Keys.A))
                 {
                     titlescreenseen = false;
-                    fourtlseen = true;
-                    FourteenLevelLoad();
+                    sevtlseen = true;
+                    SeventeenLevelLoad();
                 }
                 backgroundTexture = titlescreentexture;
 
@@ -330,6 +328,7 @@ namespace BlackWing
                     blackWing.BlackWingbox.Y = 520;
                     fourtlseen = false;
                     fiftlseen = true;
+                    FithteenLevelLoad();
                 }
                 if (blackWing.BlackWingbox.X >= 900 && blackWing.BlackWingbox.Y > 400)
                 {
@@ -337,6 +336,7 @@ namespace BlackWing
                     blackWing.BlackWingbox.Y = 520;
                     fourtlseen = false;
                     sixtlseen = true;
+                    SixteenLevelLoad();
                 }
             }
             else if (fiftlseen == true)
@@ -347,6 +347,7 @@ namespace BlackWing
                     blackWing.BlackWingbox.Y = 520;
                     fiftlseen = false;
                     sevtlseen = true;
+                    SeventeenLevelLoad();
                 }
 
             }
@@ -358,6 +359,7 @@ namespace BlackWing
                     blackWing.BlackWingbox.Y = 520;
                     sixtlseen = false;
                     sevtlseen = true;
+                    SeventeenLevelLoad();
                 }
             }
             else if (sevtlseen == true)
@@ -604,7 +606,7 @@ namespace BlackWing
         {
             Lines.Clear();
             Lines.Add(new Line(Content.Load<Texture2D>("CCTexture"), new Vector2(365, 442), 120, 3, Color.Gold));
-            Lines.Add(new Line(Content.Load<Texture2D>("CCTexture"), new Vector2(485, 444), 3,130, Color.Gold));
+            Lines.Add(new Line(Content.Load<Texture2D>("CCTexture"), new Vector2(485, 444), 3, 130, Color.Gold));
             Lines.Add(new Line(Content.Load<Texture2D>("CCTexture"), new Vector2(759, 354), 220, 3, Color.Gold));
         }
         private void FourteenLevelLoad()
@@ -617,6 +619,38 @@ namespace BlackWing
             Lines.Add(new Line(Content.Load<Texture2D>("CCTexture"), new Vector2(133, 310), 90, 3, Color.Gold));
             Lines.Add(new Line(Content.Load<Texture2D>("CCTexture"), new Vector2(620, 240), 90, 3, Color.Gold));
             Lines.Add(new Line(Content.Load<Texture2D>("CCTexture"), new Vector2(580, 410), 400, 3, Color.Gold));
+        }
+        private void FithteenLevelLoad()
+        {
+            Lines.Clear();
+            Lines.Add(new Line(Content.Load<Texture2D>("GREY"), new Vector2(295, 543), 3, 160, Color.Brown));
+            Lines.Add(new Line(Content.Load<Texture2D>("GREY"), new Vector2(225, 543), 3, 160, Color.Brown));
+            Lines.Add(new Line(Content.Load<Texture2D>("GREY"), new Vector2(225, 541), 70, 3, Color.Brown));
+            Lines.Add(new Line(Content.Load<Texture2D>("GOLD"), new Vector2(710, 470), 10, 200, Color.Gold));
+        }
+        private void SixteenLevelLoad()
+        {
+            Lines.Clear();
+            Lines.Add(new Line(Content.Load<Texture2D>("GREY"), new Vector2(740, 416), 200, 3, Color.Brown));
+            Lines.Add(new Line(Content.Load<Texture2D>("GREY"), new Vector2(740, 416), 3, 95, Color.Brown));
+            Lines.Add(new Line(Content.Load<Texture2D>("GREY"), new Vector2(935, 416), 3, 230, Color.Brown));
+            Lines.Add(new Line(Content.Load<Texture2D>("GREY"), new Vector2(290,360), 120, 3, Color.Brown));
+            Lines.Add(new Line(Content.Load<Texture2D>("GREY"), new Vector2(575, 270), 100, 3, Color.Brown));
+            Lines.Add(new Line(Content.Load<Texture2D>("GREY"), new Vector2(450, 500), 110, 3, Color.Brown));
+            Lines.Add(new Line(Content.Load<Texture2D>("GREY"), new Vector2(885, 247), 120, 3, Color.Black));
+        }
+        private void SeventeenLevelLoad()
+        {
+            Lines.Clear();
+            Lines.Add(new Line(Content.Load<Texture2D>("GREY"), new Vector2(740, 416), 200, 3, Color.White));
+            Lines.Add(new Line(Content.Load<Texture2D>("GREY"), new Vector2(740, 416), 200, 3, Color.White));
+            Lines.Add(new Line(Content.Load<Texture2D>("GREY"), new Vector2(740, 416), 200, 3, Color.White));
+            Lines.Add(new Line(Content.Load<Texture2D>("GREY"), new Vector2(740, 416), 200, 3, Color.White));
+            Lines.Add(new Line(Content.Load<Texture2D>("GREY"), new Vector2(245, 290),3, 270, Color.AntiqueWhite));
+            Lines.Add(new Line(Content.Load<Texture2D>("GREY"), new Vector2(81, 353), 30, 3, Color.Black));
+            Lines.Add(new Line(Content.Load<Texture2D>("GREY"), new Vector2(141, 442), 30, 3, Color.Black));
+            Lines.Add(new Line(Content.Load<Texture2D>("GREY"), new Vector2(740, 416), 200, 3, Color.Brown));
+
         }
     }
 }
