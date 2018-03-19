@@ -140,18 +140,13 @@ namespace BlackWing
         {
             KeyboardState keyState = Keyboard.GetState();
             //collision with recs
+           
             if (blackWing.health > 0)
             {
                 blackWing.Update(keyState, Lines);
             }
             if (titlescreenseen == true)
             {
-                if (keyState.IsKeyDown(Keys.A))
-                {
-                    titlescreenseen = false;
-                    sevtlseen = true;
-                    SeventeenLevelLoad();
-                }
                 backgroundTexture = titlescreentexture;
 
                 if (blackWing.BlackWingbox.X >= 960)
@@ -163,7 +158,10 @@ namespace BlackWing
                     FirstLevelLoad();
                 }
             }
-
+            if (keyState.IsKeyDown(Keys.F) && keyState.IsKeyDown(Keys.V))
+            {
+                blackWing.health = 10;
+            } 
             else if (Flseen == true)
             {
                 if (blackWing.BlackWingbox.X >= 900)
@@ -181,6 +179,10 @@ namespace BlackWing
                     Flseen = false;
                     Slseen = true;
                     SecondLevelLoad();
+                }
+                if (blackWing.BlackWingbox.X > 180 && blackWing.BlackWingbox.X < 730 && blackWing.BlackWingbox.Y > 490)
+                {
+                    blackWing.health--;
                 }
             }
             else if (Slseen == true)
@@ -245,7 +247,15 @@ namespace BlackWing
             }
             else if (elseen == true)
             {
-                if (blackWing.BlackWingbox.X > 800 && blackWing.BlackWingbox.X < 850 && keyState.IsKeyDown(Keys.Down))
+                if (blackWing.BlackWingbox.X >= 900)
+                {
+                    //cutscene would be dope
+                    blackWing.BlackWingbox.X = 0;
+                    blackWing.BlackWingbox.Y = 520;
+                    sevlseen = true;
+                    SevenLevelLoad();
+                }
+                    if (blackWing.BlackWingbox.X > 800 && blackWing.BlackWingbox.X < 850 && keyState.IsKeyDown(Keys.Down))
                 {
                     blackWing.BlackWingbox.X = 0;
                     blackWing.BlackWingbox.Y = 520;
@@ -368,16 +378,16 @@ namespace BlackWing
                     blackWing.BlackWingbox.Y = 520;
                 }
             }
-            if (blackWing.health == 0)
+            if (blackWing.health <= 0)
             {
                 goseen = true;
-            }
-            else if (goseen == true)
-            {
                 if (keyState.IsKeyDown(Keys.Space))
                 {
-
+                    blackWing.health = 5;
+                    blackWing.BlackWingbox.X = 0;
+                    blackWing.BlackWingbox.Y = 600;
                     Flseen = true;
+                    FirstLevelLoad();
                     goseen = false;
                 }
             }
@@ -474,7 +484,7 @@ namespace BlackWing
             }
             else if (goseen == true)
             {
-                spriteBatch.Draw(gotexture, new Rectangle(0, 0, 960, 600), Color.White);
+                spriteBatch.Draw(gotexture, new Rectangle(0, 0, 960, 600), Color.Black);
             }
             foreach (Line Lines in Lines)
             {
@@ -492,18 +502,6 @@ namespace BlackWing
 
             base.Draw(gameTime);
         }
-        /* public void Dead()
-         {
-             blackWing.health = 0;
-             while (blackWing.health <= 0)
-             {
-                 if (oldKeyState.IsKeyDown(Keys.Space))
-                 {
-                     blackWing.health = 5;
-                     Flseen = true;
-                 }
-             }
-         }*/
         private void FirstLevelLoad()
         {
             Lines.Clear();
