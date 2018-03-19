@@ -42,7 +42,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Blackwing.cs" />
-    <Compile Include="Bullets.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="EnemyRange.cs" />
     <Compile Include="EnemyFast.cs" />

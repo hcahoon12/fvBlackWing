@@ -12,41 +12,37 @@ namespace BlackWing
 {
     class EnemyRange
     {
-        public Texture2D RangeTexture;
+        ContentManager content;
+        public Texture2D RangeTexture, startexture;
         public Vector2 RangePos;
-        public Vector2 Velocity;
-        public bool isVisible = true;
-        public float RangeSpeed;
-        List<Bullets> bullets = new List<Bullets>();
+        List<Star> bulletlist;
+        public float stardelay;
+        public int health;
+        public Rectangle Rangebox;
+        Vector2 hposition;
+        Texture2D HealthTexture;
         Texture2D BulletTexture;
-        Random random = new Random();
-        int randX, randY;
-        public EnemyRange(Texture2D newrangeTexture, Vector2 newRangepos, Texture2D newbulletTexture)
-        {
-            RangeTexture = newrangeTexture;
-            RangePos = newRangepos;
-            BulletTexture = newbulletTexture;
-            randY = random.Next(-4, 4);
-            randX = random.Next(-4, 1);
-            Velocity = new Vector2(randX, randY);
+        public bool isVisible = true;
+        public bool iscoliding;
+        bool collide;
+        
 
+        public EnemyRange(Vector2 newRangepos, int Health, Vector2 HPosition)
+        {
+            bulletlist = new List<Star>();
+            RangePos = newRangepos;
+            Rangebox = new Rectangle((int)newRangepos.X, (int)newRangepos.Y + 50, 60, 60);
+            iscoliding = false;
         }
         public void LoadContent(ContentManager Content)
         {
             RangeTexture = Content.Load<Texture2D>("EnemyRange");
-            BulletTexture = Content.Load<Texture2D>("Bullet");
+            startexture = Content.Load<Texture2D>("Bullet");
+            content = Content;
         }
         public void Update()
         {
-            RangePos += Velocity;
-            if(RangePos.Y <= 0)
-            {
-                Velocity.Y = -Velocity.Y;
-            }
-            //if (RangePos.X < 0 - Texture.Width)
-            {
-                isVisible = false;
-            }
+
         }
         public void Draw(SpriteBatch spriteBatch)
         {
