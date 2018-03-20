@@ -33,6 +33,7 @@ namespace BlackWing
         bool blackwingright;
         bool blackwingleft;
         bool collide;
+        bool starcollide;
 
 
         public BlackWing(Vector2 newposition , int Health , Vector2 HPosition)
@@ -51,7 +52,6 @@ namespace BlackWing
             jumped = true;
             oldState = Keyboard.GetState();
             Direction = 1;
-
         }
 
         protected  void Initialize()
@@ -73,16 +73,15 @@ namespace BlackWing
 
         public void Update(KeyboardState keyState, List<Line> Lines)
         {
-
             //shoot
-
             if ((keyState.IsKeyDown(Keys.E)))
             {
                 Shoot();
             }
-            UpdateStar();
-            //jump
-            for (int i = 0; i < Math.Abs(velocity.Y); i++)
+            UpdateStar(Lines);
+          
+
+                for (int i = 0; i < Math.Abs(velocity.Y); i++)
             {
                 collide = false;
                 if (velocity.Y >= 0)
@@ -241,13 +240,13 @@ namespace BlackWing
             }
         }
         // update bullet function
-        public void UpdateStar()
+        public void UpdateStar(List<Line> Lines)
         {
 
             for (int i =0; i<starlist.Count; i++)
             {
-                
-                starlist[i].Update();
+            
+                starlist[i].Update(Lines);
                 if (!starlist[i].isvisible)
                 {
                     starlist.RemoveAt(i);
