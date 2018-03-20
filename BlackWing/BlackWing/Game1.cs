@@ -484,10 +484,12 @@ namespace BlackWing
             else if (sevtlseen == true)
             {
                 spriteBatch.Draw(sevttexture, new Rectangle(0, 0, 960, 600), Color.White);
+                spriteBatch.DrawString(Ariel12, "Yup thats game over", new Vector2(0, 570), Color.Black);
             }
             else if (goseen == true)
             {
                 spriteBatch.Draw(gotexture, new Rectangle(0, 0, 960, 600), Color.Black);
+                spriteBatch.DrawString(Ariel12, "git good scrub", new Vector2(0, 570), Color.Black);
             }
             foreach (Line Lines in Lines)
             {

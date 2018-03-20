@@ -16,13 +16,16 @@ namespace BlackWing
         public Rectangle starbox;
         public int speed;
         public bool isvisible;
-       
+        int xOffset;
+        int yOffset;
+        bool collide;
+        int distravled;
+
 
         public Star(Texture2D StarTexture, int X , int Y, int direction)
         {
+            distravled = 0;
             speed = 10 * direction;
-            int xOffset;
-            int yOffset;
             if(direction < 0)
             {
                 xOffset = 0;
@@ -40,17 +43,27 @@ namespace BlackWing
             startexture = StarTexture; 
         }
       
-        public void Update()
+        public void Update(List<Line> Lines)
         {
             starbox.X += speed;
-            if (starbox.X>= 960 || starbox.X<=0)
+            distravled += Math.Abs(speed);
+            for (int l = 0; l < Lines.Count; l++)
+            {
+                if (starbox.Intersects(Lines[l].rectangle))
+                {
+                    isvisible = false;
+                }
+            }
+            if (distravled> 500)
             { 
                 isvisible = false;
             }
+           
         }
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(startexture, starbox, Color.White);
         }
+      
     }
 }
