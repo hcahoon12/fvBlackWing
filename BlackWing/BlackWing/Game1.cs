@@ -39,6 +39,7 @@ namespace BlackWing
         bool sevtlseen;
         bool goseen;
         //textures
+        Texture2D EmblemTexture;
         Texture2D titlescreentexture;
         Texture2D FLtexture;
         Texture2D backgroundTexture;
@@ -58,7 +59,7 @@ namespace BlackWing
         Texture2D sixttexture;
         Texture2D sevttexture;
         Texture2D gotexture;
-
+        Rectangle EmblemREC;
 
         public Game1()
         {
@@ -91,6 +92,7 @@ namespace BlackWing
 
         protected override void Initialize()
         {
+            EmblemREC = new Rectangle(313, 269, 100, 90);
             blackWing = new BlackWing(new Vector2(0, 550), 5, new Vector2(400, 400));
             KeyboardState keyState = Keyboard.GetState();
             oldKeyState = Keyboard.GetState();
@@ -104,7 +106,7 @@ namespace BlackWing
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-
+            EmblemTexture = Content.Load<Texture2D>("Emblem");
             titlescreentexture = Content.Load<Texture2D>("Heros War");
             FLtexture = Content.Load<Texture2D>("startlvl");
             TLtexture = Content.Load<Texture2D>("Forest Level");
@@ -148,7 +150,7 @@ namespace BlackWing
             if (titlescreenseen == true)
             {
                 backgroundTexture = titlescreentexture;
-
+               
                 if (blackWing.BlackWingbox.X >= 960)
                 {
                     blackWing.BlackWingbox.X = 0;
@@ -407,6 +409,7 @@ namespace BlackWing
             if (titlescreenseen == true)
             {
                 spriteBatch.Draw(backgroundTexture, new Rectangle(0, 0, 960, 600), Color.White);
+                spriteBatch.Draw(EmblemTexture, EmblemREC, Color.White);
                 spriteBatch.DrawString(Ariel12, "Press E to shoot", new Vector2(0, 570), Color.Black);
                 spriteBatch.DrawString(Ariel12, "Press W for melee", new Vector2(790, 570), Color.Black);
             }
