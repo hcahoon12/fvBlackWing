@@ -12,6 +12,11 @@ namespace BlackWing
 {
     class PowerUps
     {
+       
+        public void Powerups()
+        {
+
+        }
         public void LoadContent(ContentManager Content)
         {
 

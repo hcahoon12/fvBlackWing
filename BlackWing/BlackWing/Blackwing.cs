@@ -35,9 +35,15 @@ namespace BlackWing
         bool collide;
         bool starcollide;
 
+        bool ismelee;
+
 
         public BlackWing(Vector2 newposition , int Health , Vector2 HPosition)
         {
+            //melee
+            float MaxAttackTime = 0.33f;
+            float AttackTime;
+
             blackwingright = true;
             blackwingleft = false;
             iscoliding = false;
@@ -73,6 +79,14 @@ namespace BlackWing
 
         public void Update(KeyboardState keyState, List<Line> Lines)
         {
+       // public void Attack()
+        { 
+            //Melee
+            if ((keyState.IsKeyDown(Keys.W)))
+                {
+
+                }
+        }
             //shoot
             if ((keyState.IsKeyDown(Keys.E)))
             {

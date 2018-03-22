@@ -39,6 +39,7 @@ namespace BlackWing
         bool sevtlseen;
         bool goseen;
         //textures
+        Texture2D HealthTexture;
         Texture2D EmblemTexture;
         Texture2D titlescreentexture;
         Texture2D FLtexture;
@@ -60,6 +61,7 @@ namespace BlackWing
         Texture2D sevttexture;
         Texture2D gotexture;
         Rectangle EmblemREC;
+        private MouseState oldState;
 
         public Game1()
         {
@@ -87,11 +89,17 @@ namespace BlackWing
             graphics.PreferredBackBufferWidth = 960;
             graphics.PreferredBackBufferHeight = 600;
             graphics.IsFullScreen = false;
+            //mouse input
+            this.IsMouseVisible = true;
+            
         }
 
 
         protected override void Initialize()
         {
+            //Powerups
+
+
             EmblemREC = new Rectangle(313, 269, 100, 90);
             blackWing = new BlackWing(new Vector2(0, 550), 5, new Vector2(400, 400));
             KeyboardState keyState = Keyboard.GetState();
@@ -105,7 +113,7 @@ namespace BlackWing
         {
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            //HealthTexture = Content.Load<Texture2D>("Health");
             EmblemTexture = Content.Load<Texture2D>("Emblem");
             titlescreentexture = Content.Load<Texture2D>("Heros War");
             FLtexture = Content.Load<Texture2D>("startlvl");
@@ -140,6 +148,15 @@ namespace BlackWing
 
         protected override void Update(GameTime gameTime)
         {
+            //Mouse input
+            MouseState newState = Mouse.GetState();
+            if (newState.LeftButton == ButtonState.Pressed && oldState.LeftButton == ButtonState.Released)
+            {
+                Flseen = false;
+                sevtlseen = true;
+                SeventeenLevelLoad();
+            }
+            oldState = newState; // resets old state so it is ready for use next time
             KeyboardState keyState = Keyboard.GetState();
             //collision with recs
            
@@ -393,9 +410,6 @@ namespace BlackWing
                     goseen = false;
                 }
             }
-
-
-            MouseState mouseState = Mouse.GetState();
 
             base.Update(gameTime);
             oldKeyState = keyState;
