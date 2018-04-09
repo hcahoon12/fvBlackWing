@@ -169,7 +169,7 @@ namespace BlackWing
                 collide = false;
                 blackwingright = false;
                 blackwingleft = true;
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < 7; i++)
                 {
                     //collsion
                     BlackWingbox.X--;
@@ -196,7 +196,7 @@ namespace BlackWing
                 blackwingright = true;
                 blackwingleft = false;
                 collide = false;
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < 7; i++)
                 {
                     //collsion
                     BlackWingbox.X++;

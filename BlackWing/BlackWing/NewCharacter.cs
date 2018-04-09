@@ -66,8 +66,8 @@ namespace BlackWing
         }
         public void LoadContent(ContentManager Content)
         {
-            newcharacterTexture = Content.Load<Texture2D>("aquatowa (2)");
-            BlackWingTexture2 = Content.Load<Texture2D>("aquatowa");
+            newcharacterTexture = Content.Load<Texture2D>("blackwing");
+            BlackWingTexture2 = Content.Load<Texture2D>("blackwing2");
             HealthTexture = Content.Load<Texture2D>("RED");
             startexture = Content.Load<Texture2D>("starrrr");
             content = Content;
@@ -127,7 +127,7 @@ namespace BlackWing
             {
                 //collsion
                 collide = false;
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < 12; i++)
                 {
                     ncbox.Y--;
                     //Lines
@@ -141,11 +141,11 @@ namespace BlackWing
                     if (collide)
                     { ncbox.Y++; }
                 }
-                velocity.Y = -11f;
+                velocity.Y = -12f;
                 jumped = true;
             }
 
-            float K = 2.7f;
+            float K = 2.9f;
             velocity.Y += 0.17f * K;
 
 
@@ -161,7 +161,7 @@ namespace BlackWing
                 collide = false;
                 blackwingright = false;
                 blackwingleft = true;
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < 7; i++)
                 {
                     //collsion
                     ncbox.X--;
@@ -177,7 +177,7 @@ namespace BlackWing
 
                     if (collide)
                     {
-                        ncbox.X += 2;
+                        ncbox.X += 30;
                     }
 
                     Direction = -1;
@@ -188,7 +188,7 @@ namespace BlackWing
                 blackwingright = true;
                 blackwingleft = false;
                 collide = false;
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < 7; i++)
                 {
                     //collsion
                     ncbox.X++;
@@ -202,7 +202,7 @@ namespace BlackWing
                     //Enemies
                     if (collide)
                     {
-                        ncbox.X -= 2;
+                        ncbox.X -= 30;
                     }
 
                     Direction = 1;
