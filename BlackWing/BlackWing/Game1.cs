@@ -7,19 +7,27 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Media;
 
 namespace BlackWing
 {
 
     public class Game1 : Game
     {
+      
         SpriteFont Ariel12;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         BlackWing blackWing;
+        NewCharacter newcharacter;
         KeyboardState oldKeyState;
         List<Line> Lines = new List<Line>();
+        public int enemybulletdamage;
+        List<EnemyRange> rangelist = new List<EnemyRange>();
+        List<PowerUps> healthlist = new List<PowerUps>();
         //screens
+        bool selectscreen;
+        bool whiteseen;
         bool titlescreenseen;
         bool Flseen;
         bool Slseen;
@@ -38,12 +46,14 @@ namespace BlackWing
         bool sixtlseen;
         bool sevtlseen;
         bool goseen;
+        bool singleplayer;
+        bool twoplayer;
         //textures
         Texture2D HealthTexture;
         Texture2D EmblemTexture;
         Texture2D titlescreentexture;
         Texture2D FLtexture;
-        Texture2D backgroundTexture;
+      
         Texture2D SLtexture;
         Texture2D TLtexture;
         Texture2D FiLtexture;
@@ -60,6 +70,8 @@ namespace BlackWing
         Texture2D sixttexture;
         Texture2D sevttexture;
         Texture2D gotexture;
+        Texture2D whitetexture;
+        Texture2D selecttexture;
         Rectangle EmblemREC;
         private MouseState oldState;
 
@@ -84,23 +96,23 @@ namespace BlackWing
             fiftlseen = false;
             sixtlseen = false;
             sevtlseen = false;
-            titlescreenseen = true;
+            titlescreenseen = false;
+            selectscreen = false;
+            whiteseen = true;
+            enemybulletdamage = 1;
             //screensize
             graphics.PreferredBackBufferWidth = 960;
             graphics.PreferredBackBufferHeight = 600;
             graphics.IsFullScreen = false;
             //mouse input
-            this.IsMouseVisible = true;
+            this.IsMouseVisible = false;
             
         }
-
-
+        
         protected override void Initialize()
         {
-            //Powerups
-
-
             EmblemREC = new Rectangle(313, 269, 100, 90);
+            newcharacter = new NewCharacter(new Vector2(100, 450), 5 , new Vector2(400 , 400));
             blackWing = new BlackWing(new Vector2(0, 550), 5, new Vector2(400, 400));
             KeyboardState keyState = Keyboard.GetState();
             oldKeyState = Keyboard.GetState();
@@ -111,9 +123,10 @@ namespace BlackWing
 
         protected override void LoadContent()
         {
-
             spriteBatch = new SpriteBatch(GraphicsDevice);
             //HealthTexture = Content.Load<Texture2D>("Health");
+            selecttexture = Content.Load<Texture2D>("white");
+            whitetexture = Content.Load<Texture2D>("white");
             EmblemTexture = Content.Load<Texture2D>("Emblem");
             titlescreentexture = Content.Load<Texture2D>("Heros War");
             FLtexture = Content.Load<Texture2D>("startlvl");
@@ -135,7 +148,8 @@ namespace BlackWing
             gotexture = Content.Load<Texture2D>("GameOver");
             Ariel12 = Content.Load<SpriteFont>("file");
             blackWing.LoadContent(Content);
-
+            newcharacter.LoadContent(Content);
+           
 
         }
 
@@ -148,382 +162,995 @@ namespace BlackWing
 
         protected override void Update(GameTime gameTime)
         {
+
             //Mouse input
             MouseState newState = Mouse.GetState();
-            if (newState.LeftButton == ButtonState.Pressed && oldState.LeftButton == ButtonState.Released)
-            {
-                Flseen = false;
-                sevtlseen = true;
-                SeventeenLevelLoad();
-            }
-            oldState = newState; // resets old state so it is ready for use next time
+            //updateenemy
+
             KeyboardState keyState = Keyboard.GetState();
-            //collision with recs
-           
-            if (blackWing.health > 0)
+            oldState = newState; // resets old state so it is ready for use next time
+            foreach (PowerUps p in healthlist)
             {
-                blackWing.Update(keyState, Lines);
-            }
-            if (titlescreenseen == true)
-            {
-                backgroundTexture = titlescreentexture;
-               
-                if (blackWing.BlackWingbox.X >= 960)
+                p.Update();
+
+                if (p.powerrec.Intersects(blackWing.BlackWingbox) && keyState.IsKeyDown(Keys.F))
                 {
-                    blackWing.BlackWingbox.X = 0;
-                    blackWing.BlackWingbox.Y = 520;
-                    titlescreenseen = false;
-                    Flseen = true;
-                    FirstLevelLoad();
+                    blackWing.health++;
+                    p.isVisible = false;
                 }
             }
-            if (keyState.IsKeyDown(Keys.F) && keyState.IsKeyDown(Keys.V))
+            foreach (EnemyRange e in rangelist)
             {
-                blackWing.health = 10;
-            } 
-            else if (Flseen == true)
-            {
-                if (blackWing.BlackWingbox.X >= 900)
-                {
-                    blackWing.BlackWingbox.X = 0;
-                    blackWing.BlackWingbox.Y = 520;
-                    Flseen = false;
-                    Tlseen = true;
-                    ThirdLevelLoad();
-                }
-                if (blackWing.BlackWingbox.Y <= 0)
-                {
-                    blackWing.BlackWingbox.X = 0;
-                    blackWing.BlackWingbox.Y = 520;
-                    Flseen = false;
-                    Slseen = true;
-                    SecondLevelLoad();
-                }
-                if (blackWing.BlackWingbox.X > 180 && blackWing.BlackWingbox.X < 730 && blackWing.BlackWingbox.Y > 490)
+                e.Update();
+                //collison
+                if (e.Rangebox.Intersects(blackWing.BlackWingbox))
                 {
                     blackWing.health--;
+                    e.isVisible = false;
                 }
-            }
-            else if (Slseen == true)
-            {
-                if (blackWing.BlackWingbox.X >= 900)
+                //check bullet collison 
+                for (int i = 0; i < e.bulletlist.Count; i++)
                 {
-                    blackWing.BlackWingbox.X = 0;
-                    blackWing.BlackWingbox.Y = 520;
-                    Slseen = false;
-                    sevlseen = true;
-                    SevenLevelLoad();
+                    if (blackWing.BlackWingbox.Intersects(e.bulletlist[i].boundingbox))
+                    {
+                        blackWing.health -= enemybulletdamage;
+                        e.bulletlist[i].isVisible = false;
+                    }
                 }
-            }
-            else if (Tlseen == true)
-            {
-                if (blackWing.BlackWingbox.X >= 900)
-                {
-                    blackWing.health = 0;
-                }
-                if (blackWing.BlackWingbox.X > 320 && blackWing.BlackWingbox.X < 450 && keyState.IsKeyDown(Keys.Down))
-                {
-                    Tlseen = false;
-                    Filseen = true;
-                    FithLevelLoad();
-                    blackWing.BlackWingbox.X = 0;
-                    blackWing.BlackWingbox.Y = 520;
-                }
-            }
-
-            else if (Filseen == true)
-            {
-                if (blackWing.BlackWingbox.X >= 900)
-                {
-                    blackWing.BlackWingbox.X = 0;
-                    blackWing.BlackWingbox.Y = 520;
-                    Filseen = false;
-                    sixlseen = true;
-                    SixLevelLoad();
-                }
-            }
-            else if (sixlseen == true)
-            {
-                if (blackWing.BlackWingbox.X >= 900)
-                {
-                    blackWing.BlackWingbox.X = 0;
-                    blackWing.BlackWingbox.Y = 520;
-                    sixlseen = false;
-                    nlseen = true;
-                    NineLevelLoad();
-                }
-            }
-            else if (sevlseen == true)
-            {
-                if (blackWing.BlackWingbox.X >= 900)
-                {
-                    blackWing.BlackWingbox.X = 0;
-                    blackWing.BlackWingbox.Y = 520;
-                    sevlseen = false;
-                    elseen = true;
-                    EightLevelLoad();
-                }
-            }
-            else if (elseen == true)
-            {
-                if (blackWing.BlackWingbox.X >= 900)
-                {
-                    //cutscene would be dope
-                    blackWing.BlackWingbox.X = 0;
-                    blackWing.BlackWingbox.Y = 520;
-                    sevlseen = true;
-                    SevenLevelLoad();
-                }
-                    if (blackWing.BlackWingbox.X > 800 && blackWing.BlackWingbox.X < 850 && keyState.IsKeyDown(Keys.Down))
-                {
-                    blackWing.BlackWingbox.X = 0;
-                    blackWing.BlackWingbox.Y = 520;
-                    elseen = false;
-                    nlseen = true;
-                    NineLevelLoad();
-                }
-            }
-            else if (nlseen == true)
-            {
-                if (blackWing.BlackWingbox.X >= 900)
-                {
-                    blackWing.BlackWingbox.X = 0;
-                    blackWing.BlackWingbox.Y = 520;
-                    tenlseen = true;
-                    nlseen = false;
-                    TenLevelLoad();
-
-                }
-            }
-            else if (tenlseen == true)
-            {
-                if (blackWing.BlackWingbox.X >= 900)
-                {
-                    blackWing.BlackWingbox.X = 0;
-                    blackWing.BlackWingbox.Y = 520;
-                    tenlseen = false;
-                    elelseen = true;
-                    ElevenLevelLoad();
-                }
-            }
-            else if (elelseen == true)
-            {
-                if (blackWing.BlackWingbox.X >= 900)
-                {
-                    blackWing.BlackWingbox.X = 0;
-                    blackWing.BlackWingbox.Y = 520;
-                    elelseen = false;
-                    twelseen = true;
-                    TwelveLevelLoad();
-                }
-            }
-            else if (twelseen == true)
-            {
-                if (blackWing.BlackWingbox.X >= 900)
-                {
-                    blackWing.BlackWingbox.X = 0;
-                    blackWing.BlackWingbox.Y = 520;
-                    twelseen = false;
-                    fourtlseen = true;
-                    FourteenLevelLoad();
-                }
-                if (blackWing.BlackWingbox.Y <= 0)
-                {
-                    blackWing.BlackWingbox.X = 0;
-                    blackWing.BlackWingbox.Y = 520;
-                    twelseen = false;
-                    thirtlseen = true;
-                    ThirteenLevelLoad();
-                }
-            }
-            else if (thirtlseen == true)
-            {
-                if (blackWing.BlackWingbox.X >= 900)
-                {
-                    blackWing.BlackWingbox.X = 0;
-                    blackWing.BlackWingbox.Y = 520;
-                    thirtlseen = false;
-                    fourtlseen = true;
-                    FourteenLevelLoad();
-                }
-            }
-            else if (fourtlseen == true)
-            {
-                if (blackWing.BlackWingbox.X >= 900 && blackWing.BlackWingbox.Y < 400)
-                {
-                    blackWing.BlackWingbox.X = 0;
-                    blackWing.BlackWingbox.Y = 520;
-                    fourtlseen = false;
-                    fiftlseen = true;
-                    FithteenLevelLoad();
-                }
-                if (blackWing.BlackWingbox.X >= 900 && blackWing.BlackWingbox.Y > 400)
-                {
-                    blackWing.BlackWingbox.X = 0;
-                    blackWing.BlackWingbox.Y = 520;
-                    fourtlseen = false;
-                    sixtlseen = true;
-                    SixteenLevelLoad();
-                }
-            }
-            else if (fiftlseen == true)
-            {
-                if (blackWing.BlackWingbox.X >= 900)
-                {
-                    blackWing.BlackWingbox.X = 0;
-                    blackWing.BlackWingbox.Y = 520;
-                    fiftlseen = false;
-                    sevtlseen = true;
-                    SeventeenLevelLoad();
-                }
+                //player to enemy
+                /*  for(int i = 0; i < blackwing.Starlist; i++)
+                  {
+                      if(blackwing.starlist[i].starbox.Intersects(e.rangebox)
+                      {
+                      blackwing.starlist[i].isvisible=false;
+                      e.isvisible=false;
+                      }
+                  }*/
 
             }
-            else if (sixtlseen == true)
+
+            // moved the above parts out of if statements and the players got insanly fast. but if i put it back into one player it moves regular speed but 
+            //black wing cant advance levels
+
+
+            if (whiteseen == true)
             {
-                if (blackWing.BlackWingbox.X >= 900)
-                {
-                    blackWing.BlackWingbox.X = 0;
-                    blackWing.BlackWingbox.Y = 520;
-                    sixtlseen = false;
-                    sevtlseen = true;
-                    SeventeenLevelLoad();
-                }
-            }
-            else if (sevtlseen == true)
-            {
-                if (blackWing.BlackWingbox.X >= 900)
-                {
-                    blackWing.BlackWingbox.X = 0;
-                    blackWing.BlackWingbox.Y = 520;
-                }
-            }
-            if (blackWing.health <= 0)
-            {
-                goseen = true;
                 if (keyState.IsKeyDown(Keys.Space))
                 {
-                    blackWing.health = 5;
-                    blackWing.BlackWingbox.X = 0;
-                    blackWing.BlackWingbox.Y = 600;
-                    Flseen = true;
-                    FirstLevelLoad();
-                    goseen = false;
+                    whiteseen = false;
+                    selectscreen = true;
+                }
+            }
+            if (selectscreen == true)
+            {
+                if (keyState.IsKeyDown(Keys.NumPad1))
+                {
+                    singleplayer = true;
+                    titlescreenseen = true;
+                    whiteseen = false;
+                    twoplayer = false;
+                }
+                if (keyState.IsKeyDown(Keys.NumPad2))
+                {
+                    twoplayer = true;
+                    titlescreenseen = true;
+                    whiteseen = false;
+                    singleplayer = false;
+                }
+            }
+            /* 
+
+
+
+
+
+
+                  single player
+
+
+
+
+
+
+                  */
+            if (singleplayer == true)
+            {
+                if (blackWing.health > 0)
+                {
+                    blackWing.Update(keyState, Lines);
+                }
+                if (titlescreenseen == true)
+                {
+                    if (keyState.IsKeyDown(Keys.A))
+                    {
+                        titlescreenseen = false;
+                        Flseen = true;
+                        FirstLevelLoad();
+                    }
+                    if (blackWing.BlackWingbox.X >= 960)
+                    {
+                        blackWing.BlackWingbox.X = 0;
+                        blackWing.BlackWingbox.Y = 520;
+                        titlescreenseen = false;
+                        Flseen = true;
+                        FirstLevelLoad();
+                    }
+                }
+                if (keyState.IsKeyDown(Keys.B) && keyState.IsKeyDown(Keys.V))
+                {
+                    blackWing.health = 10;
+                }
+                else if (Flseen == true)
+                {
+                    if (blackWing.BlackWingbox.X >= 900)
+                    {
+                        blackWing.BlackWingbox.X = 0;
+                        blackWing.BlackWingbox.Y = 520;
+                        Flseen = false;
+                        Tlseen = true;
+                        ThirdLevelLoad();
+                    }
+                    if (blackWing.BlackWingbox.Y <= 0)
+                    {
+                        blackWing.BlackWingbox.X = 0;
+                        blackWing.BlackWingbox.Y = 520;
+                        Flseen = false;
+                        Slseen = true;
+                        SecondLevelLoad();
+                    }
+                    if (blackWing.BlackWingbox.X > 180 && blackWing.BlackWingbox.X < 730 && blackWing.BlackWingbox.Y > 490)
+                    {
+                        blackWing.health--;
+                    }
+                }
+                else if (Slseen == true)
+                {
+                    if (blackWing.BlackWingbox.X >= 900)
+                    {
+                        blackWing.BlackWingbox.X = 0;
+                        blackWing.BlackWingbox.Y = 520;
+                        Slseen = false;
+                        sevlseen = true;
+                        SevenLevelLoad();
+                    }
+                }
+                else if (Tlseen == true)
+                {
+                    if (blackWing.BlackWingbox.X >= 900)
+                    {
+                        blackWing.health = 0;
+                    }
+                    if (blackWing.BlackWingbox.X > 320 && blackWing.BlackWingbox.X < 450 && keyState.IsKeyDown(Keys.Down))
+                    {
+                        Tlseen = false;
+                        Filseen = true;
+                        FithLevelLoad();
+                        blackWing.BlackWingbox.X = 0;
+                        blackWing.BlackWingbox.Y = 520;
+                    }
+                }
+
+                else if (Filseen == true)
+                {
+                    if (blackWing.BlackWingbox.X >= 900)
+                    {
+                        blackWing.BlackWingbox.X = 0;
+                        blackWing.BlackWingbox.Y = 520;
+                        Filseen = false;
+                        sixlseen = true;
+                        SixLevelLoad();
+                    }
+                }
+                else if (sixlseen == true)
+                {
+                    if (blackWing.BlackWingbox.X >= 900)
+                    {
+                        blackWing.BlackWingbox.X = 0;
+                        blackWing.BlackWingbox.Y = 520;
+                        sixlseen = false;
+                        nlseen = true;
+                        NineLevelLoad();
+                    }
+                }
+                else if (sevlseen == true)
+                {
+                    if (blackWing.BlackWingbox.X >= 900)
+                    {
+                        blackWing.BlackWingbox.X = 0;
+                        blackWing.BlackWingbox.Y = 520;
+                        sevlseen = false;
+                        elseen = true;
+                        EightLevelLoad();
+                    }
+                }
+                else if (elseen == true)
+                {
+                    if (blackWing.BlackWingbox.X >= 900)
+                    {
+                        //cutscene would be dope
+                        blackWing.BlackWingbox.X = 0;
+                        blackWing.BlackWingbox.Y = 520;
+                        elelseen = false;
+                        sevlseen = true;
+                        SevenLevelLoad();
+                    }
+                    if (blackWing.BlackWingbox.X > 800 && blackWing.BlackWingbox.X < 850 && keyState.IsKeyDown(Keys.Down))
+                    {
+                        blackWing.BlackWingbox.X = 0;
+                        blackWing.BlackWingbox.Y = 520;
+                        elseen = false;
+                        nlseen = true;
+                        NineLevelLoad();
+                    }
+                }
+                else if (nlseen == true)
+                {
+                    if (blackWing.BlackWingbox.X >= 900)
+                    {
+                        blackWing.BlackWingbox.X = 0;
+                        blackWing.BlackWingbox.Y = 520;
+                        tenlseen = true;
+                        nlseen = false;
+                        TenLevelLoad();
+
+                    }
+                }
+                else if (tenlseen == true)
+                {
+                    if (blackWing.BlackWingbox.X >= 900)
+                    {
+                        blackWing.BlackWingbox.X = 0;
+                        blackWing.BlackWingbox.Y = 520;
+                        tenlseen = false;
+                        elelseen = true;
+                        ElevenLevelLoad();
+                    }
+                }
+                else if (elelseen == true)
+                {
+                    if (blackWing.BlackWingbox.X >= 900)
+                    {
+                        blackWing.BlackWingbox.X = 0;
+                        blackWing.BlackWingbox.Y = 520;
+                        elelseen = false;
+                        twelseen = true;
+                        TwelveLevelLoad();
+                    }
+                }
+                else if (twelseen == true)
+                {
+                    if (blackWing.BlackWingbox.X >= 900)
+                    {
+                        blackWing.BlackWingbox.X = 0;
+                        blackWing.BlackWingbox.Y = 520;
+                        twelseen = false;
+                        fourtlseen = true;
+                        FourteenLevelLoad();
+                    }
+                    if (blackWing.BlackWingbox.Y <= 0)
+                    {
+                        blackWing.BlackWingbox.X = 0;
+                        blackWing.BlackWingbox.Y = 520;
+                        twelseen = false;
+                        thirtlseen = true;
+                        ThirteenLevelLoad();
+                    }
+                }
+                else if (thirtlseen == true)
+                {
+                    if (blackWing.BlackWingbox.X >= 900)
+                    {
+                        blackWing.BlackWingbox.X = 0;
+                        blackWing.BlackWingbox.Y = 520;
+                        thirtlseen = false;
+                        fourtlseen = true;
+                        FourteenLevelLoad();
+                    }
+                }
+                else if (fourtlseen == true)
+                {
+                    if (blackWing.BlackWingbox.X >= 900 && blackWing.BlackWingbox.Y < 400)
+                    {
+                        blackWing.BlackWingbox.X = 0;
+                        blackWing.BlackWingbox.Y = 520;
+                        fourtlseen = false;
+                        fiftlseen = true;
+                        FithteenLevelLoad();
+                    }
+                    if (blackWing.BlackWingbox.X >= 900 && blackWing.BlackWingbox.Y > 400)
+                    {
+                        blackWing.BlackWingbox.X = 0;
+                        blackWing.BlackWingbox.Y = 520;
+                        fourtlseen = false;
+                        sixtlseen = true;
+                        SixteenLevelLoad();
+                    }
+                }
+                else if (fiftlseen == true)
+                {
+                    if (blackWing.BlackWingbox.X >= 900)
+                    {
+                        blackWing.BlackWingbox.X = 0;
+                        blackWing.BlackWingbox.Y = 520;
+                        fiftlseen = false;
+                        sevtlseen = true;
+                        SeventeenLevelLoad();
+                    }
+
+                }
+                else if (sixtlseen == true)
+                {
+                    if (blackWing.BlackWingbox.X >= 900)
+                    {
+                        blackWing.BlackWingbox.X = 0;
+                        blackWing.BlackWingbox.Y = 520;
+                        sixtlseen = false;
+                        sevtlseen = true;
+                        SeventeenLevelLoad();
+                    }
+                }
+                else if (sevtlseen == true)
+                {
+                    if (blackWing.BlackWingbox.X >= 900)
+                    {
+                        blackWing.BlackWingbox.X = 0;
+                        blackWing.BlackWingbox.Y = 520;
+                    }
+                }
+                if (blackWing.health <= 0)
+                {
+                    goseen = true;
+                    if (keyState.IsKeyDown(Keys.Space))
+                    {
+                        blackWing.health = 5;
+                        blackWing.BlackWingbox.X = 0;
+                        blackWing.BlackWingbox.Y = 600;
+                        Flseen = true;
+                        FirstLevelLoad();
+                        goseen = false;
+                    }
                 }
             }
 
-            base.Update(gameTime);
-            oldKeyState = keyState;
+            /*
+
+
+
+
+                two player below
+
+
+
+                */
+            else if (twoplayer == true)
+            {
+
+                if (blackWing.health > 0)
+                {
+                    blackWing.Update(keyState, Lines);
+                }
+                if (newcharacter.health > 0)
+                {
+                    newcharacter.Update(keyState, Lines);
+                }
+
+                if (titlescreenseen == true)
+                {
+
+                    if (blackWing.BlackWingbox.X >= 960 || newcharacter.ncbox.X >= 960)
+                    {
+                        newcharacter.ncbox.X = 100;
+                        newcharacter.ncbox.Y = 550;
+                        blackWing.BlackWingbox.X = 0;
+                        blackWing.BlackWingbox.Y = 550;
+                        titlescreenseen = false;
+                        Flseen = true;
+                        FirstLevelLoad();
+                    }
+                }
+                if (keyState.IsKeyDown(Keys.B) && keyState.IsKeyDown(Keys.V))
+                {
+                    blackWing.health = 10;
+                    newcharacter.health = 10;
+                }
+                if (Flseen == true)
+                {
+                    if (blackWing.BlackWingbox.X >= 900 || newcharacter.ncbox.X >= 900)
+                    {
+                        newcharacter.ncbox.X = 100;
+                        newcharacter.ncbox.Y = 550;
+                        blackWing.BlackWingbox.X = 0;
+                        blackWing.BlackWingbox.Y = 550;
+                        Flseen = false;
+                        Tlseen = true;
+                        ThirdLevelLoad();
+                    }
+                    if (blackWing.BlackWingbox.Y <= 0 || newcharacter.ncbox.Y <= 0)
+                    {
+                        newcharacter.ncbox.X = 100;
+                        newcharacter.ncbox.Y = 550;
+                        blackWing.BlackWingbox.X = 0;
+                        blackWing.BlackWingbox.Y = 550;
+                        Flseen = false;
+                        Slseen = true;
+                        SecondLevelLoad();
+                    }
+                    if (blackWing.BlackWingbox.X > 180 && blackWing.BlackWingbox.X < 730 && blackWing.BlackWingbox.Y > 490)
+                    {
+                        blackWing.health--;
+                    }
+                    if (newcharacter.ncbox.X > 180 && newcharacter.ncbox.X < 730 && newcharacter.ncbox.Y > 490)
+                    {
+                        newcharacter.health--;
+                    }
+                }
+                else if (Slseen == true)
+                {
+                    if (blackWing.BlackWingbox.X >= 900 || newcharacter.ncbox.X >= 900)
+                    {
+                        newcharacter.ncbox.X = 100;
+                        newcharacter.ncbox.Y = 550;
+                        blackWing.BlackWingbox.X = 0;
+                        blackWing.BlackWingbox.Y = 550;
+                        Slseen = false;
+                        sevlseen = true;
+                        SevenLevelLoad();
+                    }
+                }
+                else if (Tlseen == true)
+                {
+                    if (blackWing.BlackWingbox.X >= 900)
+                    {
+                        blackWing.health = 0;
+                    }
+                    if (newcharacter.ncbox.X >= 900)
+                    {
+                        newcharacter.health = 0;
+                    }
+                    if (blackWing.BlackWingbox.X > 320 && blackWing.BlackWingbox.X < 450 && keyState.IsKeyDown(Keys.Down) || newcharacter.ncbox.X > 320 && newcharacter.ncbox.X < 450 && keyState.IsKeyDown(Keys.S))
+                    {
+                        Tlseen = false;
+                        Filseen = true;
+                        FithLevelLoad();
+                        newcharacter.ncbox.X = 100;
+                        newcharacter.ncbox.Y = 550;
+                        blackWing.BlackWingbox.X = 0;
+                        blackWing.BlackWingbox.Y = 550;
+                    }
+                }
+
+                else if (Filseen == true)
+                {
+                    if (blackWing.BlackWingbox.X >= 900 || newcharacter.ncbox.X >= 900)
+                    {
+                        newcharacter.ncbox.X = 100;
+                        newcharacter.ncbox.Y = 550;
+                        blackWing.BlackWingbox.X = 0;
+                        blackWing.BlackWingbox.Y = 550;
+                        Filseen = false;
+                        sixlseen = true;
+                        SixLevelLoad();
+                    }
+                }
+                else if (sixlseen == true)
+                {
+                    if (blackWing.BlackWingbox.X >= 900 || newcharacter.ncbox.X >= 900)
+                    {
+                        newcharacter.ncbox.X = 100;
+                        newcharacter.ncbox.Y = 550;
+                        blackWing.BlackWingbox.X = 0;
+                        blackWing.BlackWingbox.Y = 550;
+                        sixlseen = false;
+                        nlseen = true;
+                        NineLevelLoad();
+                    }
+                }
+                else if (sevlseen == true)
+                {
+                    if (blackWing.BlackWingbox.X >= 900 || newcharacter.ncbox.X >= 900)
+                    {
+                        newcharacter.ncbox.X = 100;
+                        newcharacter.ncbox.Y = 550;
+                        blackWing.BlackWingbox.X = 0;
+                        blackWing.BlackWingbox.Y = 550;
+                        sevlseen = false;
+                        elseen = true;
+                        EightLevelLoad();
+                    }
+                }
+                else if (elseen == true)
+                {
+                    if (blackWing.BlackWingbox.X >= 900 || newcharacter.ncbox.X >= 900)
+                    {
+                        //cutscene would be dope
+                        newcharacter.ncbox.X = 100;
+                        newcharacter.ncbox.Y = 550;
+                        blackWing.BlackWingbox.X = 0;
+                        blackWing.BlackWingbox.Y = 550;
+                        elseen = false;
+                        sevlseen = true;
+                        SevenLevelLoad();
+                    }
+                    if (blackWing.BlackWingbox.X > 800 && blackWing.BlackWingbox.X < 850 && keyState.IsKeyDown(Keys.Down) || newcharacter.ncbox.X > 800 && newcharacter.ncbox.X < 850 && keyState.IsKeyDown(Keys.Down))
+                    {
+                        newcharacter.ncbox.X = 100;
+                        newcharacter.ncbox.Y = 550;
+                        blackWing.BlackWingbox.X = 0;
+                        blackWing.BlackWingbox.Y = 550;
+                        elseen = false;
+                        nlseen = true;
+                        NineLevelLoad();
+                    }
+                }
+                else if (nlseen == true)
+                {
+                    if (blackWing.BlackWingbox.X >= 900 || newcharacter.ncbox.X >= 900)
+                    {
+                        newcharacter.ncbox.X = 100;
+                        newcharacter.ncbox.Y = 550;
+                        blackWing.BlackWingbox.X = 0;
+                        blackWing.BlackWingbox.Y = 550;
+                        tenlseen = true;
+                        nlseen = false;
+                        TenLevelLoad();
+                    }
+                }
+                else if (tenlseen == true)
+                {
+                    if (blackWing.BlackWingbox.X >= 900 || newcharacter.ncbox.X >= 900)
+                    {
+                        newcharacter.ncbox.X = 100;
+                        newcharacter.ncbox.Y = 550;
+                        blackWing.BlackWingbox.X = 0;
+                        blackWing.BlackWingbox.Y = 550;
+                        tenlseen = false;
+                        elelseen = true;
+                        ElevenLevelLoad();
+                    }
+                }
+                else if (elelseen == true)
+                {
+                    if (blackWing.BlackWingbox.X >= 900 || newcharacter.ncbox.X >= 900)
+                    {
+                        newcharacter.ncbox.X = 100;
+                        newcharacter.ncbox.Y = 550;
+                        blackWing.BlackWingbox.X = 0;
+                        blackWing.BlackWingbox.Y = 550;
+                        elelseen = false;
+                        twelseen = true;
+                        TwelveLevelLoad();
+                    }
+                }
+                else if (twelseen == true)
+                {
+                    if (blackWing.BlackWingbox.X >= 900 || newcharacter.ncbox.X >= 900)
+                    {
+                        newcharacter.ncbox.X = 100;
+                        newcharacter.ncbox.Y = 550;
+                        blackWing.BlackWingbox.X = 0;
+                        blackWing.BlackWingbox.Y = 550;
+                        twelseen = false;
+                        fourtlseen = true;
+                        FourteenLevelLoad();
+                    }
+                    if (blackWing.BlackWingbox.Y <= 0 || newcharacter.ncbox.Y <= 0)
+                    {
+                        newcharacter.ncbox.X = 100;
+                        newcharacter.ncbox.Y = 550;
+                        blackWing.BlackWingbox.X = 0;
+                        blackWing.BlackWingbox.Y = 550;
+                        twelseen = false;
+                        thirtlseen = true;
+                        ThirteenLevelLoad();
+                    }
+                }
+                else if (thirtlseen == true)
+                {
+                    if (blackWing.BlackWingbox.X >= 900 || newcharacter.ncbox.X >= 900)
+                    {
+                        newcharacter.ncbox.X = 100;
+                        newcharacter.ncbox.Y = 550;
+                        blackWing.BlackWingbox.X = 0;
+                        blackWing.BlackWingbox.Y = 550;
+                        thirtlseen = false;
+                        fourtlseen = true;
+                        FourteenLevelLoad();
+                    }
+                }
+                else if (fourtlseen == true)
+                {
+                    if (blackWing.BlackWingbox.X >= 900 && blackWing.BlackWingbox.Y < 400 || newcharacter.ncbox.X >= 900 && newcharacter.ncbox.Y < 400)
+                    {
+                        newcharacter.ncbox.X = 100;
+                        newcharacter.ncbox.Y = 550;
+                        blackWing.BlackWingbox.X = 0;
+                        blackWing.BlackWingbox.Y = 550;
+                        fourtlseen = false;
+                        fiftlseen = true;
+                        FithteenLevelLoad();
+                    }
+                    if (blackWing.BlackWingbox.X >= 900 && blackWing.BlackWingbox.Y > 400 || newcharacter.ncbox.X >= 900 && newcharacter.ncbox.Y > 400)
+                    {
+                        newcharacter.ncbox.X = 100;
+                        newcharacter.ncbox.Y = 550;
+                        blackWing.BlackWingbox.X = 0;
+                        blackWing.BlackWingbox.Y = 550;
+                        fourtlseen = false;
+                        sixtlseen = true;
+                        SixteenLevelLoad();
+                    }
+                }
+                else if (fiftlseen == true)
+                {
+                    if (blackWing.BlackWingbox.X >= 900 || newcharacter.ncbox.X >= 900)
+                    {
+                        newcharacter.ncbox.X = 100;
+                        newcharacter.ncbox.Y = 550;
+                        blackWing.BlackWingbox.X = 0;
+                        blackWing.BlackWingbox.Y = 550;
+                        fiftlseen = false;
+                        sevtlseen = true;
+                        SeventeenLevelLoad();
+                    }
+
+                }
+                else if (sixtlseen == true)
+                {
+                    if (blackWing.BlackWingbox.X >= 900 || newcharacter.ncbox.X >= 900)
+                    {
+                        newcharacter.ncbox.X = 100;
+                        newcharacter.ncbox.Y = 550;
+                        blackWing.BlackWingbox.X = 0;
+                        blackWing.BlackWingbox.Y = 550;
+                        sixtlseen = false;
+                        sevtlseen = true;
+                        SeventeenLevelLoad();
+                    }
+                }
+                else if (sevtlseen == true)
+                {
+                    if (blackWing.BlackWingbox.X >= 900 || newcharacter.ncbox.X >= 900)
+                    {
+                        newcharacter.ncbox.X = 100;
+                        newcharacter.ncbox.Y = 550;
+                        blackWing.BlackWingbox.X = 0;
+                        blackWing.BlackWingbox.Y = 550;
+                    }
+                }
+                if (blackWing.health <= 0)
+                {
+                  
+                    if (keyState.IsKeyDown(Keys.Space))
+                    {
+                        newcharacter.health = 5;
+                        newcharacter.ncbox.X = 60;
+                        newcharacter.ncbox.Y = 600;
+                        blackWing.health = 5;
+                        blackWing.BlackWingbox.X = 0;
+                        blackWing.BlackWingbox.Y = 600;
+                        goseen = false;
+                        Flseen = true;
+                        FirstLevelLoad();
+                    }
+                }
+                if (newcharacter.health <= 0)
+                {
+                    
+                    if (keyState.IsKeyDown(Keys.Space))
+                    {
+                        newcharacter.health = 5;
+                        newcharacter.ncbox.X = 60;
+                        newcharacter.ncbox.Y = 600;
+                        blackWing.health = 5;
+                        blackWing.BlackWingbox.X = 0;
+                        blackWing.BlackWingbox.Y = 600;
+                        goseen = false;
+                        Flseen = true;
+                        FirstLevelLoad();
+                    }
+                }
+                if(newcharacter.health <= 0 && blackWing.health <= 0)
+                {
+                    goseen = true;
+                    gameoverload();
+                }
+                if (goseen == true)
+                    {
+                        if (keyState.IsKeyDown(Keys.Space))
+                        {
+                        newcharacter.health = 5;
+                        newcharacter.ncbox.X = 60;
+                        newcharacter.ncbox.Y = 600;
+                        blackWing.health = 5;
+                            blackWing.BlackWingbox.X = 0;
+                            blackWing.BlackWingbox.Y = 600;
+                            goseen = false;
+                            Flseen = true;
+                            FirstLevelLoad();
+
+                        }
+                    }
+
+                    enemyload();
+                    healthload();
+                    base.Update(gameTime);
+                    oldKeyState = keyState;
+                }
+            
+        }
+    public void enemyload()
+        {
+            for (int i = 0; i < rangelist.Count; i++)
+            {
+                if (!rangelist[i].isVisible)
+                {
+                    rangelist.RemoveAt(i);
+                    i--;
+                }
+            }
+        }
+        public void healthload()
+        {
+            for (int i = 0; i < healthlist.Count; i++)
+            {
+                if (!healthlist[i].isVisible)
+                {
+                    healthlist.RemoveAt(i);
+                    i--;
+                }
+            }
         }
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.White);
             spriteBatch.Begin();
             //recs
+            foreach (PowerUps p in healthlist)
+            {
+                p.Draw(spriteBatch);
+            }
+            foreach (EnemyRange e in rangelist)
+            {
+                e.Draw(spriteBatch);
+            }
+            if (whiteseen == true)
+            {
+                spriteBatch.Draw(whitetexture, new Rectangle(0, 0, 960, 600), Color.White);
+                spriteBatch.DrawString(Ariel12, "for first player arrow keys move you", new Vector2(0, 10), Color.LimeGreen);
+                spriteBatch.DrawString(Ariel12, "for second player use a,w,d", new Vector2(350, 10), Color.LimeGreen);
+                spriteBatch.DrawString(Ariel12, "first player shoot is 0", new Vector2(150, 210), Color.Blue);
+                spriteBatch.DrawString(Ariel12, "and melee is shift", new Vector2(450, 210), Color.Blue);
+                spriteBatch.DrawString(Ariel12, "for second player shoot is F", new Vector2(300, 420), Color.Red);
+                spriteBatch.DrawString(Ariel12, "and melee is E", new Vector2(650, 420), Color.Red);
+                spriteBatch.DrawString(Ariel12, "Press space to continue", new Vector2(450, 570), Color.Cyan);
+            }
+           if (selectscreen == true)
+            {
+                spriteBatch.Draw(whitetexture, new Rectangle(0, 0, 960, 600), Color.White);
+                spriteBatch.DrawString(Ariel12, "Press 2 for duo", new Vector2(0, 570), Color.Black);
+                spriteBatch.DrawString(Ariel12, "Press 1 for single player", new Vector2(450, 570), Color.Black);
+            }
+         if (singleplayer == true)
+            {
             
-            if (titlescreenseen == true)
-            {
-                spriteBatch.Draw(backgroundTexture, new Rectangle(0, 0, 960, 600), Color.White);
-                spriteBatch.Draw(EmblemTexture, EmblemREC, Color.White);
-                spriteBatch.DrawString(Ariel12, "Press E to shoot", new Vector2(0, 570), Color.Black);
-                spriteBatch.DrawString(Ariel12, "Press W for melee", new Vector2(790, 570), Color.Black);
-            }
-            if (Flseen == true)
-            {
-                spriteBatch.Draw(FLtexture, new Rectangle(0, 0, 960, 600), Color.White);
-                spriteBatch.DrawString(Ariel12, "Look up (;", new Vector2(0, 570), Color.Black);
-            }
-            else if (Slseen == true)
-            {
-                spriteBatch.Draw(SLtexture, new Rectangle(0, 0, 960, 600), Color.White);
-                spriteBatch.DrawString(Ariel12, "No copyright intended", new Vector2(0, 570), Color.Black);
-            }
-            else if (Tlseen == true)
-            {
-                spriteBatch.Draw(TLtexture, new Rectangle(0, 0, 960, 600), Color.White);
-                spriteBatch.DrawString(Ariel12, "Pretend a dog named cave is on you what would you say?", new Vector2(0, 400), Color.Black);
-            }
-            else if (Filseen == true)
-            {
-                spriteBatch.Draw(FiLtexture, new Rectangle(0, 0, 960, 600), Color.White);
-                spriteBatch.DrawString(Ariel12, "Aye you made it my guy", new Vector2(0, 570), Color.Black);
-            }
-            else if (sixlseen == true)
-            {
-                spriteBatch.Draw(SixLtexture, new Rectangle(0, 0, 960, 600), Color.White);
-            }
-            else if (sevlseen == true)
-            {
-                spriteBatch.Draw(SevLtexture, new Rectangle(0, 0, 960, 600), Color.White);
+               
+              if (titlescreenseen == true)
+                {
+                    spriteBatch.Draw(titlescreentexture, new Rectangle(0, 0, 960, 600), Color.White);
+                    spriteBatch.Draw(EmblemTexture, EmblemREC, Color.White);
+                    spriteBatch.DrawString(Ariel12, "Press E to shoot", new Vector2(0, 570), Color.Black);
+                    spriteBatch.DrawString(Ariel12, "Press W for melee", new Vector2(790, 570), Color.Black);
+                }
+                else if (Flseen == true)
+                {
+                    spriteBatch.Draw(FLtexture, new Rectangle(0, 0, 960, 600), Color.White);
+                    spriteBatch.DrawString(Ariel12, "Look up (;", new Vector2(0, 570), Color.Black);
+                }
+                else if (Slseen == true)
+                {
+                    spriteBatch.Draw(SLtexture, new Rectangle(0, 0, 960, 600), Color.White);
+                    spriteBatch.DrawString(Ariel12, "No copyright intended", new Vector2(0, 570), Color.Black);
+                }
+                else if (Tlseen == true)
+                {
+                    spriteBatch.Draw(TLtexture, new Rectangle(0, 0, 960, 600), Color.White);
+                    spriteBatch.DrawString(Ariel12, "Pretend a dog named cave is on you what would you say?", new Vector2(0, 400), Color.Black);
+                }
+                else if (Filseen == true)
+                {
+                    spriteBatch.Draw(FiLtexture, new Rectangle(0, 0, 960, 600), Color.White);
+                    spriteBatch.DrawString(Ariel12, "Aye you made it my guy", new Vector2(0, 570), Color.Black);
+                }
+                else if (sixlseen == true)
+                {
+                    spriteBatch.Draw(SixLtexture, new Rectangle(0, 0, 960, 600), Color.White);
+                }
+                else if (sevlseen == true)
+                {
+                    spriteBatch.Draw(SevLtexture, new Rectangle(0, 0, 960, 600), Color.White);
 
+                }
+                else if (elseen == true)
+                {
+                    spriteBatch.Draw(ELtexture, new Rectangle(0, 0, 960, 600), Color.White);
+                    spriteBatch.DrawString(Ariel12, "Time to go back DOWN to Earth", new Vector2(0, 550), Color.Black);
+                }
+                else if (nlseen == true)
+                {
+                    spriteBatch.Draw(nltexture, new Rectangle(0, 0, 960, 600), Color.White);
+                }
+                else if (tenlseen == true)
+                {
+                    spriteBatch.Draw(tenltexture, new Rectangle(0, 0, 960, 600), Color.White);
+                }
+                else if (elelseen == true)
+                {
+                    spriteBatch.Draw(eleltexture, new Rectangle(0, 0, 960, 600), Color.White);
+                    spriteBatch.DrawString(Ariel12, "F opens doors", new Vector2(0, 550), Color.Black);
+                }
+                else if (twelseen == true)
+                {
+                    spriteBatch.Draw(tweltexture, new Rectangle(0, 0, 960, 600), Color.White);
+                    spriteBatch.DrawString(Ariel12, "That's a nice boat on top.", new Vector2(0, 570), Color.Black);
+                }
+                else if (thirtlseen == true)
+                {
+                    spriteBatch.Draw(thirttexture, new Rectangle(0, 0, 960, 600), Color.White);
+                }
+                else if (fourtlseen == true)
+                {
+                    spriteBatch.Draw(forttexture, new Rectangle(0, 0, 960, 600), Color.White);
+                }
+                else if (fiftlseen == true)
+                {
+                    spriteBatch.Draw(fifttexture, new Rectangle(0, 0, 960, 600), Color.White);
+                }
+                else if (sixtlseen == true)
+                {
+                    spriteBatch.Draw(sixttexture, new Rectangle(0, 0, 960, 600), Color.White);
+                }
+                else if (sevtlseen == true)
+                {
+                    spriteBatch.Draw(sevttexture, new Rectangle(0, 0, 960, 600), Color.White);
+                    spriteBatch.DrawString(Ariel12, "Yup thats game over", new Vector2(0, 570), Color.Black);
+                }
+               if (goseen == true)
+                {
+                    spriteBatch.Draw(gotexture, new Rectangle(0, 0, 960, 600), Color.Black);
+                    spriteBatch.DrawString(Ariel12, "git good scrub", new Vector2(0, 570), Color.Black);
+                }
+                foreach (Line Lines in Lines)
+                {
+                    Lines.Draw(spriteBatch);
+                }
+                if (blackWing.health > 0)
+                {
+                    blackWing.Draw(spriteBatch);
+                }
+            
             }
-            else if (elseen == true)
-            {
-                spriteBatch.Draw(ELtexture, new Rectangle(0, 0, 960, 600), Color.White);
-                spriteBatch.DrawString(Ariel12, "Time to go back DOWN to Earth", new Vector2(0, 550), Color.Black);
-            }
-            else if (nlseen == true)
-            {
-                spriteBatch.Draw(nltexture, new Rectangle(0, 0, 960, 600), Color.White);
-            }
-            else if (tenlseen == true)
-            {
-                spriteBatch.Draw(tenltexture, new Rectangle(0, 0, 960, 600), Color.White);
-            }
-            else if (elelseen == true)
-            {
-                spriteBatch.Draw(eleltexture, new Rectangle(0, 0, 960, 600), Color.White);
-                spriteBatch.DrawString(Ariel12, "F opens doors", new Vector2(0, 550), Color.Black);
-            }
-            else if (twelseen == true)
-            {
-                spriteBatch.Draw(tweltexture, new Rectangle(0, 0, 960, 600), Color.White);
-                spriteBatch.DrawString(Ariel12, "That's a nice boat on top.", new Vector2(0, 570), Color.Black);
-            }
-            else if (thirtlseen == true)
-            {
-                spriteBatch.Draw(thirttexture, new Rectangle(0, 0, 960, 600), Color.White);
-            }
-            else if (fourtlseen == true)
-            {
-                spriteBatch.Draw(forttexture, new Rectangle(0, 0, 960, 600), Color.White);
-            }
-            else if (fiftlseen == true)
-            {
-                spriteBatch.Draw(fifttexture, new Rectangle(0, 0, 960, 600), Color.White);
-            }
-            else if (sixtlseen == true)
-            {
-                spriteBatch.Draw(sixttexture, new Rectangle(0, 0, 960, 600), Color.White);
-            }
-            else if (sevtlseen == true)
-            {
-                spriteBatch.Draw(sevttexture, new Rectangle(0, 0, 960, 600), Color.White);
-                spriteBatch.DrawString(Ariel12, "Yup thats game over", new Vector2(0, 570), Color.Black);
-            }
-            else if (goseen == true)
-            {
-                spriteBatch.Draw(gotexture, new Rectangle(0, 0, 960, 600), Color.Black);
-                spriteBatch.DrawString(Ariel12, "git good scrub", new Vector2(0, 570), Color.Black);
-            }
-            foreach (Line Lines in Lines)
-            {
-                Lines.Draw(spriteBatch);
-            }
-            if (blackWing.health > 0)
-            {
-                blackWing.Draw(spriteBatch);
-            }
+        /*
 
 
+
+
+                    two player
+                    
+
+
+                */
+            else if (twoplayer == true)
+            {
+                
+                if (titlescreenseen == true)
+                {
+                    spriteBatch.Draw(titlescreentexture, new Rectangle(0, 0, 960, 600), Color.White);
+                    spriteBatch.Draw(EmblemTexture, EmblemREC, Color.White);
+                    spriteBatch.DrawString(Ariel12, "Press E to shoot", new Vector2(0, 570), Color.Black);
+                    spriteBatch.DrawString(Ariel12, "Press W for melee", new Vector2(790, 570), Color.Black);
+                }
+              else  if (Flseen == true)
+                {
+                    spriteBatch.Draw(FLtexture, new Rectangle(0, 0, 960, 600), Color.White);
+                    spriteBatch.DrawString(Ariel12, "Look up (;", new Vector2(0, 570), Color.Black);
+                }
+                else if (Slseen == true)
+                {
+                    spriteBatch.Draw(SLtexture, new Rectangle(0, 0, 960, 600), Color.White);
+                    spriteBatch.DrawString(Ariel12, "No copyright intended", new Vector2(0, 570), Color.Black);
+                }
+                else if (Tlseen == true)
+                {
+                    spriteBatch.Draw(TLtexture, new Rectangle(0, 0, 960, 600), Color.White);
+                    spriteBatch.DrawString(Ariel12, "Pretend a dog named cave is on you what would you say?", new Vector2(0, 400), Color.Black);
+                }
+                else if (Filseen == true)
+                {
+                    spriteBatch.Draw(FiLtexture, new Rectangle(0, 0, 960, 600), Color.White);
+                    spriteBatch.DrawString(Ariel12, "Aye you made it my guy", new Vector2(0, 570), Color.Black);
+                }
+                else if (sixlseen == true)
+                {
+                    spriteBatch.Draw(SixLtexture, new Rectangle(0, 0, 960, 600), Color.White);
+                }
+                else if (sevlseen == true)
+                {
+
+                    spriteBatch.Draw(SevLtexture, new Rectangle(0, 0, 960, 600), Color.White);
+
+                }
+                else if (elseen == true)
+                {
+                    spriteBatch.Draw(ELtexture, new Rectangle(0, 0, 960, 600), Color.White);
+                    spriteBatch.DrawString(Ariel12, "Time to go back DOWN to Earth", new Vector2(0, 550), Color.Black);
+                }
+                else if (nlseen == true)
+                {
+                    spriteBatch.Draw(nltexture, new Rectangle(0, 0, 960, 600), Color.White);
+                }
+                else if (tenlseen == true)
+                {
+                    spriteBatch.Draw(tenltexture, new Rectangle(0, 0, 960, 600), Color.White);
+                }
+                else if (elelseen == true)
+                {
+                    spriteBatch.Draw(eleltexture, new Rectangle(0, 0, 960, 600), Color.White);
+                    spriteBatch.DrawString(Ariel12, "F opens doors", new Vector2(0, 550), Color.Black);
+                }
+                else if (twelseen == true)
+                {
+                    spriteBatch.Draw(tweltexture, new Rectangle(0, 0, 960, 600), Color.White);
+                    spriteBatch.DrawString(Ariel12, "That's a nice boat on top.", new Vector2(0, 570), Color.Black);
+                }
+                else if (thirtlseen == true)
+                {
+                    spriteBatch.Draw(thirttexture, new Rectangle(0, 0, 960, 600), Color.White);
+                }
+                else if (fourtlseen == true)
+                {
+                    spriteBatch.Draw(forttexture, new Rectangle(0, 0, 960, 600), Color.White);
+                }
+                else if (fiftlseen == true)
+                {
+                    spriteBatch.Draw(fifttexture, new Rectangle(0, 0, 960, 600), Color.White);
+                }
+                else if (sixtlseen == true)
+                {
+                    spriteBatch.Draw(sixttexture, new Rectangle(0, 0, 960, 600), Color.White);
+                }
+                else if (sevtlseen == true)
+                {
+                    spriteBatch.Draw(sevttexture, new Rectangle(0, 0, 960, 600), Color.White);
+                    spriteBatch.DrawString(Ariel12, "Yup thats game over", new Vector2(0, 570), Color.Black);
+                }
+                else if (goseen == true)
+                {
+                    spriteBatch.Draw(gotexture, new Rectangle(0, 0, 960, 600), Color.Black);
+                    spriteBatch.DrawString(Ariel12, "git good scrub", new Vector2(0, 570), Color.Black);
+                }
+                foreach (Line Lines in Lines)
+                {
+                    Lines.Draw(spriteBatch);
+                }
+                if (newcharacter.health > 0)
+                {
+                    newcharacter.Draw(spriteBatch);
+                }
+                if (blackWing.health > 0)
+                {
+                    blackWing.Draw(spriteBatch);
+                }
+            }
+           
+        
             spriteBatch.End();
-
-
-
             base.Draw(gameTime);
         }
         private void FirstLevelLoad()
         {
             Lines.Clear();
+            healthlist.Add(new PowerUps(Content.Load<Texture2D>("RED"), new Vector2(500, 550)));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"),new Vector2 (500, 550), Content.Load<Texture2D>("Bullet")));
             Lines.Add(new Line(Content.Load<Texture2D>("GOLD"), new Vector2(608, 463), 110, 7, Color.White));
             Lines.Add(new Line(Content.Load<Texture2D>("GOLD"), new Vector2(357, 464), 110, 7, Color.White));
             Lines.Add(new Line(Content.Load<Texture2D>("GOLD"), new Vector2(0, 102), 100, 3, Color.White));
@@ -659,14 +1286,17 @@ namespace BlackWing
             Lines.Clear();
             Lines.Add(new Line(Content.Load<Texture2D>("White"), new Vector2(815, 480), 150, 8, Color.White));
             Lines.Add(new Line(Content.Load<Texture2D>("White"), new Vector2(815, 305), 150, 8, Color.White));
-            Lines.Add(new Line(Content.Load<Texture2D>("White"), new Vector2(815, 129), 150, 8, Color.White));
-            Lines.Add(new Line(Content.Load<Texture2D>("GREY"), new Vector2(722, 517), 40, 2, Color.Black));
+            Lines.Add(new Line(Content.Load<Texture2D>("White"), new Vector2(815, 129), 150, 8, Color.White));     
             Lines.Add(new Line(Content.Load<Texture2D>("White"), new Vector2(655, 445), 2, 125, Color.White));
             Lines.Add(new Line(Content.Load<Texture2D>("White"), new Vector2(250, 293), 423, 3, Color.White));
             Lines.Add(new Line(Content.Load<Texture2D>("White"), new Vector2(249, 294),3, 277, Color.White));
             Lines.Add(new Line(Content.Load<Texture2D>("GREY"), new Vector2(81, 353), 30, 3, Color.Black));
             Lines.Add(new Line(Content.Load<Texture2D>("GREY"), new Vector2(141, 442), 30, 3, Color.Black));
             Lines.Add(new Line(Content.Load<Texture2D>("White"), new Vector2(3, 245), 75, 3, Color.White));
+        }
+        private void gameoverload()
+        {
+            Lines.Clear();
         }
     }
 }

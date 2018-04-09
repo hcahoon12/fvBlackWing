@@ -12,18 +12,30 @@ namespace BlackWing
 {
     class PowerUps
     {
-       
-        public void Powerups()
+        ContentManager content;
+        public Texture2D poweruptexture;
+        public Rectangle powerrec;
+        public bool isVisible;
+        public Vector2 healthpos;
+        public PowerUps(Texture2D newTexture, Vector2 newPos)
         {
-
+            poweruptexture = newTexture;
+            healthpos = newPos;
+            isVisible = true;
         }
         public void LoadContent(ContentManager Content)
         {
-
+           
         }
-        public void Draw(SpriteBatch spriteBatch)
+        public void Update()
         {
 
+            //collision
+            powerrec = new Rectangle((int)healthpos.X, (int)healthpos.Y, poweruptexture.Width, poweruptexture.Height);
+        }
+            public void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(poweruptexture, healthpos, Color.White);
         }
     }
 }

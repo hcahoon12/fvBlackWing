@@ -10,16 +10,16 @@ using Microsoft.Xna.Framework.Content;
 namespace BlackWing
 {
 
-    public class BlackWing
+    public class NewCharacter
     {
         public int speed;
         //need list to be public
         List<Star> starlist;
         public Vector2 position;
-        public Texture2D BlackWingTexture, startexture;
+        public Texture2D newcharacterTexture, startexture;
         public Texture2D BlackWingTexture2;
         KeyboardState oldState;
-        public Rectangle BlackWingbox;
+        public Rectangle ncbox;
         Vector2 velocity;
         bool jumped;
         public int health;
@@ -36,9 +36,9 @@ namespace BlackWing
         bool collide;
         bool starcollide;
         bool ismelee;
-        
 
-        public BlackWing(Vector2 newposition , int Health , Vector2 HPosition)
+
+        public NewCharacter(Vector2 newposition, int Health, Vector2 HPosition)
         {
             //melee
 
@@ -55,62 +55,55 @@ namespace BlackWing
             maxhealth = Health;
             health = Health;
             hposition = HPosition;
-            BlackWingbox = new Rectangle((int)newposition.X, (int)newposition.Y+50, 60, 60);
+            ncbox = new Rectangle((int)newposition.X, (int)newposition.Y + 50,60, 60);
             jumped = true;
             oldState = Keyboard.GetState();
             Direction = 1;
         }
-
-        protected  void Initialize()
+        protected void Initialize()
         {
-          
+
         }
-
-
-        public  void LoadContent(ContentManager Content)
+        public void LoadContent(ContentManager Content)
         {
-            BlackWingTexture = Content.Load<Texture2D>("blackwing");
-            BlackWingTexture2 = Content.Load<Texture2D>("blackwing2");
+            newcharacterTexture = Content.Load<Texture2D>("aquatowa (2)");
+            BlackWingTexture2 = Content.Load<Texture2D>("aquatowa");
             HealthTexture = Content.Load<Texture2D>("RED");
             startexture = Content.Load<Texture2D>("starrrr");
             content = Content;
         }
-
-
-
         public void Update(KeyboardState keyState, List<Line> Lines)
         {
-       // public void Attack()
-        { 
-            //Melee
-            if ((keyState.IsKeyDown(Keys.W)))
+            // public void Attack()
+            {
+                //Melee
+                if ((keyState.IsKeyDown(Keys.E)))
                 {
 
                 }
-        }
+            }
             //shoot
-            if ((keyState.IsKeyDown(Keys.NumPad0)))
+            if ((keyState.IsKeyDown(Keys.F)))
             {
                 Shoot();
             }
             UpdateStar(Lines);
-          
 
-                for (int i = 0; i < Math.Abs(velocity.Y); i++)
+
+            for (int i = 0; i < Math.Abs(velocity.Y); i++)
             {
                 collide = false;
                 if (velocity.Y >= 0)
                 {
-                    BlackWingbox.Y++;
-                   
+                    ncbox.Y++;
+
                 }
                 if (velocity.Y <= 0)
                 {
-                    BlackWingbox.Y--;
-                   
+                    ncbox.Y--;
                 }
                 for (int l = 0; l < Lines.Count; l++)
-                    if (BlackWingbox.Intersects(Lines[l].rectangle))
+                    if (ncbox.Intersects(Lines[l].rectangle))
                     {
                         collide = true;
                         break;
@@ -121,50 +114,49 @@ namespace BlackWing
                     {
                         jumped = false;
                         velocity.Y = 0;
-                        BlackWingbox.Y--;
+                        ncbox.Y--;
                     }
                     else
                     {
-                        
                         velocity.Y = 0;
-                        BlackWingbox.Y++;
+                        ncbox.Y++;
                     }
                 }
             }
-            if ((keyState.IsKeyDown(Keys.Up)) && jumped == false)
+            if ((keyState.IsKeyDown(Keys.W)) && jumped == false)
             {
                 //collsion
                 collide = false;
-                for (int i = 0; i < 12; i++)
+                for (int i = 0; i < 10; i++)
                 {
-                    BlackWingbox.Y--;
+                    ncbox.Y--;
                     //Lines
                     for (int l = 0; l < Lines.Count; l++)
-                        if (BlackWingbox.Intersects(Lines[l].rectangle))
+                        if (ncbox.Intersects(Lines[l].rectangle))
                         {
                             collide = true;
                             break;
                         }
                     //Enemies
                     if (collide)
-                    { BlackWingbox.Y++; }
+                    { ncbox.Y++; }
                 }
-                velocity.Y = -12f;
+                velocity.Y = -11f;
                 jumped = true;
             }
-           
-                float K = 2.9f;
-                velocity.Y += 0.17f * K;
-            
-          
-            
-            if (BlackWingbox.Y + BlackWingTexture.Height >= 880)
+
+            float K = 2.7f;
+            velocity.Y += 0.17f * K;
+
+
+
+            if (ncbox.Y + newcharacterTexture.Height >= 880)
             {
                 jumped = false;
             }
-          
+
             //movement
-            if (keyState.IsKeyDown(Keys.Left))
+            if (keyState.IsKeyDown(Keys.A))
             {
                 collide = false;
                 blackwingright = false;
@@ -172,10 +164,10 @@ namespace BlackWing
                 for (int i = 0; i < 10; i++)
                 {
                     //collsion
-                    BlackWingbox.X--;
+                    ncbox.X--;
                     //Lines
                     for (int l = 0; l < Lines.Count; l++)
-                        if (BlackWingbox.Intersects(Lines[l].rectangle))
+                        if (ncbox.Intersects(Lines[l].rectangle))
                         {
                             collide = true;
                             break;
@@ -185,13 +177,13 @@ namespace BlackWing
 
                     if (collide)
                     {
-                        BlackWingbox.X +=2;
+                        ncbox.X += 2;
                     }
 
                     Direction = -1;
                 }
             }
-            if (keyState.IsKeyDown(Keys.Right))
+            if (keyState.IsKeyDown(Keys.D))
             {
                 blackwingright = true;
                 blackwingleft = false;
@@ -199,10 +191,10 @@ namespace BlackWing
                 for (int i = 0; i < 10; i++)
                 {
                     //collsion
-                    BlackWingbox.X++;
+                    ncbox.X++;
                     //Lines
                     for (int l = 0; l < Lines.Count; l++)
-                        if (BlackWingbox.Intersects(Lines[l].rectangle))
+                        if (ncbox.Intersects(Lines[l].rectangle))
                         {
                             collide = true;
                             break;
@@ -210,27 +202,27 @@ namespace BlackWing
                     //Enemies
                     if (collide)
                     {
-                        BlackWingbox.X -=2;
+                        ncbox.X -= 2;
                     }
 
                     Direction = 1;
                 }
             }
-                    //boundaries
-                    if (BlackWingbox.X <= 0)
-                    {
-                        BlackWingbox.X = 0;
-                    }
-                    if (BlackWingbox.Y <= 0)
-                    {
-                        BlackWingbox.Y = 0;
-                    }
-            if (BlackWingbox.Y >= 530)
+            //boundaries
+            if (ncbox.X <= 0)
             {
-                BlackWingbox.Y = 530;
+                ncbox.X = 0;
+            }
+            if (ncbox.Y <= 0)
+            {
+                ncbox.Y = 0;
+            }
+            if (ncbox.Y >= 530)
+            {
+                ncbox.Y = 530;
             }
         }
-        
+
         //shoot
         public void Shoot()
         {
@@ -240,7 +232,7 @@ namespace BlackWing
             }
             if (stardelay <= 0)
             {
-                Star newStar = new Star(startexture , BlackWingbox.X , BlackWingbox.Y , Direction);
+                Star newStar = new Star(startexture, ncbox.X, ncbox.Y, Direction);
                 //add to list
                 if (starlist.Count() < 1)
                 {
@@ -249,7 +241,7 @@ namespace BlackWing
             }
 
             // reset delay
-            if(stardelay == 0)
+            if (stardelay == 0)
             {
                 stardelay = 3;
             }
@@ -258,9 +250,9 @@ namespace BlackWing
         public void UpdateStar(List<Line> Lines)
         {
 
-            for (int i =0; i<starlist.Count; i++)
+            for (int i = 0; i < starlist.Count; i++)
             {
-            
+
                 starlist[i].Update(Lines);
                 if (!starlist[i].isvisible)
                 {
@@ -270,7 +262,7 @@ namespace BlackWing
             }
         }
 
-      
+
         public void Draw(SpriteBatch spriteBatch)
         {
             if (blackwingright == true)
@@ -279,10 +271,10 @@ namespace BlackWing
                 {
                     foreach (Star S in starlist)
                         S.Draw(spriteBatch);
-                    spriteBatch.Draw(BlackWingTexture, new Rectangle(BlackWingbox.X, BlackWingbox.Y, 60, 60), Color.White);
+                    spriteBatch.Draw(newcharacterTexture, new Rectangle(ncbox.X, ncbox.Y, 60, 60), Color.White);
                     for (int i = 0; i < health; i++)
                     {
-                        spriteBatch.Draw(HealthTexture, new Rectangle(BlackWingbox.X + i * BlackWingbox.Width / maxhealth, BlackWingbox.Y - 10, BlackWingbox.Width / maxhealth - 3, 7), Color.White);
+                        spriteBatch.Draw(HealthTexture, new Rectangle(ncbox.X + i * ncbox.Width / maxhealth, ncbox.Y - 10, ncbox.Width / maxhealth - 3, 7), Color.White);
                     }
 
                 }
@@ -293,10 +285,10 @@ namespace BlackWing
                 {
                     foreach (Star S in starlist)
                         S.Draw(spriteBatch);
-                    spriteBatch.Draw(BlackWingTexture2, new Rectangle(BlackWingbox.X, BlackWingbox.Y, 60, 60), Color.White);
+                    spriteBatch.Draw(BlackWingTexture2, new Rectangle(ncbox.X, ncbox.Y, 60, 60), Color.White);
                     for (int i = 0; i < health; i++)
                     {
-                        spriteBatch.Draw(HealthTexture, new Rectangle(BlackWingbox.X + i * BlackWingbox.Width / maxhealth, BlackWingbox.Y - 10, BlackWingbox.Width / maxhealth - 3, 7), Color.White);
+                        spriteBatch.Draw(HealthTexture, new Rectangle(ncbox.X + i * ncbox.Width / maxhealth, ncbox.Y - 10, ncbox.Width / maxhealth - 3, 7), Color.White);
                     }
 
                 }

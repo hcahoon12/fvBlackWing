@@ -25,14 +25,6 @@ namespace BlackWing
             rectangle = new Rectangle((int)position.X,(int)position.Y , Width , Height);
             color = LineColor;
         }
-        public void Load(ContentManager Content)
-        {
-            content = Content;
-        }
-        public void Update()
-        {
-
-        }
         public void Draw(SpriteBatch spritebatch)
         {
             spritebatch.Draw(texture, rectangle, color);
