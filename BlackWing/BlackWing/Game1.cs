@@ -149,7 +149,7 @@ namespace BlackWing
             gotexture = Content.Load<Texture2D>("GameOver");
             Ariel12 = Content.Load<SpriteFont>("file");
             blackWing.LoadContent(Content,"blackwing","blackwing2","starrrr");
-            newcharacter.LoadContent(Content, "blackwing", "blackwing2","starrrr");
+            newcharacter.LoadContent(Content, "aquatowa", "aquatowa2", "starrrr");
            
 
         }
