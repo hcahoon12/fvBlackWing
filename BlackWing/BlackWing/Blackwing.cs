@@ -36,19 +36,27 @@ namespace BlackWing
         bool collide;
         bool starcollide;
         bool ismelee;
-        
+        Keys up;
+        Keys right;
+        Keys left;
+        Keys shootbutton;
+        Keys down;
 
-        public BlackWing(Vector2 newposition , int Health , Vector2 HPosition)
+        public BlackWing(int speed, Vector2 newposition , int Health , Vector2 HPosition,Keys up,Keys right, Keys left, Keys shootbutton, Keys down)
         {
             //melee
 
             float MaxAttackTime = 0.33f;
             float AttackTime;
-
+            this.right = right;
+            this.left = left;
+            this.up = up;
+            this.down = down;
+            this.shootbutton = shootbutton;
             blackwingright = true;
             blackwingleft = false;
             iscoliding = false;
-            speed = 10;
+            this.speed = speed;
             position = new Vector2(300, 300);
             stardelay = 3;
             starlist = new List<Star>();
@@ -67,12 +75,12 @@ namespace BlackWing
         }
 
 
-        public  void LoadContent(ContentManager Content)
+        public  void LoadContent(ContentManager Content, string PTextureRight, string PTextureLeft, string shoottexture)
         {
-            BlackWingTexture = Content.Load<Texture2D>("blackwing");
-            BlackWingTexture2 = Content.Load<Texture2D>("blackwing2");
+            BlackWingTexture = Content.Load<Texture2D>(PTextureRight);
+            BlackWingTexture2 = Content.Load<Texture2D>(PTextureLeft);
             HealthTexture = Content.Load<Texture2D>("RED");
-            startexture = Content.Load<Texture2D>("starrrr");
+            startexture = Content.Load<Texture2D>(shoottexture);
             content = Content;
         }
 
@@ -89,7 +97,7 @@ namespace BlackWing
                 }
         }
             //shoot
-            if ((keyState.IsKeyDown(Keys.NumPad0)))
+            if ((keyState.IsKeyDown(shootbutton)))
             {
                 Shoot();
             }
@@ -131,12 +139,13 @@ namespace BlackWing
                     }
                 }
             }
-            if ((keyState.IsKeyDown(Keys.Up)) && jumped == false)
+            if ((keyState.IsKeyDown(up)) && jumped == false)
             {
-                //collsion
-                collide = false;
-                for (int i = 0; i < 12; i++)
+             
+                for (int i = 0; i < speed*2-2; i++)
                 {
+                    //collsion
+                    collide = false;
                     BlackWingbox.Y--;
                     //Lines
                     for (int l = 0; l < Lines.Count; l++)
@@ -158,60 +167,53 @@ namespace BlackWing
             
           
             
-            if (BlackWingbox.Y + BlackWingTexture.Height >= 880)
+            if (BlackWingbox.Y + BlackWingTexture.Height >= 920)
             {
                 jumped = false;
             }
           
             //movement
-            if (keyState.IsKeyDown(Keys.Left))
+            if (keyState.IsKeyDown(left))
             {
-                collide = false;
+               
                 blackwingright = false;
                 blackwingleft = true;
-                for (int i = 0; i < 7; i++)
+                for (int i = 0; i < speed; i++)
                 {
+                    collide = false;
                     //collsion
                     BlackWingbox.X--;
                     //Lines
                     for (int l = 0; l < Lines.Count; l++)
-                        if (BlackWingbox.Intersects(Lines[l].rectangle))
+                        while (BlackWingbox.Intersects(Lines[l].rectangle))
                         {
-                            collide = true;
-                            break;
+                            BlackWingbox.X += 1;
+                          
+                        
                         }
                     //Enemies
-
-
-                    if (collide)
-                    {
-                        BlackWingbox.X +=2;
-                    }
 
                     Direction = -1;
                 }
             }
-            if (keyState.IsKeyDown(Keys.Right))
+            if (keyState.IsKeyDown(right))
             {
                 blackwingright = true;
                 blackwingleft = false;
-                collide = false;
-                for (int i = 0; i < 7; i++)
+                
+                for (int i = 0; i < speed; i++)
                 {
+                    collide = false;
                     //collsion
                     BlackWingbox.X++;
                     //Lines
+               
                     for (int l = 0; l < Lines.Count; l++)
-                        if (BlackWingbox.Intersects(Lines[l].rectangle))
+                        while (BlackWingbox.Intersects(Lines[l].rectangle))
                         {
-                            collide = true;
-                            break;
+                            BlackWingbox.X -= 1;
                         }
                     //Enemies
-                    if (collide)
-                    {
-                        BlackWingbox.X -=2;
-                    }
 
                     Direction = 1;
                 }
@@ -225,9 +227,9 @@ namespace BlackWing
                     {
                         BlackWingbox.Y = 0;
                     }
-            if (BlackWingbox.Y >= 530)
+            if (BlackWingbox.Y >= 540)
             {
-                BlackWingbox.Y = 530;
+                BlackWingbox.Y = 540;
             }
         }
         

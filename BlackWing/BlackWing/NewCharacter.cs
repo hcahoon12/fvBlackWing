@@ -150,7 +150,7 @@ namespace BlackWing
 
 
 
-            if (ncbox.Y + newcharacterTexture.Height >= 880)
+            if (ncbox.Y + newcharacterTexture.Height >= 920)
             {
                 jumped = false;
             }
@@ -177,7 +177,7 @@ namespace BlackWing
 
                     if (collide)
                     {
-                        ncbox.X += 30;
+                        ncbox.X += 2;
                     }
 
                     Direction = -1;
@@ -202,7 +202,7 @@ namespace BlackWing
                     //Enemies
                     if (collide)
                     {
-                        ncbox.X -= 30;
+                        ncbox.X -= 2;
                     }
 
                     Direction = 1;
@@ -217,9 +217,9 @@ namespace BlackWing
             {
                 ncbox.Y = 0;
             }
-            if (ncbox.Y >= 530)
+            if (ncbox.Y >= 540)
             {
-                ncbox.Y = 530;
+                ncbox.Y = 540;
             }
         }
 

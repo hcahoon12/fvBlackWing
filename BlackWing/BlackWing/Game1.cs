@@ -19,7 +19,8 @@ namespace BlackWing
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         BlackWing blackWing;
-        NewCharacter newcharacter;
+        BlackWing newcharacter;
+     
         KeyboardState oldKeyState;
         List<Line> Lines = new List<Line>();
         public int enemybulletdamage;
@@ -112,8 +113,8 @@ namespace BlackWing
         protected override void Initialize()
         {
             EmblemREC = new Rectangle(313, 269, 100, 90);
-            newcharacter = new NewCharacter(new Vector2(100, 450), 5 , new Vector2(400 , 400));
-            blackWing = new BlackWing(new Vector2(0, 550), 5, new Vector2(400, 400));
+            newcharacter = new BlackWing(7,new Vector2(100, 450), 5 , new Vector2(400 , 400), Keys.W, Keys.S,Keys.D,Keys.A,Keys.F);
+            blackWing = new BlackWing(7,new Vector2(0, 550), 5, new Vector2(400, 400), Keys.Up , Keys.Right , Keys.Left,Keys.NumPad0 , Keys.Down);
             KeyboardState keyState = Keyboard.GetState();
             oldKeyState = Keyboard.GetState();
 
@@ -147,8 +148,8 @@ namespace BlackWing
             sevttexture = Content.Load<Texture2D>("Final Level");
             gotexture = Content.Load<Texture2D>("GameOver");
             Ariel12 = Content.Load<SpriteFont>("file");
-            blackWing.LoadContent(Content);
-            newcharacter.LoadContent(Content);
+            blackWing.LoadContent(Content,"blackwing","blackwing2","starrrr");
+            newcharacter.LoadContent(Content, "blackwing", "blackwing2","starrrr");
            
 
         }
@@ -537,10 +538,10 @@ namespace BlackWing
                 if (titlescreenseen == true)
                 {
 
-                    if (blackWing.BlackWingbox.X >= 960 || newcharacter.ncbox.X >= 960)
+                    if (blackWing.BlackWingbox.X >= 960 || newcharacter.BlackWingbox.X >= 960)
                     {
-                        newcharacter.ncbox.X = 100;
-                        newcharacter.ncbox.Y = 550;
+                        newcharacter.BlackWingbox.X = 100;
+                        newcharacter.BlackWingbox.Y = 550;
                         blackWing.BlackWingbox.X = 0;
                         blackWing.BlackWingbox.Y = 550;
                         titlescreenseen = false;
@@ -555,20 +556,20 @@ namespace BlackWing
                 }
                 if (Flseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 || newcharacter.ncbox.X >= 900)
+                    if (blackWing.BlackWingbox.X >= 900 || newcharacter.BlackWingbox.X >= 900)
                     {
-                        newcharacter.ncbox.X = 100;
-                        newcharacter.ncbox.Y = 550;
+                        newcharacter.BlackWingbox.X = 100;
+                        newcharacter.BlackWingbox.Y = 550;
                         blackWing.BlackWingbox.X = 0;
                         blackWing.BlackWingbox.Y = 550;
                         Flseen = false;
                         Tlseen = true;
                         ThirdLevelLoad();
                     }
-                    if (blackWing.BlackWingbox.Y <= 0 || newcharacter.ncbox.Y <= 0)
+                    if (blackWing.BlackWingbox.Y <= 0 || newcharacter.BlackWingbox.Y <= 0)
                     {
-                        newcharacter.ncbox.X = 100;
-                        newcharacter.ncbox.Y = 550;
+                        newcharacter.BlackWingbox.X = 100;
+                        newcharacter.BlackWingbox.Y = 550;
                         blackWing.BlackWingbox.X = 0;
                         blackWing.BlackWingbox.Y = 550;
                         Flseen = false;
@@ -579,17 +580,17 @@ namespace BlackWing
                     {
                         blackWing.health--;
                     }
-                    if (newcharacter.ncbox.X > 180 && newcharacter.ncbox.X < 730 && newcharacter.ncbox.Y > 490)
+                    if (newcharacter.BlackWingbox.X > 180 && newcharacter.BlackWingbox.X < 730 && newcharacter.BlackWingbox.Y > 490)
                     {
                         newcharacter.health--;
                     }
                 }
                 else if (Slseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 || newcharacter.ncbox.X >= 900)
+                    if (blackWing.BlackWingbox.X >= 900 || newcharacter.BlackWingbox.X >= 900)
                     {
-                        newcharacter.ncbox.X = 100;
-                        newcharacter.ncbox.Y = 550;
+                        newcharacter.BlackWingbox.X = 100;
+                        newcharacter.BlackWingbox.Y = 550;
                         blackWing.BlackWingbox.X = 0;
                         blackWing.BlackWingbox.Y = 550;
                         Slseen = false;
@@ -603,17 +604,17 @@ namespace BlackWing
                     {
                         blackWing.health = 0;
                     }
-                    if (newcharacter.ncbox.X >= 900)
+                    if (newcharacter.BlackWingbox.X >= 900)
                     {
                         newcharacter.health = 0;
                     }
-                    if (blackWing.BlackWingbox.X > 320 && blackWing.BlackWingbox.X < 450 && keyState.IsKeyDown(Keys.Down) || newcharacter.ncbox.X > 320 && newcharacter.ncbox.X < 450 && keyState.IsKeyDown(Keys.S))
+                    if (blackWing.BlackWingbox.X > 320 && blackWing.BlackWingbox.X < 450 && keyState.IsKeyDown(Keys.Down) || newcharacter.BlackWingbox.X > 320 && newcharacter.BlackWingbox.X < 450 && keyState.IsKeyDown(Keys.S))
                     {
                         Tlseen = false;
                         Filseen = true;
                         FithLevelLoad();
-                        newcharacter.ncbox.X = 100;
-                        newcharacter.ncbox.Y = 550;
+                        newcharacter.BlackWingbox.X = 100;
+                        newcharacter.BlackWingbox.Y = 550;
                         blackWing.BlackWingbox.X = 0;
                         blackWing.BlackWingbox.Y = 550;
                     }
@@ -621,10 +622,10 @@ namespace BlackWing
 
                 else if (Filseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 || newcharacter.ncbox.X >= 900)
+                    if (blackWing.BlackWingbox.X >= 900 || newcharacter.BlackWingbox.X >= 900)
                     {
-                        newcharacter.ncbox.X = 100;
-                        newcharacter.ncbox.Y = 550;
+                        newcharacter.BlackWingbox.X = 100;
+                        newcharacter.BlackWingbox.Y = 550;
                         blackWing.BlackWingbox.X = 0;
                         blackWing.BlackWingbox.Y = 550;
                         Filseen = false;
@@ -634,10 +635,10 @@ namespace BlackWing
                 }
                 else if (sixlseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 || newcharacter.ncbox.X >= 900)
+                    if (blackWing.BlackWingbox.X >= 900 || newcharacter.BlackWingbox.X >= 900)
                     {
-                        newcharacter.ncbox.X = 100;
-                        newcharacter.ncbox.Y = 550;
+                        newcharacter.BlackWingbox.X = 100;
+                        newcharacter.BlackWingbox.Y = 550;
                         blackWing.BlackWingbox.X = 0;
                         blackWing.BlackWingbox.Y = 550;
                         sixlseen = false;
@@ -647,10 +648,10 @@ namespace BlackWing
                 }
                 else if (sevlseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 || newcharacter.ncbox.X >= 900)
+                    if (blackWing.BlackWingbox.X >= 900 || newcharacter.BlackWingbox.X >= 900)
                     {
-                        newcharacter.ncbox.X = 100;
-                        newcharacter.ncbox.Y = 550;
+                        newcharacter.BlackWingbox.X = 100;
+                        newcharacter.BlackWingbox.Y = 550;
                         blackWing.BlackWingbox.X = 0;
                         blackWing.BlackWingbox.Y = 550;
                         sevlseen = false;
@@ -660,21 +661,21 @@ namespace BlackWing
                 }
                 else if (elseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 || newcharacter.ncbox.X >= 900)
+                    if (blackWing.BlackWingbox.X >= 900 || newcharacter.BlackWingbox.X >= 900)
                     {
                         //cutscene would be dope
-                        newcharacter.ncbox.X = 100;
-                        newcharacter.ncbox.Y = 550;
+                        newcharacter.BlackWingbox.X = 100;
+                        newcharacter.BlackWingbox.Y = 550;
                         blackWing.BlackWingbox.X = 0;
                         blackWing.BlackWingbox.Y = 550;
                         elseen = false;
                         sevlseen = true;
                         SevenLevelLoad();
                     }
-                    if (blackWing.BlackWingbox.X > 800 && blackWing.BlackWingbox.X < 850 && keyState.IsKeyDown(Keys.Down) || newcharacter.ncbox.X > 800 && newcharacter.ncbox.X < 850 && keyState.IsKeyDown(Keys.Down))
+                    if (blackWing.BlackWingbox.X > 800 && blackWing.BlackWingbox.X < 850 && keyState.IsKeyDown(Keys.Down) || newcharacter.BlackWingbox.X > 800 && newcharacter.BlackWingbox.X < 850 && keyState.IsKeyDown(Keys.S))
                     {
-                        newcharacter.ncbox.X = 100;
-                        newcharacter.ncbox.Y = 550;
+                        newcharacter.BlackWingbox.X = 100;
+                        newcharacter.BlackWingbox.Y = 550;
                         blackWing.BlackWingbox.X = 0;
                         blackWing.BlackWingbox.Y = 550;
                         elseen = false;
@@ -684,10 +685,10 @@ namespace BlackWing
                 }
                 else if (nlseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 || newcharacter.ncbox.X >= 900)
+                    if (blackWing.BlackWingbox.X >= 900 || newcharacter.BlackWingbox.X >= 900)
                     {
-                        newcharacter.ncbox.X = 100;
-                        newcharacter.ncbox.Y = 550;
+                        newcharacter.BlackWingbox.X = 100;
+                        newcharacter.BlackWingbox.Y = 550;
                         blackWing.BlackWingbox.X = 0;
                         blackWing.BlackWingbox.Y = 550;
                         tenlseen = true;
@@ -697,10 +698,10 @@ namespace BlackWing
                 }
                 else if (tenlseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 || newcharacter.ncbox.X >= 900)
+                    if (blackWing.BlackWingbox.X >= 900 || newcharacter.BlackWingbox.X >= 900)
                     {
-                        newcharacter.ncbox.X = 100;
-                        newcharacter.ncbox.Y = 550;
+                        newcharacter.BlackWingbox.X = 100;
+                        newcharacter.BlackWingbox.Y = 550;
                         blackWing.BlackWingbox.X = 0;
                         blackWing.BlackWingbox.Y = 550;
                         tenlseen = false;
@@ -710,10 +711,10 @@ namespace BlackWing
                 }
                 else if (elelseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 || newcharacter.ncbox.X >= 900)
+                    if (blackWing.BlackWingbox.X >= 900 || newcharacter.BlackWingbox.X >= 900)
                     {
-                        newcharacter.ncbox.X = 100;
-                        newcharacter.ncbox.Y = 550;
+                        newcharacter.BlackWingbox.X = 100;
+                        newcharacter.BlackWingbox.Y = 550;
                         blackWing.BlackWingbox.X = 0;
                         blackWing.BlackWingbox.Y = 550;
                         elelseen = false;
@@ -723,20 +724,20 @@ namespace BlackWing
                 }
                 else if (twelseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 || newcharacter.ncbox.X >= 900)
+                    if (blackWing.BlackWingbox.X >= 900 || newcharacter.BlackWingbox.X >= 900)
                     {
-                        newcharacter.ncbox.X = 100;
-                        newcharacter.ncbox.Y = 550;
+                        newcharacter.BlackWingbox.X = 100;
+                        newcharacter.BlackWingbox.Y = 550;
                         blackWing.BlackWingbox.X = 0;
                         blackWing.BlackWingbox.Y = 550;
                         twelseen = false;
                         fourtlseen = true;
                         FourteenLevelLoad();
                     }
-                    if (blackWing.BlackWingbox.Y <= 0 || newcharacter.ncbox.Y <= 0)
+                    if (blackWing.BlackWingbox.Y <= 0 || newcharacter.BlackWingbox.Y <= 0)
                     {
-                        newcharacter.ncbox.X = 100;
-                        newcharacter.ncbox.Y = 550;
+                        newcharacter.BlackWingbox.X = 100;
+                        newcharacter.BlackWingbox.Y = 550;
                         blackWing.BlackWingbox.X = 0;
                         blackWing.BlackWingbox.Y = 550;
                         twelseen = false;
@@ -746,10 +747,10 @@ namespace BlackWing
                 }
                 else if (thirtlseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 || newcharacter.ncbox.X >= 900)
+                    if (blackWing.BlackWingbox.X >= 900 || newcharacter.BlackWingbox.X >= 900)
                     {
-                        newcharacter.ncbox.X = 100;
-                        newcharacter.ncbox.Y = 550;
+                        newcharacter.BlackWingbox.X = 100;
+                        newcharacter.BlackWingbox.Y = 550;
                         blackWing.BlackWingbox.X = 0;
                         blackWing.BlackWingbox.Y = 550;
                         thirtlseen = false;
@@ -759,20 +760,20 @@ namespace BlackWing
                 }
                 else if (fourtlseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 && blackWing.BlackWingbox.Y < 400 || newcharacter.ncbox.X >= 900 && newcharacter.ncbox.Y < 400)
+                    if (blackWing.BlackWingbox.X >= 900 && blackWing.BlackWingbox.Y < 400 || newcharacter.BlackWingbox.X >= 900 && newcharacter.BlackWingbox.Y < 400)
                     {
-                        newcharacter.ncbox.X = 100;
-                        newcharacter.ncbox.Y = 550;
+                        newcharacter.BlackWingbox.X = 100;
+                        newcharacter.BlackWingbox.Y = 550;
                         blackWing.BlackWingbox.X = 0;
                         blackWing.BlackWingbox.Y = 550;
                         fourtlseen = false;
                         fiftlseen = true;
                         FithteenLevelLoad();
                     }
-                    if (blackWing.BlackWingbox.X >= 900 && blackWing.BlackWingbox.Y > 400 || newcharacter.ncbox.X >= 900 && newcharacter.ncbox.Y > 400)
+                    if (blackWing.BlackWingbox.X >= 900 && blackWing.BlackWingbox.Y > 400 || newcharacter.BlackWingbox.X >= 900 && newcharacter.BlackWingbox.Y > 400)
                     {
-                        newcharacter.ncbox.X = 100;
-                        newcharacter.ncbox.Y = 550;
+                        newcharacter.BlackWingbox.X = 100;
+                        newcharacter.BlackWingbox.Y = 550;
                         blackWing.BlackWingbox.X = 0;
                         blackWing.BlackWingbox.Y = 550;
                         fourtlseen = false;
@@ -782,10 +783,10 @@ namespace BlackWing
                 }
                 else if (fiftlseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 || newcharacter.ncbox.X >= 900)
+                    if (blackWing.BlackWingbox.X >= 900 || newcharacter.BlackWingbox.X >= 900)
                     {
-                        newcharacter.ncbox.X = 100;
-                        newcharacter.ncbox.Y = 550;
+                        newcharacter.BlackWingbox.X = 100;
+                        newcharacter.BlackWingbox.Y = 550;
                         blackWing.BlackWingbox.X = 0;
                         blackWing.BlackWingbox.Y = 550;
                         fiftlseen = false;
@@ -796,10 +797,10 @@ namespace BlackWing
                 }
                 else if (sixtlseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 || newcharacter.ncbox.X >= 900)
+                    if (blackWing.BlackWingbox.X >= 900 || newcharacter.BlackWingbox.X >= 900)
                     {
-                        newcharacter.ncbox.X = 100;
-                        newcharacter.ncbox.Y = 550;
+                        newcharacter.BlackWingbox.X = 100;
+                        newcharacter.BlackWingbox.Y = 550;
                         blackWing.BlackWingbox.X = 0;
                         blackWing.BlackWingbox.Y = 550;
                         sixtlseen = false;
@@ -809,10 +810,10 @@ namespace BlackWing
                 }
                 else if (sevtlseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 || newcharacter.ncbox.X >= 900)
+                    if (blackWing.BlackWingbox.X >= 900 || newcharacter.BlackWingbox.X >= 900)
                     {
-                        newcharacter.ncbox.X = 100;
-                        newcharacter.ncbox.Y = 550;
+                        newcharacter.BlackWingbox.X = 100;
+                        newcharacter.BlackWingbox.Y = 550;
                         blackWing.BlackWingbox.X = 0;
                         blackWing.BlackWingbox.Y = 550;
                     }
@@ -823,8 +824,8 @@ namespace BlackWing
                     if (keyState.IsKeyDown(Keys.Space))
                     {
                         newcharacter.health = 5;
-                        newcharacter.ncbox.X = 60;
-                        newcharacter.ncbox.Y = 600;
+                        newcharacter.BlackWingbox.X = 60;
+                        newcharacter.BlackWingbox.Y = 600;
                         blackWing.health = 5;
                         blackWing.BlackWingbox.X = 0;
                         blackWing.BlackWingbox.Y = 600;
@@ -839,8 +840,8 @@ namespace BlackWing
                     if (keyState.IsKeyDown(Keys.Space))
                     {
                         newcharacter.health = 5;
-                        newcharacter.ncbox.X = 60;
-                        newcharacter.ncbox.Y = 600;
+                        newcharacter.BlackWingbox.X = 60;
+                        newcharacter.BlackWingbox.Y = 600;
                         blackWing.health = 5;
                         blackWing.BlackWingbox.X = 0;
                         blackWing.BlackWingbox.Y = 600;
@@ -859,8 +860,8 @@ namespace BlackWing
                         if (keyState.IsKeyDown(Keys.Space))
                         {
                         newcharacter.health = 5;
-                        newcharacter.ncbox.X = 60;
-                        newcharacter.ncbox.Y = 600;
+                        newcharacter.BlackWingbox.X = 60;
+                        newcharacter.BlackWingbox.Y = 600;
                         blackWing.health = 5;
                             blackWing.BlackWingbox.X = 0;
                             blackWing.BlackWingbox.Y = 600;
