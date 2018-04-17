@@ -17,6 +17,8 @@ namespace BlackWing
         List<Star> starlist;
         public Vector2 position;
         public Texture2D BlackWingTexture, startexture;
+        public Texture2D AquaTexture;
+        public Texture2D AquaTexture2;
         public Texture2D BlackWingTexture2;
         KeyboardState oldState;
         public Rectangle BlackWingbox;
@@ -79,6 +81,8 @@ namespace BlackWing
         {
             BlackWingTexture = Content.Load<Texture2D>(PTextureRight);
             BlackWingTexture2 = Content.Load<Texture2D>(PTextureLeft);
+            AquaTexture = Content.Load<Texture2D>(PTextureRight);
+            AquaTexture2 = Content.Load<Texture2D>(PTextureLeft);
             HealthTexture = Content.Load<Texture2D>("RED");
             startexture = Content.Load<Texture2D>(shoottexture);
             content = Content;
@@ -167,7 +171,7 @@ namespace BlackWing
             
           
             
-            if (BlackWingbox.Y + BlackWingTexture.Height >= 920)
+           if (BlackWingbox.Y + BlackWingbox.Height >= 590)
             {
                 jumped = false;
             }

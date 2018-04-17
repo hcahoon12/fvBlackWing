@@ -113,8 +113,8 @@ namespace BlackWing
         protected override void Initialize()
         {
             EmblemREC = new Rectangle(313, 269, 100, 90);
-            newcharacter = new BlackWing(7,new Vector2(100, 450), 5 , new Vector2(400 , 400), Keys.W, Keys.S,Keys.D,Keys.A,Keys.F);
-            blackWing = new BlackWing(7,new Vector2(0, 550), 5, new Vector2(400, 400), Keys.Up , Keys.Right , Keys.Left,Keys.NumPad0 , Keys.Down);
+            newcharacter = new BlackWing(7,new Vector2(100, 450), 5 , new Vector2(400 , 400), Keys.W, Keys.D,Keys.A,Keys.F,Keys.S);
+            blackWing = new BlackWing(7,new Vector2(0, 550), 5, new Vector2(400, 400), Keys.Up , Keys.Right , Keys.Left,Keys.RightControl , Keys.Down);
             KeyboardState keyState = Keyboard.GetState();
             oldKeyState = Keyboard.GetState();
 
@@ -126,8 +126,8 @@ namespace BlackWing
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             //HealthTexture = Content.Load<Texture2D>("Health");
-            selecttexture = Content.Load<Texture2D>("white");
-            whitetexture = Content.Load<Texture2D>("white");
+            selecttexture = Content.Load<Texture2D>("White");
+            whitetexture = Content.Load<Texture2D>("Tutorial");
             EmblemTexture = Content.Load<Texture2D>("Emblem");
             titlescreentexture = Content.Load<Texture2D>("Heros War");
             FLtexture = Content.Load<Texture2D>("startlvl");
@@ -149,7 +149,7 @@ namespace BlackWing
             gotexture = Content.Load<Texture2D>("GameOver");
             Ariel12 = Content.Load<SpriteFont>("file");
             blackWing.LoadContent(Content,"blackwing","blackwing2","starrrr");
-            newcharacter.LoadContent(Content, "aquatowa", "aquatowa2", "starrrr");
+            newcharacter.LoadContent(Content, "aquatowa", "aquatowa2", "fireball");
            
 
         }
@@ -222,7 +222,7 @@ namespace BlackWing
                     selectscreen = true;
                 }
             }
-            if (selectscreen == true)
+          else  if (selectscreen == true)
             {
                 if (keyState.IsKeyDown(Keys.NumPad1))
                 {
@@ -230,13 +230,15 @@ namespace BlackWing
                     titlescreenseen = true;
                     whiteseen = false;
                     twoplayer = false;
+                   
                 }
-                if (keyState.IsKeyDown(Keys.NumPad2))
+            else    if (keyState.IsKeyDown(Keys.NumPad2))
                 {
                     twoplayer = true;
                     titlescreenseen = true;
                     whiteseen = false;
                     singleplayer = false;
+                  
                 }
             }
             /* 
@@ -262,12 +264,6 @@ namespace BlackWing
                 }
                 if (titlescreenseen == true)
                 {
-                    if (keyState.IsKeyDown(Keys.A))
-                    {
-                        titlescreenseen = false;
-                        Flseen = true;
-                        FirstLevelLoad();
-                    }
                     if (blackWing.BlackWingbox.X >= 960)
                     {
                         blackWing.BlackWingbox.X = 0;
@@ -277,10 +273,7 @@ namespace BlackWing
                         FirstLevelLoad();
                     }
                 }
-                if (keyState.IsKeyDown(Keys.B) && keyState.IsKeyDown(Keys.V))
-                {
-                    blackWing.health = 10;
-                }
+             
                 else if (Flseen == true)
                 {
                     if (blackWing.BlackWingbox.X >= 900)
@@ -917,13 +910,15 @@ namespace BlackWing
             if (whiteseen == true)
             {
                 spriteBatch.Draw(whitetexture, new Rectangle(0, 0, 960, 600), Color.White);
-                spriteBatch.DrawString(Ariel12, "for first player arrow keys move you", new Vector2(0, 10), Color.LimeGreen);
-                spriteBatch.DrawString(Ariel12, "for second player use a,w,d", new Vector2(350, 10), Color.LimeGreen);
-                spriteBatch.DrawString(Ariel12, "first player shoot is 0", new Vector2(150, 210), Color.Blue);
-                spriteBatch.DrawString(Ariel12, "and melee is shift", new Vector2(450, 210), Color.Blue);
-                spriteBatch.DrawString(Ariel12, "for second player shoot is F", new Vector2(300, 420), Color.Red);
-                spriteBatch.DrawString(Ariel12, "and melee is E", new Vector2(650, 420), Color.Red);
-                spriteBatch.DrawString(Ariel12, "Press space to continue", new Vector2(450, 570), Color.Cyan);
+                spriteBatch.Draw(blackWing.BlackWingTexture, new Rectangle(500, 200, 300, 300), Color.White);
+                spriteBatch.Draw(newcharacter.AquaTexture, new Rectangle (100, 200, 300, 300), Color.White);
+                spriteBatch.DrawString(Ariel12, "for first player arrow keys move you", new Vector2(600, 50), Color.LimeGreen);
+                spriteBatch.DrawString(Ariel12, "for second player use a,w,d", new Vector2(150, 50), Color.LimeGreen);
+                spriteBatch.DrawString(Ariel12, "first player shoot is 0", new Vector2(600, 80), Color.Blue);
+                spriteBatch.DrawString(Ariel12, "and melee is shift", new Vector2(600, 110), Color.Blue);
+                spriteBatch.DrawString(Ariel12, "for second player shoot is F", new Vector2(150, 80), Color.Red);
+                spriteBatch.DrawString(Ariel12, "and melee is E", new Vector2(150, 110), Color.Red);
+                spriteBatch.DrawString(Ariel12, "Press space to continue", new Vector2(370, 570), Color.Black);
             }
            if (selectscreen == true)
             {
@@ -1198,7 +1193,6 @@ namespace BlackWing
             Lines.Add(new Line(Content.Load<Texture2D>("BROWN"), new Vector2(770, 415), 153, 10, Color.White));
             Lines.Add(new Line(Content.Load<Texture2D>("BROWN"), new Vector2(925, 285), 5, 153, Color.White));
             Lines.Add(new Line(Content.Load<Texture2D>("BROWN"), new Vector2(870, 280), 60, 15, Color.White));
-
         }
         private void FithLevelLoad()
         {

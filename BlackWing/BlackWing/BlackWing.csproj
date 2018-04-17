@@ -49,7 +49,6 @@
     <Compile Include="Game1.cs" />
     <Compile Include="Line.cs" />
     <Compile Include="NaziShooter.cs" />
-    <Compile Include="NewCharacter.cs" />
     <Compile Include="PowerUps.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
