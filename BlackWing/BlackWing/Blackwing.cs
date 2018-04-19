@@ -14,7 +14,7 @@ namespace BlackWing
     {
         public int speed;
         //need list to be public
-        List<Star> starlist;
+       public List<Star> starlist;
         public Vector2 position;
         public Texture2D BlackWingTexture, startexture;
         public Texture2D AquaTexture;

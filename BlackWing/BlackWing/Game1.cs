@@ -11,7 +11,8 @@ using Microsoft.Xna.Framework.Media;
 
 namespace BlackWing
 {
-
+    //bullet list enemy range
+    //collision of enemy
     public class Game1 : Game
     {
       

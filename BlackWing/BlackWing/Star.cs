@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Content;
 
 namespace BlackWing
 {
-    class Star
+   public class Star
     {
         Texture2D startexture;
         public Rectangle starbox;

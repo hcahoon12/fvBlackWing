@@ -15,19 +15,19 @@ namespace BlackWing
     {
         public Rectangle boundingbox;
         public Texture2D texture;
-        public Vector2 orgin;
-        public Vector2 position;
         public bool isVisible;
         public float speed;
-        public Bullet(Texture2D newtexture)
+        public Bullet(Texture2D newtexture, Vector2 position)
         {
+            
             speed = 10;
             texture = newtexture;
-            isVisible = false;
+            boundingbox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
+            isVisible = true;
         }
         public void Draw(SpriteBatch spritebatch)
         {
-            spritebatch.Draw(texture, position, Color.White);
+            spritebatch.Draw(texture, boundingbox, Color.White);
         }
     }
 }

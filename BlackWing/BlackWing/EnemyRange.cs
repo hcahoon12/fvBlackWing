@@ -38,7 +38,7 @@ namespace BlackWing
             //collision
             Rangebox = new Rectangle((int)Rangepos.X, (int)Rangepos.Y, 50, 50);
             EnemyShoot();
-           // UpdateBullets();
+           UpdateBullets();
         }
      
         public void Draw(SpriteBatch spriteBatch)
@@ -50,26 +50,26 @@ namespace BlackWing
             }
             
         }
-      /*public void UpdateBullets()
+      public void UpdateBullets()
         {
           foreach(Bullet b in bulletlist)
             {
-                b.boundingbox = new Rectangle((int)b.position.X, (int)b.position.Y, b.texture.Width, b.texture.Height);
-                b.position.X = b.position.X - b.speed;
-                if(b.position.X <= 0)
+                b.boundingbox.X = b.boundingbox.X - (int)b.speed;
+                if(b.boundingbox.X <= 0)
                 {
                     b.isVisible = false;
                 }
-                for (int i =0; i<bulletlist.Count; i++)
+              
+            }
+            for (int i =0; i<bulletlist.Count; i++)
+            {
+                if (bulletlist[i].isVisible)
                 {
-                    if (bulletlist[i].isVisible)
-                    {
-                        bulletlist.RemoveAt(i);
-                        i--;
-                    }
+                    bulletlist.RemoveAt(i);
+                    i--;
                 }
             }
-        }*/
+        }
         public void EnemyShoot()
         {
             if (Bulletdelay >= 0)
@@ -79,9 +79,7 @@ namespace BlackWing
             if (Bulletdelay <= 0)
             {
                 //new bullet and position
-                Bullet newBullet = new Bullet(BulletTexture);
-                newBullet.position = new Vector2(Rangepos.X + 20, Rangepos.Y + 30);
-                newBullet.isVisible = true;
+                Bullet newBullet = new Bullet(BulletTexture, new Vector2(Rangepos.X + 20, Rangepos.Y + 30));
                 if(bulletlist.Count < 20)
                 {
                     bulletlist.Add(newBullet);
