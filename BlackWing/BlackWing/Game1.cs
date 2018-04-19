@@ -170,13 +170,26 @@ namespace BlackWing
 
             KeyboardState keyState = Keyboard.GetState();
             oldState = newState; // resets old state so it is ready for use next time
+            if(blackWing.health>= 6)
+            {
+                blackWing.health = 6;
+            }
+            if(newcharacter.health >= 6)
+            {
+                newcharacter.health = 6;
+            }
             foreach (PowerUps p in healthlist)
             {
                 p.Update();
 
-                if (p.powerrec.Intersects(blackWing.BlackWingbox) && keyState.IsKeyDown(Keys.F))
+                if (p.powerrec.Intersects(blackWing.BlackWingbox) && keyState.IsKeyDown(Keys.B))
                 {
                     blackWing.health++;
+                    p.isVisible = false;
+                }
+              if(p.powerrec.Intersects(newcharacter.BlackWingbox) && keyState.IsKeyDown(Keys.B))
+                {
+                    newcharacter.health++;
                     p.isVisible = false;
                 }
             }
@@ -207,12 +220,7 @@ namespace BlackWing
                       e.isvisible=false;
                       }
                   }*/
-
             }
-
-            // moved the above parts out of if statements and the players got insanly fast. but if i put it back into one player it moves regular speed but 
-            //black wing cant advance levels
-
 
             if (whiteseen == true)
             {
@@ -224,21 +232,22 @@ namespace BlackWing
             }
           else  if (selectscreen == true)
             {
-                if (keyState.IsKeyDown(Keys.NumPad1))
+                if (keyState.IsKeyDown(Keys.NumPad1) || keyState.IsKeyDown(Keys.D1))
                 {
                     singleplayer = true;
                     titlescreenseen = true;
                     whiteseen = false;
                     twoplayer = false;
+                    selectscreen = false;
                    
                 }
-            else    if (keyState.IsKeyDown(Keys.NumPad2))
+            else    if (keyState.IsKeyDown(Keys.NumPad2)|| keyState.IsKeyDown(Keys.D2))
                 {
                     twoplayer = true;
                     titlescreenseen = true;
                     whiteseen = false;
                     singleplayer = false;
-                  
+                    selectscreen = false;
                 }
             }
             /* 
@@ -865,12 +874,12 @@ namespace BlackWing
                         }
                     }
 
-                    enemyload();
+                   
+                }
+             enemyload();
                     healthload();
                     base.Update(gameTime);
                     oldKeyState = keyState;
-                }
-            
         }
     public void enemyload()
         {
@@ -899,14 +908,7 @@ namespace BlackWing
             GraphicsDevice.Clear(Color.White);
             spriteBatch.Begin();
             //recs
-            foreach (PowerUps p in healthlist)
-            {
-                p.Draw(spriteBatch);
-            }
-            foreach (EnemyRange e in rangelist)
-            {
-                e.Draw(spriteBatch);
-            }
+    
             if (whiteseen == true)
             {
                 spriteBatch.Draw(whitetexture, new Rectangle(0, 0, 960, 600), Color.White);
@@ -914,15 +916,15 @@ namespace BlackWing
                 spriteBatch.Draw(newcharacter.AquaTexture, new Rectangle (100, 200, 300, 300), Color.White);
                 spriteBatch.DrawString(Ariel12, "for first player arrow keys move you", new Vector2(600, 50), Color.LimeGreen);
                 spriteBatch.DrawString(Ariel12, "for second player use a,w,d", new Vector2(150, 50), Color.LimeGreen);
-                spriteBatch.DrawString(Ariel12, "first player shoot is 0", new Vector2(600, 80), Color.Blue);
+                spriteBatch.DrawString(Ariel12, "first player shoot is Ctrl", new Vector2(600, 80), Color.Blue);
                 spriteBatch.DrawString(Ariel12, "and melee is shift", new Vector2(600, 110), Color.Blue);
                 spriteBatch.DrawString(Ariel12, "for second player shoot is F", new Vector2(150, 80), Color.Red);
                 spriteBatch.DrawString(Ariel12, "and melee is E", new Vector2(150, 110), Color.Red);
                 spriteBatch.DrawString(Ariel12, "Press space to continue", new Vector2(370, 570), Color.Black);
             }
-           if (selectscreen == true)
+       else if (selectscreen == true)
             {
-                spriteBatch.Draw(whitetexture, new Rectangle(0, 0, 960, 600), Color.White);
+                spriteBatch.Draw(selecttexture, new Rectangle(0, 0, 960, 600), Color.White);
                 spriteBatch.DrawString(Ariel12, "Press 2 for duo", new Vector2(0, 570), Color.Black);
                 spriteBatch.DrawString(Ariel12, "Press 1 for single player", new Vector2(450, 570), Color.Black);
             }
@@ -934,8 +936,6 @@ namespace BlackWing
                 {
                     spriteBatch.Draw(titlescreentexture, new Rectangle(0, 0, 960, 600), Color.White);
                     spriteBatch.Draw(EmblemTexture, EmblemREC, Color.White);
-                    spriteBatch.DrawString(Ariel12, "Press E to shoot", new Vector2(0, 570), Color.Black);
-                    spriteBatch.DrawString(Ariel12, "Press W for melee", new Vector2(790, 570), Color.Black);
                 }
                 else if (Flseen == true)
                 {
@@ -964,11 +964,12 @@ namespace BlackWing
                 else if (sevlseen == true)
                 {
                     spriteBatch.Draw(SevLtexture, new Rectangle(0, 0, 960, 600), Color.White);
-
+                    spriteBatch.Draw(whitetexture, new Rectangle(0, 0, 960, 600), Color.White);
                 }
                 else if (elseen == true)
                 {
                     spriteBatch.Draw(ELtexture, new Rectangle(0, 0, 960, 600), Color.White);
+                    spriteBatch.Draw(whitetexture, new Rectangle(0, 0, 960, 600), Color.White);
                     spriteBatch.DrawString(Ariel12, "Time to go back DOWN to Earth", new Vector2(0, 550), Color.Black);
                 }
                 else if (nlseen == true)
@@ -1019,6 +1020,14 @@ namespace BlackWing
                 {
                     Lines.Draw(spriteBatch);
                 }
+                foreach (PowerUps p in healthlist)
+                {
+                    p.Draw(spriteBatch);
+                }
+                foreach (EnemyRange e in rangelist)
+                {
+                    e.Draw(spriteBatch);
+                }
                 if (blackWing.health > 0)
                 {
                     blackWing.Draw(spriteBatch);
@@ -1042,8 +1051,6 @@ namespace BlackWing
                 {
                     spriteBatch.Draw(titlescreentexture, new Rectangle(0, 0, 960, 600), Color.White);
                     spriteBatch.Draw(EmblemTexture, EmblemREC, Color.White);
-                    spriteBatch.DrawString(Ariel12, "Press E to shoot", new Vector2(0, 570), Color.Black);
-                    spriteBatch.DrawString(Ariel12, "Press W for melee", new Vector2(790, 570), Color.Black);
                 }
               else  if (Flseen == true)
                 {
@@ -1128,6 +1135,14 @@ namespace BlackWing
                 {
                     Lines.Draw(spriteBatch);
                 }
+                foreach (PowerUps p in healthlist)
+                {
+                    p.Draw(spriteBatch);
+                }
+                foreach (EnemyRange e in rangelist)
+                {
+                    e.Draw(spriteBatch);
+                }
                 if (newcharacter.health > 0)
                 {
                     newcharacter.Draw(spriteBatch);
@@ -1144,9 +1159,10 @@ namespace BlackWing
         }
         private void FirstLevelLoad()
         {
+            healthlist.Clear();
             Lines.Clear();
-            healthlist.Add(new PowerUps(Content.Load<Texture2D>("RED"), new Vector2(500, 550)));
-            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"),new Vector2 (500, 550), Content.Load<Texture2D>("Bullet")));
+            healthlist.Add(new PowerUps(Content.Load<Texture2D>("Powerup"), new Vector2(820, 570)));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"),new Vector2 (200, 495),Content.Load<Texture2D>("Bullet"), 50, 50));
             Lines.Add(new Line(Content.Load<Texture2D>("GOLD"), new Vector2(608, 463), 110, 7, Color.White));
             Lines.Add(new Line(Content.Load<Texture2D>("GOLD"), new Vector2(357, 464), 110, 7, Color.White));
             Lines.Add(new Line(Content.Load<Texture2D>("GOLD"), new Vector2(0, 102), 100, 3, Color.White));
@@ -1159,6 +1175,7 @@ namespace BlackWing
         }
         private void SecondLevelLoad()
         {
+            healthlist.Clear();
             Lines.Clear();
             Lines.Add(new Line(Content.Load<Texture2D>("GREY"), new Vector2(19, 458), 80, 3, Color.White));
             Lines.Add(new Line(Content.Load<Texture2D>("GREY"), new Vector2(19, 266), 80, 3, Color.White));
@@ -1189,6 +1206,7 @@ namespace BlackWing
         }
         private void ThirdLevelLoad()
         {
+            healthlist.Clear();
             Lines.Clear();
             Lines.Add(new Line(Content.Load<Texture2D>("BROWN"), new Vector2(770, 415), 153, 10, Color.White));
             Lines.Add(new Line(Content.Load<Texture2D>("BROWN"), new Vector2(925, 285), 5, 153, Color.White));
@@ -1196,23 +1214,27 @@ namespace BlackWing
         }
         private void FithLevelLoad()
         {
+            healthlist.Clear();
             Lines.Clear();
             Lines.Add(new Line(Content.Load<Texture2D>("BROWN"), new Vector2(735, 532), 60, 7, Color.White));
             Lines.Add(new Line(Content.Load<Texture2D>("BROWN"), new Vector2(853, 480), 56, 4, Color.White));
         }
         private void SixLevelLoad()
         {
+            healthlist.Clear();
             Lines.Clear();
             Lines.Add(new Line(Content.Load<Texture2D>("BROWN"), new Vector2(495, 558), 60, 5, Color.White));
             Lines.Add(new Line(Content.Load<Texture2D>("BROWN"), new Vector2(687, 480), 50, 4, Color.White));
         }
         private void NineLevelLoad()
         {
+            healthlist.Clear();
             Lines.Clear();
             Lines.Add(new Line(Content.Load<Texture2D>("CCTexture"), new Vector2(607, 510), 86, 3, Color.Gold));
         }
         private void ElevenLevelLoad()
         {
+            healthlist.Clear();
             Lines.Clear();
             Lines.Add(new Line(Content.Load<Texture2D>("CYAN"), new Vector2(325, 400), 25, 3, Color.White));
             Lines.Add(new Line(Content.Load<Texture2D>("CYAN"), new Vector2(322, 478), 394, 7, Color.White));
@@ -1224,6 +1246,7 @@ namespace BlackWing
         }
         private void TwelveLevelLoad()
         {
+            healthlist.Clear();
             Lines.Clear();
             Lines.Add(new Line(Content.Load<Texture2D>("CYAN"), new Vector2(145, 540), 810, 7, Color.White));
             Lines.Add(new Line(Content.Load<Texture2D>("CYAN"), new Vector2(0, 404), 167, 7, Color.White));
@@ -1237,10 +1260,12 @@ namespace BlackWing
         }
         private void TenLevelLoad()
         {
+            healthlist.Clear();
             Lines.Clear();
         }
         private void ThirteenLevelLoad()
         {
+            healthlist.Clear();
             Lines.Clear();
             Lines.Add(new Line(Content.Load<Texture2D>("GREY"), new Vector2(365, 442), 120, 3, Color.White));
             Lines.Add(new Line(Content.Load<Texture2D>("GREY"), new Vector2(485, 444), 3, 130, Color.White));
@@ -1248,6 +1273,7 @@ namespace BlackWing
         }
         private void FourteenLevelLoad()
         {
+            healthlist.Clear();
             Lines.Clear();
             Lines.Add(new Line(Content.Load<Texture2D>("GREY"), new Vector2(290, 551), 90, 3, Color.White));
             Lines.Add(new Line(Content.Load<Texture2D>("GREY"), new Vector2(390, 334), 90, 3, Color.White));
@@ -1259,6 +1285,7 @@ namespace BlackWing
         }
         private void FithteenLevelLoad()
         {
+            healthlist.Clear();
             Lines.Clear();
             Lines.Add(new Line(Content.Load<Texture2D>("BROWN"), new Vector2(295, 543), 3, 160, Color.White));
             Lines.Add(new Line(Content.Load<Texture2D>("BROWN"), new Vector2(225, 543), 3, 160, Color.White));
@@ -1267,6 +1294,7 @@ namespace BlackWing
         }
         private void SixteenLevelLoad()
         {
+            healthlist.Clear();
             Lines.Clear();
             Lines.Add(new Line(Content.Load<Texture2D>("BROWN"), new Vector2(740, 416), 200, 3, Color.Brown));
             Lines.Add(new Line(Content.Load<Texture2D>("BROWN"), new Vector2(740, 416), 3, 95, Color.Brown));
@@ -1278,6 +1306,7 @@ namespace BlackWing
         }
         private void SeventeenLevelLoad()
         {
+            healthlist.Clear();
             Lines.Clear();
             Lines.Add(new Line(Content.Load<Texture2D>("White"), new Vector2(815, 480), 150, 8, Color.White));
             Lines.Add(new Line(Content.Load<Texture2D>("White"), new Vector2(815, 305), 150, 8, Color.White));
@@ -1291,6 +1320,7 @@ namespace BlackWing
         }
         private void gameoverload()
         {
+            healthlist.Clear();
             Lines.Clear();
         }
     }

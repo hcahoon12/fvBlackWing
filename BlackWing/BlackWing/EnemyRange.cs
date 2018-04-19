@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Content;
 
 namespace BlackWing
 {
-    class EnemyRange
+    class EnemyRange:Enemy
     {
         ContentManager content;
         public Texture2D RangeTexture;
@@ -20,7 +20,7 @@ namespace BlackWing
         public Rectangle Rangebox;
         Texture2D BulletTexture;
         public bool isVisible;
-        public EnemyRange(Texture2D newTexture , Vector2 newPos, Texture2D newBulletTexture)
+        public EnemyRange(Texture2D newTexture , Vector2 newPos, Texture2D newBulletTexture,int Width , int Height)
         {
             bulletlist = new List<Bullet>();
             RangeTexture = newTexture;
@@ -36,16 +36,14 @@ namespace BlackWing
         {
 
             //collision
-            Rangebox = new Rectangle((int)Rangepos.X, (int)Rangepos.Y, RangeTexture.Width, RangeTexture.Height);
-            //movement
-            Rangepos.X += speed;
+            Rangebox = new Rectangle((int)Rangepos.X, (int)Rangepos.Y, 50, 50);
             EnemyShoot();
            // UpdateBullets();
         }
      
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(RangeTexture, Rangepos, Color.White);
+            spriteBatch.Draw(RangeTexture, Rangebox, Color.White);
             foreach (Bullet b in bulletlist)
             {
                 b.Draw(spriteBatch);
@@ -82,7 +80,7 @@ namespace BlackWing
             {
                 //new bullet and position
                 Bullet newBullet = new Bullet(BulletTexture);
-                newBullet.position = new Vector2(Rangepos.X + RangeTexture.Width / 2 - newBullet.texture.Width / 2, Rangepos.Y + 30);
+                newBullet.position = new Vector2(Rangepos.X + 20, Rangepos.Y + 30);
                 newBullet.isVisible = true;
                 if(bulletlist.Count < 20)
                 {
@@ -91,7 +89,7 @@ namespace BlackWing
             }
             if (Bulletdelay == 0)
             {
-                Bulletdelay = 20;
+                Bulletdelay = 40;
             }
         }
     }

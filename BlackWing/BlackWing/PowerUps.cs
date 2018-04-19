@@ -29,13 +29,16 @@ namespace BlackWing
         }
         public void Update()
         {
-
+            
             //collision
-            powerrec = new Rectangle((int)healthpos.X, (int)healthpos.Y, poweruptexture.Width, poweruptexture.Height);
+            powerrec = new Rectangle((int)healthpos.X, (int)healthpos.Y, 30, 30);
         }
             public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(poweruptexture, healthpos, Color.White);
+            if (isVisible)
+            {
+                spriteBatch.Draw(poweruptexture, powerrec, Color.White);
+            }
         }
     }
 }

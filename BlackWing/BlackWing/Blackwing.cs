@@ -28,6 +28,7 @@ namespace BlackWing
         Vector2 hposition;
         Texture2D HealthTexture;
         private int maxhealth;
+        
         public float stardelay;
         public Rectangle Boundingbox;
         public bool iscoliding;
@@ -65,10 +66,11 @@ namespace BlackWing
             maxhealth = Health;
             health = Health;
             hposition = HPosition;
-            BlackWingbox = new Rectangle((int)newposition.X, (int)newposition.Y+50, 60, 60);
+            BlackWingbox = new Rectangle((int)newposition.X, (int)newposition.Y, 60, 60);
             jumped = true;
             oldState = Keyboard.GetState();
             Direction = 1;
+            
         }
 
         protected  void Initialize()
@@ -87,8 +89,6 @@ namespace BlackWing
             startexture = Content.Load<Texture2D>(shoottexture);
             content = Content;
         }
-
-
 
         public void Update(KeyboardState keyState, List<Line> Lines)
         {
@@ -114,7 +114,6 @@ namespace BlackWing
                 if (velocity.Y >= 0)
                 {
                     BlackWingbox.Y++;
-                   
                 }
                 if (velocity.Y <= 0)
                 {
@@ -168,9 +167,7 @@ namespace BlackWing
            
                 float K = 2.9f;
                 velocity.Y += 0.17f * K;
-            
-          
-            
+
            if (BlackWingbox.Y + BlackWingbox.Height >= 590)
             {
                 jumped = false;
@@ -192,8 +189,6 @@ namespace BlackWing
                         while (BlackWingbox.Intersects(Lines[l].rectangle))
                         {
                             BlackWingbox.X += 1;
-                          
-                        
                         }
                     //Enemies
 
