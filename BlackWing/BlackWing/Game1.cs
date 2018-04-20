@@ -21,7 +21,6 @@ namespace BlackWing
         SpriteBatch spriteBatch;
         BlackWing blackWing;
         BlackWing newcharacter;
-     
         KeyboardState oldKeyState;
         List<Line> Lines = new List<Line>();
         public int enemybulletdamage;
@@ -149,6 +148,7 @@ namespace BlackWing
             sevttexture = Content.Load<Texture2D>("Final Level");
             gotexture = Content.Load<Texture2D>("GameOver");
             Ariel12 = Content.Load<SpriteFont>("file");
+
             blackWing.LoadContent(Content,"blackwing","blackwing2","starrrr");
             newcharacter.LoadContent(Content, "aquatowa", "aquatowa2", "fireball");
            
@@ -159,9 +159,6 @@ namespace BlackWing
         {
 
         }
-
-
-
         protected override void Update(GameTime gameTime)
         {
 
@@ -171,6 +168,17 @@ namespace BlackWing
 
             KeyboardState keyState = Keyboard.GetState();
             oldState = newState; // resets old state so it is ready for use next time
+            if(rangelist.Count > 0)
+            {
+                if(blackWing.BlackWingbox.X >= 900)
+                {
+                    blackWing.BlackWingbox.X = 900;
+                }
+                if(newcharacter.BlackWingbox.X >= 900)
+                {
+                    newcharacter.BlackWingbox.X = 900;
+                }
+            }
             if(blackWing.health>= 6)
             {
                 blackWing.health = 6;
@@ -196,11 +204,33 @@ namespace BlackWing
             }
             foreach (EnemyRange e in rangelist)
             {
-                e.Update();
+                e.Update(blackWing, newcharacter, Lines);
+                //player to enemy
+                for (int i = 0; i < blackWing.starlist.Count; i++)
+                {
+                    if (blackWing.starlist[i].starbox.Intersects(e.Rangebox))
+                    { 
+                        blackWing.starlist[i].isvisible = false;
+                        e.isVisible = false;
+                    }
+                }
+                for (int i = 0; i < newcharacter.starlist.Count; i++)
+                {
+                    if (newcharacter.starlist[i].starbox.Intersects(e.Rangebox))
+                    {
+                        newcharacter.starlist[i].isvisible = false;
+                        e.isVisible = false;
+                    }
+                }
                 //collison
                 if (e.Rangebox.Intersects(blackWing.BlackWingbox))
                 {
                     blackWing.health--;
+                    e.isVisible = false;
+                }
+                if (e.Rangebox.Intersects(newcharacter.BlackWingbox))
+                {
+                    newcharacter.health--;
                     e.isVisible = false;
                 }
                 //check bullet collison 
@@ -212,15 +242,14 @@ namespace BlackWing
                         e.bulletlist[i].isVisible = false;
                     }
                 }
-                //player to enemy
-                /*  for(int i = 0; i < blackwing.Starlist; i++)
-                  {
-                      if(blackwing.starlist[i].starbox.Intersects(e.rangebox)
-                      {
-                      blackwing.starlist[i].isvisible=false;
-                      e.isvisible=false;
-                      }
-                  }*/
+                for (int i = 0; i < e.bulletlist.Count; i++)
+                {
+                    if (newcharacter.BlackWingbox.Intersects(e.bulletlist[i].boundingbox))
+                    {
+                        newcharacter.health -= enemybulletdamage;
+                        e.bulletlist[i].isVisible = false;
+                    }
+                }
             }
 
             if (whiteseen == true)
@@ -281,18 +310,20 @@ namespace BlackWing
                         titlescreenseen = false;
                         Flseen = true;
                         FirstLevelLoad();
+                        Ofl();
                     }
                 }
-             
+            
                 else if (Flseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900)
+                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count==0)
                     {
                         blackWing.BlackWingbox.X = 0;
                         blackWing.BlackWingbox.Y = 520;
                         Flseen = false;
                         Tlseen = true;
                         ThirdLevelLoad();
+                        Osl();
                     }
                     if (blackWing.BlackWingbox.Y <= 0)
                     {
@@ -511,6 +542,7 @@ namespace BlackWing
                         blackWing.BlackWingbox.Y = 600;
                         Flseen = true;
                         FirstLevelLoad();
+                        Ofl();
                         goseen = false;
                     }
                 }
@@ -559,7 +591,7 @@ namespace BlackWing
                 }
                 if (Flseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 || newcharacter.BlackWingbox.X >= 900)
+                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 || newcharacter.BlackWingbox.X >= 900 && rangelist.Count == 0)
                     {
                         newcharacter.BlackWingbox.X = 100;
                         newcharacter.BlackWingbox.Y = 550;
@@ -882,6 +914,7 @@ namespace BlackWing
                     base.Update(gameTime);
                     oldKeyState = keyState;
         }
+    
     public void enemyload()
         {
             for (int i = 0; i < rangelist.Count; i++)
@@ -1143,6 +1176,15 @@ namespace BlackWing
                 foreach (EnemyRange e in rangelist)
                 {
                     e.Draw(spriteBatch);
+                    //trying to flip textures once he shoots right
+                  /*  if(e.direction > 0)
+                    {
+                        spriteBatch.Draw(e.RangeTexture2, new Vector2 (e.Rangepos.X, e.Rangepos.Y), Color.White);
+                    }
+                    if(e.direction < 0)
+                    {
+                        spriteBatch.Draw(e.RangeTexture, new Vector2(e.Rangepos.X, e.Rangepos.Y), Color.White);
+                    }*/
                 }
                 if (newcharacter.health > 0)
                 {
@@ -1160,10 +1202,8 @@ namespace BlackWing
         }
         private void FirstLevelLoad()
         {
-            healthlist.Clear();
+          
             Lines.Clear();
-            healthlist.Add(new PowerUps(Content.Load<Texture2D>("Powerup"), new Vector2(820, 570)));
-            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"),new Vector2 (200, 495),Content.Load<Texture2D>("Bullet"), 50, 50));
             Lines.Add(new Line(Content.Load<Texture2D>("GOLD"), new Vector2(608, 463), 110, 7, Color.White));
             Lines.Add(new Line(Content.Load<Texture2D>("GOLD"), new Vector2(357, 464), 110, 7, Color.White));
             Lines.Add(new Line(Content.Load<Texture2D>("GOLD"), new Vector2(0, 102), 100, 3, Color.White));
@@ -1319,8 +1359,24 @@ namespace BlackWing
             Lines.Add(new Line(Content.Load<Texture2D>("GREY"), new Vector2(141, 442), 30, 3, Color.Black));
             Lines.Add(new Line(Content.Load<Texture2D>("White"), new Vector2(3, 245), 75, 3, Color.White));
         }
+        //o means one player and the fl is first level
+        public void Ofl()
+        {
+            healthlist.Clear();
+            rangelist.Clear();
+            healthlist.Add(new PowerUps(Content.Load<Texture2D>("Powerup"), new Vector2(20, 73)));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(320, 395), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(20, 320), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(750, 430), Content.Load<Texture2D>("Bullet"), 50, 50));
+        }
+        public void Osl()
+        {
+            healthlist.Clear();
+            rangelist.Clear();
+        }
         private void gameoverload()
         {
+            rangelist.Clear();
             healthlist.Clear();
             Lines.Clear();
         }

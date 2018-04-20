@@ -14,7 +14,7 @@ namespace BlackWing
     {
         public int speed;
         //need list to be public
-       public List<Star> starlist;
+        public List<Star> starlist;
         public Vector2 position;
         public Texture2D BlackWingTexture, startexture;
         public Texture2D AquaTexture;
@@ -95,7 +95,7 @@ namespace BlackWing
        // public void Attack()
         { 
             //Melee
-            if ((keyState.IsKeyDown(Keys.W)))
+            if ((keyState.IsKeyDown(Keys.RightShift)))
                 {
 
                 }
@@ -259,9 +259,9 @@ namespace BlackWing
         public void UpdateStar(List<Line> Lines)
         {
 
-            for (int i =0; i<starlist.Count; i++)
+            for (int i =0; i<Math.Abs(starlist.Count); i++)
             {
-            
+                
                 starlist[i].Update(Lines);
                 if (!starlist[i].isvisible)
                 {

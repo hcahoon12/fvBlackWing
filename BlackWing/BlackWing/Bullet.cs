@@ -16,14 +16,47 @@ namespace BlackWing
         public Rectangle boundingbox;
         public Texture2D texture;
         public bool isVisible;
-        public float speed;
-        public Bullet(Texture2D newtexture, Vector2 position)
+        public int speed;
+        int xOffset;
+        int yOffset;
+        int distravled;
+        public Bullet(Texture2D newtexture,int X,int Y, int direction)
         {
-            
-            speed = 10;
+            distravled = 0;
+            speed = 10 * direction;
             texture = newtexture;
-            boundingbox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
+            if (direction < 0)
+            {
+                xOffset = 0;
+                yOffset = 10;
+                //left
+            }
+            else
+            {
+                xOffset = 60;
+                yOffset = 10;
+                //right
+            }
+            boundingbox = new Rectangle(X + xOffset, Y + yOffset, 12, 12);
+            //boundingbox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
             isVisible = true;
+        }
+        public void Update(List<Line> Lines)
+        {
+            boundingbox.X += speed;
+            distravled += Math.Abs(speed);
+            for (int l = 0; l < Lines.Count; l++)
+            {
+                if (boundingbox.Intersects(Lines[l].rectangle))
+                {
+                    isVisible = false;
+                }
+            }
+            if (distravled > 500)
+            {
+                isVisible = false;
+            }
+
         }
         public void Draw(SpriteBatch spritebatch)
         {

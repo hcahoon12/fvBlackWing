@@ -19,6 +19,7 @@ namespace BlackWing
         public int health, speed, Bulletdelay;
         public Rectangle Rangebox;
         Texture2D BulletTexture;
+        public int direction;
         public bool isVisible;
         public EnemyRange(Texture2D newTexture , Vector2 newPos, Texture2D newBulletTexture,int Width , int Height)
         {
@@ -29,41 +30,44 @@ namespace BlackWing
             Rangepos = newPos;
             Bulletdelay = 40;
             speed = 5;
-            isVisible = true;
+            isVisible = true;        
+            direction = -1;
         }
   
-        public void Update()
+        public void Update(BlackWing blackwing,BlackWing newcharacter, List<Line>Lines)
         {
-
+            if(newcharacter.BlackWingbox.X > Rangebox.X)
+            {
+                direction = 1;
+            }
+            else
+            {
+                direction = -1;
+            }
+            if(blackwing.BlackWingbox.X > Rangebox.X)
+            {
+                direction = 1;
+            }
+            else
+            {
+                direction = -1;
+               
+            }
             //collision
-            Rangebox = new Rectangle((int)Rangepos.X, (int)Rangepos.Y, 50, 50);
+            Rangebox = new Rectangle((int)Rangepos.X, (int)Rangepos.Y, 70, 70);
             EnemyShoot();
-           UpdateBullets();
-        }
-     
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Draw(RangeTexture, Rangebox, Color.White);
-            foreach (Bullet b in bulletlist)
+            if (Bulletdelay == 0)
             {
-                b.Draw(spriteBatch);
+                EnemyShoot();
             }
-            
+            UpdateBullets(Lines);
         }
-      public void UpdateBullets()
+        public void UpdateBullets(List<Line> Lines)
         {
-          foreach(Bullet b in bulletlist)
+            for (int i = 0; i < bulletlist.Count; i++)
             {
-                b.boundingbox.X = b.boundingbox.X - (int)b.speed;
-                if(b.boundingbox.X <= 0)
-                {
-                    b.isVisible = false;
-                }
-              
-            }
-            for (int i =0; i<bulletlist.Count; i++)
-            {
-                if (bulletlist[i].isVisible)
+                bulletlist[i].Update(Lines);
+                if (!bulletlist[i].isVisible)
                 {
                     bulletlist.RemoveAt(i);
                     i--;
@@ -79,16 +83,26 @@ namespace BlackWing
             if (Bulletdelay <= 0)
             {
                 //new bullet and position
-                Bullet newBullet = new Bullet(BulletTexture, new Vector2(Rangepos.X + 20, Rangepos.Y + 30));
-                if(bulletlist.Count < 20)
+                Bullet newBullet = new Bullet(BulletTexture, Rangebox.X, Rangebox.Y, direction);
+                if (bulletlist.Count < 1)
                 {
                     bulletlist.Add(newBullet);
                 }
             }
             if (Bulletdelay == 0)
             {
-                Bulletdelay = 40;
+                Bulletdelay = 8;
             }
         }
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(RangeTexture, Rangebox, Color.White);
+            foreach (Bullet b in bulletlist)
+            {
+                b.Draw(spriteBatch);
+            }
+            
+        }
+    
     }
 }
