@@ -36,19 +36,12 @@ namespace BlackWing
   
         public void Update(BlackWing blackwing,BlackWing newcharacter, List<Line>Lines)
         {
-            if(newcharacter.BlackWingbox.X > Rangebox.X)
+         
+            if(newcharacter.BlackWingbox.X > Rangebox.X || blackwing.BlackWingbox.X > Rangebox.X)
             {
                 direction = 1;
             }
-            else
-            {
-                direction = -1;
-            }
-            if(newcharacter.BlackWingbox.X > Rangebox.X)
-            {
-                direction = 1;
-            }
-            else
+            else if(newcharacter.BlackWingbox.X < Rangebox.X || blackwing.BlackWingbox.X < Rangebox.X)
             {
                 direction = -1;
                

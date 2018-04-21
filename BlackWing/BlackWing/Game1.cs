@@ -11,8 +11,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace BlackWing
 {
-    //bullet list enemy range
-    //collision of enemy
+   
     public class Game1 : Game
     {
       
@@ -25,6 +24,7 @@ namespace BlackWing
         List<Line> Lines = new List<Line>();
         public int enemybulletdamage;
         List<EnemyRange> rangelist = new List<EnemyRange>();
+        List<EnemyStrong> stronglist = new List<EnemyStrong>();
         List<PowerUps> healthlist = new List<PowerUps>();
         //screens
         bool selectscreen;
@@ -164,10 +164,19 @@ namespace BlackWing
 
             //Mouse input
             MouseState newState = Mouse.GetState();
-            //updateenemy
-
             KeyboardState keyState = Keyboard.GetState();
             oldState = newState; // resets old state so it is ready for use next time
+            if (stronglist.Count > 0)
+            {
+                if (blackWing.BlackWingbox.X >= 900)
+                {
+                    blackWing.BlackWingbox.X = 900;
+                }
+                if (newcharacter.BlackWingbox.X >= 900)
+                {
+                    newcharacter.BlackWingbox.X = 900;
+                }
+            }
             if(rangelist.Count > 0)
             {
                 if(blackWing.BlackWingbox.X >= 900)
@@ -200,6 +209,14 @@ namespace BlackWing
                 {
                     newcharacter.health++;
                     p.isVisible = false;
+                }
+            }
+            foreach(EnemyStrong s in stronglist)
+            {
+                s.Update(blackWing, newcharacter, Lines);
+                if (s.health <= 0)
+                {
+                    s.isVisible = false;
                 }
             }
             foreach (EnemyRange e in rangelist)
@@ -572,7 +589,13 @@ namespace BlackWing
 
                 if (titlescreenseen == true)
                 {
-
+                  if (keyState.IsKeyDown(Keys.G))
+                    {
+                        titlescreenseen = false;
+                        twelseen = true;
+                        TwelveLevelLoad();
+                        Ttwl();
+                    }
                     if (blackWing.BlackWingbox.X >= 960 || newcharacter.BlackWingbox.X >= 960)
                     {
                         newcharacter.BlackWingbox.X = 100;
@@ -591,7 +614,7 @@ namespace BlackWing
                     newcharacter.health = 10;
                 }
                 if (Flseen == true)
-                {
+                { 
                     if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 || newcharacter.BlackWingbox.X >= 900 && rangelist.Count == 0)
                     {
                         newcharacter.BlackWingbox.X = 100;
@@ -634,6 +657,7 @@ namespace BlackWing
                         Slseen = false;
                         sevlseen = true;
                         SevenLevelLoad();
+                        Tsel();
                     }
                 }
                 else if (Tlseen == true)
@@ -684,6 +708,7 @@ namespace BlackWing
                         sixlseen = false;
                         nlseen = true;
                         NineLevelLoad();
+                        Tnl();
                     }
                 }
                 else if (sevlseen == true)
@@ -697,6 +722,7 @@ namespace BlackWing
                         sevlseen = false;
                         elseen = true;
                         EightLevelLoad();
+                        Tel();
                     }
                 }
                 else if (elseen == true)
@@ -711,6 +737,7 @@ namespace BlackWing
                         elseen = false;
                         sevlseen = true;
                         SevenLevelLoad();
+                        Tsel();
                     }
                     if (blackWing.BlackWingbox.X > 800 && blackWing.BlackWingbox.X < 850 && keyState.IsKeyDown(Keys.Down) && rangelist.Count == 0 || newcharacter.BlackWingbox.X > 800 && newcharacter.BlackWingbox.X < 850 && keyState.IsKeyDown(Keys.S) && rangelist.Count == 0)
                     {
@@ -721,6 +748,7 @@ namespace BlackWing
                         elseen = false;
                         nlseen = true;
                         NineLevelLoad();
+                        Tnl();
                     }
                 }
                 else if (nlseen == true)
@@ -734,6 +762,7 @@ namespace BlackWing
                         tenlseen = true;
                         nlseen = false;
                         TenLevelLoad();
+                        Ttenl();
                     }
                 }
                 else if (tenlseen == true)
@@ -747,6 +776,7 @@ namespace BlackWing
                         tenlseen = false;
                         elelseen = true;
                         ElevenLevelLoad();
+                        Telel();
                     }
                 }
                 else if (elelseen == true)
@@ -760,6 +790,7 @@ namespace BlackWing
                         elelseen = false;
                         twelseen = true;
                         TwelveLevelLoad();
+                        Ttwl();
                     }
                 }
                 else if (twelseen == true)
@@ -921,7 +952,7 @@ namespace BlackWing
                     base.Update(gameTime);
                     oldKeyState = keyState;
         }
-    
+    //enemystrong
     public void enemyload()
         {
             for (int i = 0; i < rangelist.Count; i++)
@@ -929,6 +960,14 @@ namespace BlackWing
                 if (!rangelist[i].isVisible)
                 {
                     rangelist.RemoveAt(i);
+                    i--;
+                }
+            }
+            for (int i = 0; i < stronglist.Count; i++)
+            {
+                if (!stronglist[i].isVisible)
+                {
+                    stronglist.RemoveAt(i);
                     i--;
                 }
             }
@@ -1067,6 +1106,10 @@ namespace BlackWing
                 {
                     p.Draw(spriteBatch);
                 }
+                foreach(EnemyStrong s in stronglist)
+                {
+                    s.Draw(spriteBatch);
+                }
                 foreach (EnemyRange e in rangelist)
                 {
                     e.Draw(spriteBatch);
@@ -1181,6 +1224,10 @@ namespace BlackWing
                 foreach (PowerUps p in healthlist)
                 {
                     p.Draw(spriteBatch);
+                }
+                foreach (EnemyStrong s in stronglist)
+                {
+                    s.Draw(spriteBatch);
                 }
                 foreach (EnemyRange e in rangelist)
                 {
@@ -1388,6 +1435,7 @@ namespace BlackWing
         {
             healthlist.Clear();
             rangelist.Clear();
+            stronglist.Add(new EnemyStrong(Content.Load<Texture2D>("Enemystrong"), new Vector2(300, 300)));
             healthlist.Add(new PowerUps(Content.Load<Texture2D>("Powerup"), new Vector2(20, 73)));
             rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(320, 395), Content.Load<Texture2D>("Bullet"), 50, 50));
             rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(20, 320), Content.Load<Texture2D>("Bullet"), 50, 50));
@@ -1418,6 +1466,49 @@ namespace BlackWing
             healthlist.Clear();
             rangelist.Clear();
             rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(690, 410), Content.Load<Texture2D>("Bullet"), 50, 50));
+        }
+        public void Tsel()
+        {
+            healthlist.Clear();
+            rangelist.Clear();
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(690, 312), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(210, 338), Content.Load<Texture2D>("Bullet"), 50, 50));
+        }
+        public void Tel()
+        {
+            healthlist.Clear();
+            rangelist.Clear();
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(500, 425), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(270, 360), Content.Load<Texture2D>("Bullet"), 50, 50));
+        }
+        public void Tnl()
+        {
+            healthlist.Clear();
+            rangelist.Clear();
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(590, 443), Content.Load<Texture2D>("Bullet"), 50, 50));
+        }
+        public void Ttenl()
+        {
+            healthlist.Clear();
+            rangelist.Clear();
+        }
+        public void Telel()
+        {
+            healthlist.Clear();
+            rangelist.Clear();
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(760, 523), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(330, 403), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(760, 223), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(320, 65), Content.Load<Texture2D>("Bullet"), 50, 50));
+        }
+        public void Ttwl()
+        {
+            healthlist.Clear();
+            rangelist.Clear();
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(760, 523), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(330, 403), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(760, 223), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(320, 65), Content.Load<Texture2D>("Bullet"), 50, 50));
         }
         public void gameoverload()
         {
