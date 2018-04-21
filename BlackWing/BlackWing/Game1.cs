@@ -582,6 +582,7 @@ namespace BlackWing
                         titlescreenseen = false;
                         Flseen = true;
                         FirstLevelLoad();
+                        Tfl();
                     }
                 }
                 if (keyState.IsKeyDown(Keys.B) && keyState.IsKeyDown(Keys.V))
@@ -600,8 +601,9 @@ namespace BlackWing
                         Flseen = false;
                         Tlseen = true;
                         ThirdLevelLoad();
+                        Ttl();
                     }
-                    if (blackWing.BlackWingbox.Y <= 0 || newcharacter.BlackWingbox.Y <= 0)
+                    if (blackWing.BlackWingbox.Y <= 0 && rangelist.Count == 0 || newcharacter.BlackWingbox.Y <= 0 && rangelist.Count == 0)
                     {
                         newcharacter.BlackWingbox.X = 100;
                         newcharacter.BlackWingbox.Y = 550;
@@ -610,6 +612,7 @@ namespace BlackWing
                         Flseen = false;
                         Slseen = true;
                         SecondLevelLoad();
+                        Tsl();
                     }
                     if (blackWing.BlackWingbox.X > 180 && blackWing.BlackWingbox.X < 730 && blackWing.BlackWingbox.Y > 490)
                     {
@@ -622,7 +625,7 @@ namespace BlackWing
                 }
                 else if (Slseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 || newcharacter.BlackWingbox.X >= 900)
+                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 || newcharacter.BlackWingbox.X >= 900 && rangelist.Count == 0)
                     {
                         newcharacter.BlackWingbox.X = 100;
                         newcharacter.BlackWingbox.Y = 550;
@@ -643,11 +646,12 @@ namespace BlackWing
                     {
                         newcharacter.health = 0;
                     }
-                    if (blackWing.BlackWingbox.X > 320 && blackWing.BlackWingbox.X < 450 && keyState.IsKeyDown(Keys.Down) || newcharacter.BlackWingbox.X > 320 && newcharacter.BlackWingbox.X < 450 && keyState.IsKeyDown(Keys.S))
+                    if (blackWing.BlackWingbox.X > 320 && blackWing.BlackWingbox.X < 450 && keyState.IsKeyDown(Keys.Down) && rangelist.Count == 0 || newcharacter.BlackWingbox.X > 320 && newcharacter.BlackWingbox.X < 450 && keyState.IsKeyDown(Keys.S) && rangelist.Count == 0)
                     {
                         Tlseen = false;
                         Filseen = true;
                         FithLevelLoad();
+                        Tfol();
                         newcharacter.BlackWingbox.X = 100;
                         newcharacter.BlackWingbox.Y = 550;
                         blackWing.BlackWingbox.X = 0;
@@ -657,7 +661,7 @@ namespace BlackWing
 
                 else if (Filseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 || newcharacter.BlackWingbox.X >= 900)
+                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 || newcharacter.BlackWingbox.X >= 900 && rangelist.Count == 0)
                     {
                         newcharacter.BlackWingbox.X = 100;
                         newcharacter.BlackWingbox.Y = 550;
@@ -666,11 +670,12 @@ namespace BlackWing
                         Filseen = false;
                         sixlseen = true;
                         SixLevelLoad();
+                        Tsil();
                     }
                 }
                 else if (sixlseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 || newcharacter.BlackWingbox.X >= 900)
+                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 || newcharacter.BlackWingbox.X >= 900 && rangelist.Count == 0)
                     {
                         newcharacter.BlackWingbox.X = 100;
                         newcharacter.BlackWingbox.Y = 550;
@@ -683,7 +688,7 @@ namespace BlackWing
                 }
                 else if (sevlseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 || newcharacter.BlackWingbox.X >= 900)
+                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 || newcharacter.BlackWingbox.X >= 900 && rangelist.Count == 0)
                     {
                         newcharacter.BlackWingbox.X = 100;
                         newcharacter.BlackWingbox.Y = 550;
@@ -696,7 +701,7 @@ namespace BlackWing
                 }
                 else if (elseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 || newcharacter.BlackWingbox.X >= 900)
+                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 || newcharacter.BlackWingbox.X >= 900 && rangelist.Count == 0)
                     {
                         //cutscene would be dope
                         newcharacter.BlackWingbox.X = 100;
@@ -707,7 +712,7 @@ namespace BlackWing
                         sevlseen = true;
                         SevenLevelLoad();
                     }
-                    if (blackWing.BlackWingbox.X > 800 && blackWing.BlackWingbox.X < 850 && keyState.IsKeyDown(Keys.Down) || newcharacter.BlackWingbox.X > 800 && newcharacter.BlackWingbox.X < 850 && keyState.IsKeyDown(Keys.S))
+                    if (blackWing.BlackWingbox.X > 800 && blackWing.BlackWingbox.X < 850 && keyState.IsKeyDown(Keys.Down) && rangelist.Count == 0 || newcharacter.BlackWingbox.X > 800 && newcharacter.BlackWingbox.X < 850 && keyState.IsKeyDown(Keys.S) && rangelist.Count == 0)
                     {
                         newcharacter.BlackWingbox.X = 100;
                         newcharacter.BlackWingbox.Y = 550;
@@ -720,7 +725,7 @@ namespace BlackWing
                 }
                 else if (nlseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 || newcharacter.BlackWingbox.X >= 900)
+                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 || newcharacter.BlackWingbox.X >= 900 && rangelist.Count == 0)
                     {
                         newcharacter.BlackWingbox.X = 100;
                         newcharacter.BlackWingbox.Y = 550;
@@ -733,7 +738,7 @@ namespace BlackWing
                 }
                 else if (tenlseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 || newcharacter.BlackWingbox.X >= 900)
+                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 || newcharacter.BlackWingbox.X >= 900 && rangelist.Count == 0)
                     {
                         newcharacter.BlackWingbox.X = 100;
                         newcharacter.BlackWingbox.Y = 550;
@@ -746,7 +751,7 @@ namespace BlackWing
                 }
                 else if (elelseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 || newcharacter.BlackWingbox.X >= 900)
+                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 || newcharacter.BlackWingbox.X >= 900 && rangelist.Count == 0)
                     {
                         newcharacter.BlackWingbox.X = 100;
                         newcharacter.BlackWingbox.Y = 550;
@@ -759,7 +764,7 @@ namespace BlackWing
                 }
                 else if (twelseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 || newcharacter.BlackWingbox.X >= 900)
+                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 || newcharacter.BlackWingbox.X >= 900 && rangelist.Count == 0)
                     {
                         newcharacter.BlackWingbox.X = 100;
                         newcharacter.BlackWingbox.Y = 550;
@@ -769,7 +774,7 @@ namespace BlackWing
                         fourtlseen = true;
                         FourteenLevelLoad();
                     }
-                    if (blackWing.BlackWingbox.Y <= 0 || newcharacter.BlackWingbox.Y <= 0)
+                    if (blackWing.BlackWingbox.Y <= 0 && rangelist.Count == 0 || newcharacter.BlackWingbox.Y <= 0 && rangelist.Count == 0)
                     {
                         newcharacter.BlackWingbox.X = 100;
                         newcharacter.BlackWingbox.Y = 550;
@@ -782,7 +787,7 @@ namespace BlackWing
                 }
                 else if (thirtlseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 || newcharacter.BlackWingbox.X >= 900)
+                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 || newcharacter.BlackWingbox.X >= 900 && rangelist.Count == 0)
                     {
                         newcharacter.BlackWingbox.X = 100;
                         newcharacter.BlackWingbox.Y = 550;
@@ -795,7 +800,7 @@ namespace BlackWing
                 }
                 else if (fourtlseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 && blackWing.BlackWingbox.Y < 400 || newcharacter.BlackWingbox.X >= 900 && newcharacter.BlackWingbox.Y < 400)
+                    if (blackWing.BlackWingbox.X >= 900 && blackWing.BlackWingbox.Y < 400 && rangelist.Count == 0 || newcharacter.BlackWingbox.X >= 900 && newcharacter.BlackWingbox.Y < 400 && rangelist.Count == 0)
                     {
                         newcharacter.BlackWingbox.X = 100;
                         newcharacter.BlackWingbox.Y = 550;
@@ -805,7 +810,7 @@ namespace BlackWing
                         fiftlseen = true;
                         FithteenLevelLoad();
                     }
-                    if (blackWing.BlackWingbox.X >= 900 && blackWing.BlackWingbox.Y > 400 || newcharacter.BlackWingbox.X >= 900 && newcharacter.BlackWingbox.Y > 400)
+                    if (blackWing.BlackWingbox.X >= 900 && blackWing.BlackWingbox.Y > 400 && rangelist.Count == 0 || newcharacter.BlackWingbox.X >= 900 && newcharacter.BlackWingbox.Y > 400 && rangelist.Count == 0)
                     {
                         newcharacter.BlackWingbox.X = 100;
                         newcharacter.BlackWingbox.Y = 550;
@@ -818,7 +823,7 @@ namespace BlackWing
                 }
                 else if (fiftlseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 || newcharacter.BlackWingbox.X >= 900)
+                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 || newcharacter.BlackWingbox.X >= 900 && rangelist.Count == 0)
                     {
                         newcharacter.BlackWingbox.X = 100;
                         newcharacter.BlackWingbox.Y = 550;
@@ -832,7 +837,7 @@ namespace BlackWing
                 }
                 else if (sixtlseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 || newcharacter.BlackWingbox.X >= 900)
+                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 || newcharacter.BlackWingbox.X >= 900 && rangelist.Count == 0)
                     {
                         newcharacter.BlackWingbox.X = 100;
                         newcharacter.BlackWingbox.Y = 550;
@@ -845,7 +850,7 @@ namespace BlackWing
                 }
                 else if (sevtlseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 || newcharacter.BlackWingbox.X >= 900)
+                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 || newcharacter.BlackWingbox.X >= 900 && rangelist.Count == 0)
                     {
                         newcharacter.BlackWingbox.X = 100;
                         newcharacter.BlackWingbox.Y = 550;
@@ -867,6 +872,7 @@ namespace BlackWing
                         goseen = false;
                         Flseen = true;
                         FirstLevelLoad();
+                        Tfl();
                     }
                 }
                 if (newcharacter.health <= 0)
@@ -883,6 +889,7 @@ namespace BlackWing
                         goseen = false;
                         Flseen = true;
                         FirstLevelLoad();
+                        Tfl();
                     }
                 }
                 if(newcharacter.health <= 0 && blackWing.health <= 0)
@@ -903,13 +910,13 @@ namespace BlackWing
                             goseen = false;
                             Flseen = true;
                             FirstLevelLoad();
-
+                        Tfl();
                         }
                     }
 
                    
                 }
-             enemyload();
+                    enemyload();
                     healthload();
                     base.Update(gameTime);
                     oldKeyState = keyState;
@@ -959,6 +966,8 @@ namespace BlackWing
        else if (selectscreen == true)
             {
                 spriteBatch.Draw(selecttexture, new Rectangle(0, 0, 960, 600), Color.White);
+                spriteBatch.Draw(blackWing.BlackWingTexture, new Rectangle(500, 200, 300, 300), Color.White);
+                spriteBatch.Draw(newcharacter.AquaTexture, new Rectangle(100, 200, 300, 300), Color.White);
                 spriteBatch.DrawString(Ariel12, "Press 2 for duo", new Vector2(0, 570), Color.Black);
                 spriteBatch.DrawString(Ariel12, "Press 1 for single player", new Vector2(450, 570), Color.Black);
             }
@@ -974,7 +983,7 @@ namespace BlackWing
                 else if (Flseen == true)
                 {
                     spriteBatch.Draw(FLtexture, new Rectangle(0, 0, 960, 600), Color.White);
-                    spriteBatch.DrawString(Ariel12, "Look up (;", new Vector2(0, 570), Color.Black);
+                    spriteBatch.DrawString(Ariel12, "Press B for healthpickups", new Vector2(0, 570), Color.Black);
                 }
                 else if (Slseen == true)
                 {
@@ -984,7 +993,7 @@ namespace BlackWing
                 else if (Tlseen == true)
                 {
                     spriteBatch.Draw(TLtexture, new Rectangle(0, 0, 960, 600), Color.White);
-                    spriteBatch.DrawString(Ariel12, "Pretend a dog named cave is on you what would you say?", new Vector2(0, 400), Color.Black);
+                    spriteBatch.DrawString(Ariel12, "Pretend a dog named cave is on you what would you say?", new Vector2(0, 550), Color.Black);
                 }
                 else if (Filseen == true)
                 {
@@ -998,12 +1007,12 @@ namespace BlackWing
                 else if (sevlseen == true)
                 {
                     spriteBatch.Draw(SevLtexture, new Rectangle(0, 0, 960, 600), Color.White);
-                    spriteBatch.Draw(whitetexture, new Rectangle(0, 0, 960, 600), Color.White);
+                  
                 }
                 else if (elseen == true)
                 {
                     spriteBatch.Draw(ELtexture, new Rectangle(0, 0, 960, 600), Color.White);
-                    spriteBatch.Draw(whitetexture, new Rectangle(0, 0, 960, 600), Color.White);
+                 
                     spriteBatch.DrawString(Ariel12, "Time to go back DOWN to Earth", new Vector2(0, 550), Color.Black);
                 }
                 else if (nlseen == true)
@@ -1017,7 +1026,7 @@ namespace BlackWing
                 else if (elelseen == true)
                 {
                     spriteBatch.Draw(eleltexture, new Rectangle(0, 0, 960, 600), Color.White);
-                    spriteBatch.DrawString(Ariel12, "F opens doors", new Vector2(0, 550), Color.Black);
+                    spriteBatch.DrawString(Ariel12, "", new Vector2(0, 550), Color.Black);
                 }
                 else if (twelseen == true)
                 {
@@ -1089,7 +1098,7 @@ namespace BlackWing
               else  if (Flseen == true)
                 {
                     spriteBatch.Draw(FLtexture, new Rectangle(0, 0, 960, 600), Color.White);
-                    spriteBatch.DrawString(Ariel12, "Look up (;", new Vector2(0, 570), Color.Black);
+                    spriteBatch.DrawString(Ariel12, "Press B for healthpickups", new Vector2(0, 570), Color.Black);
                 }
                 else if (Slseen == true)
                 {
@@ -1099,7 +1108,7 @@ namespace BlackWing
                 else if (Tlseen == true)
                 {
                     spriteBatch.Draw(TLtexture, new Rectangle(0, 0, 960, 600), Color.White);
-                    spriteBatch.DrawString(Ariel12, "Pretend a dog named cave is on you what would you say?", new Vector2(0, 400), Color.Black);
+                    spriteBatch.DrawString(Ariel12, "Pretend a dog named cave is on you what would you say?", new Vector2(0, 550), Color.Black);
                 }
                 else if (Filseen == true)
                 {
@@ -1132,7 +1141,7 @@ namespace BlackWing
                 else if (elelseen == true)
                 {
                     spriteBatch.Draw(eleltexture, new Rectangle(0, 0, 960, 600), Color.White);
-                    spriteBatch.DrawString(Ariel12, "F opens doors", new Vector2(0, 550), Color.Black);
+                    spriteBatch.DrawString(Ariel12, "", new Vector2(0, 550), Color.Black);
                 }
                 else if (twelseen == true)
                 {
@@ -1374,7 +1383,43 @@ namespace BlackWing
             healthlist.Clear();
             rangelist.Clear();
         }
-        private void gameoverload()
+        //T means two player 
+        public void Tfl()
+        {
+            healthlist.Clear();
+            rangelist.Clear();
+            healthlist.Add(new PowerUps(Content.Load<Texture2D>("Powerup"), new Vector2(20, 73)));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(320, 395), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(20, 320), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(750, 430), Content.Load<Texture2D>("Bullet"), 50, 50));
+        }
+        public void Tsl()
+        {
+            healthlist.Clear();
+            rangelist.Clear();
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(320,330), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(100, 83), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(750, 260), Content.Load<Texture2D>("Bullet"), 50, 50));
+        }
+        public void Ttl()
+        {
+            healthlist.Clear();
+            rangelist.Clear();
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(850, 347), Content.Load<Texture2D>("Bullet"), 50, 50));
+        }
+        public void Tfol()
+        {
+            healthlist.Clear();
+            rangelist.Clear();
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(740, 462), Content.Load<Texture2D>("Bullet"), 50, 50));
+        }
+        public void Tsil()
+        {
+            healthlist.Clear();
+            rangelist.Clear();
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(690, 410), Content.Load<Texture2D>("Bullet"), 50, 50));
+        }
+        public void gameoverload()
         {
             rangelist.Clear();
             healthlist.Clear();

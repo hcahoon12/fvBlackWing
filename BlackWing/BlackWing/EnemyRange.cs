@@ -44,7 +44,7 @@ namespace BlackWing
             {
                 direction = -1;
             }
-            if(blackwing.BlackWingbox.X > Rangebox.X)
+            if(newcharacter.BlackWingbox.X > Rangebox.X)
             {
                 direction = 1;
             }
