@@ -589,12 +589,117 @@ namespace BlackWing
 
                 if (titlescreenseen == true)
                 {
-                  if (keyState.IsKeyDown(Keys.G))
+                  if (keyState.IsKeyDown(Keys.D1))
+                    {
+                        titlescreenseen = false;
+                        Flseen = true;
+                        FirstLevelLoad();
+                        Tfl();
+                    }
+                    if (keyState.IsKeyDown(Keys.D2))
+                    {
+                        titlescreenseen = false;
+                        Slseen = true;
+                        SecondLevelLoad();
+                        Tsl();
+                    }
+                    if (keyState.IsKeyDown(Keys.D3))
+                    {
+                        titlescreenseen = false;
+                        Tlseen = true;
+                        ThirdLevelLoad();
+                        Ttl();
+                    }
+                    if (keyState.IsKeyDown(Keys.D4))
+                    {
+                        titlescreenseen = false;
+                        fiftlseen = true;
+                        FithLevelLoad();
+                        Tfol();
+                    }
+                    if (keyState.IsKeyDown(Keys.D5))
+                    {
+                        titlescreenseen = false;
+                        sixlseen = true;
+                        SixLevelLoad();
+                        Tsil();
+                    }
+                    if (keyState.IsKeyDown(Keys.D6))
+                    {
+                        titlescreenseen = false;
+                        sevlseen = true;
+                        SevenLevelLoad();
+                        Tsel();
+                    }
+                    if (keyState.IsKeyDown(Keys.D7))
+                    {
+                        titlescreenseen = false;
+                        elseen = true;
+                        EightLevelLoad();
+                        Tel();
+                    }
+                    if (keyState.IsKeyDown(Keys.D8))
+                    {
+                        titlescreenseen = false;
+                        nlseen = true;
+                        NineLevelLoad();
+                        Tnl();
+                    }
+                    if (keyState.IsKeyDown(Keys.D9))
+                    {
+                        titlescreenseen = false;
+                        tenlseen = true;
+                        TenLevelLoad();
+                        Ttenl();
+                    }
+                    if (keyState.IsKeyDown(Keys.D0))
+                    {
+                        titlescreenseen = false;
+                        elelseen = true;
+                        ElevenLevelLoad();
+                        Telel();
+                    }
+                    if (keyState.IsKeyDown(Keys.NumPad7))
                     {
                         titlescreenseen = false;
                         twelseen = true;
                         TwelveLevelLoad();
                         Ttwl();
+                    }
+                    if (keyState.IsKeyDown(Keys.NumPad8))
+                    {
+                        titlescreenseen = false;
+                        thirtlseen = true;
+                        ThirteenLevelLoad();
+                        Tthl();
+                    }
+                    if (keyState.IsKeyDown(Keys.NumPad9))
+                    {
+                        titlescreenseen = false;
+                        fourtlseen = true;
+                        FourteenLevelLoad();
+                        Tftl();
+                    }
+                    if (keyState.IsKeyDown(Keys.NumPad4))
+                    {
+                        titlescreenseen = false;
+                        fiftlseen = true;
+                        FithteenLevelLoad();
+                        Tfil();
+                    }
+                    if (keyState.IsKeyDown(Keys.NumPad5))
+                    {
+                        titlescreenseen = false;
+                        sixtlseen = true;
+                        SixteenLevelLoad();
+                        Tstl();
+                    }
+                    if (keyState.IsKeyDown(Keys.NumPad6))
+                    {
+                        titlescreenseen = false;
+                        sevtlseen = true;
+                        SeventeenLevelLoad();
+                        Tsetl();
                     }
                     if (blackWing.BlackWingbox.X >= 960 || newcharacter.BlackWingbox.X >= 960)
                     {
@@ -682,7 +787,6 @@ namespace BlackWing
                         blackWing.BlackWingbox.Y = 550;
                     }
                 }
-
                 else if (Filseen == true)
                 {
                     if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 || newcharacter.BlackWingbox.X >= 900 && rangelist.Count == 0)
@@ -804,6 +908,7 @@ namespace BlackWing
                         twelseen = false;
                         fourtlseen = true;
                         FourteenLevelLoad();
+                        Tftl();
                     }
                     if (blackWing.BlackWingbox.Y <= 0 && rangelist.Count == 0 || newcharacter.BlackWingbox.Y <= 0 && rangelist.Count == 0)
                     {
@@ -814,6 +919,7 @@ namespace BlackWing
                         twelseen = false;
                         thirtlseen = true;
                         ThirteenLevelLoad();
+                        Tthl();
                     }
                 }
                 else if (thirtlseen == true)
@@ -827,6 +933,7 @@ namespace BlackWing
                         thirtlseen = false;
                         fourtlseen = true;
                         FourteenLevelLoad();
+                        Tftl();
                     }
                 }
                 else if (fourtlseen == true)
@@ -840,6 +947,7 @@ namespace BlackWing
                         fourtlseen = false;
                         fiftlseen = true;
                         FithteenLevelLoad();
+                        Tfil();
                     }
                     if (blackWing.BlackWingbox.X >= 900 && blackWing.BlackWingbox.Y > 400 && rangelist.Count == 0 || newcharacter.BlackWingbox.X >= 900 && newcharacter.BlackWingbox.Y > 400 && rangelist.Count == 0)
                     {
@@ -850,6 +958,7 @@ namespace BlackWing
                         fourtlseen = false;
                         sixtlseen = true;
                         SixteenLevelLoad();
+                        Tstl();
                     }
                 }
                 else if (fiftlseen == true)
@@ -863,6 +972,7 @@ namespace BlackWing
                         fiftlseen = false;
                         sevtlseen = true;
                         SeventeenLevelLoad();
+                        Tsetl();
                     }
 
                 }
@@ -877,6 +987,7 @@ namespace BlackWing
                         sixtlseen = false;
                         sevtlseen = true;
                         SeventeenLevelLoad();
+                        Tsetl();
                     }
                 }
                 else if (sevtlseen == true)
@@ -1435,10 +1546,10 @@ namespace BlackWing
         {
             healthlist.Clear();
             rangelist.Clear();
-            stronglist.Add(new EnemyStrong(Content.Load<Texture2D>("Enemystrong"), new Vector2(300, 300)));
+          //stronglist.Add(new EnemyStrong(Content.Load<Texture2D>("Enemystrong"), new Vector2(300, 300)));
             healthlist.Add(new PowerUps(Content.Load<Texture2D>("Powerup"), new Vector2(20, 73)));
-            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(320, 395), Content.Load<Texture2D>("Bullet"), 50, 50));
-            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(20, 320), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(330, 395), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(20, 322), Content.Load<Texture2D>("Bullet"), 50, 50));
             rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(750, 430), Content.Load<Texture2D>("Bullet"), 50, 50));
         }
         public void Tsl()
@@ -1505,10 +1616,52 @@ namespace BlackWing
         {
             healthlist.Clear();
             rangelist.Clear();
-            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(760, 523), Content.Load<Texture2D>("Bullet"), 50, 50));
-            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(330, 403), Content.Load<Texture2D>("Bullet"), 50, 50));
-            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(760, 223), Content.Load<Texture2D>("Bullet"), 50, 50));
-            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(320, 65), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(820, 470), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(835, 335), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(10, 210), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(190, 105), Content.Load<Texture2D>("Bullet"), 50, 50));
+        }
+        public void Tthl()
+        {
+            healthlist.Clear();
+            rangelist.Clear();
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(395, 375), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(895, 288), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(765, 288), Content.Load<Texture2D>("Bullet"), 50, 50));
+        }
+        public void Tftl()
+        {
+            healthlist.Clear();
+            rangelist.Clear();
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(200, 50), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(155, 243), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(875, 343), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(405, 266), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(625, 172), Content.Load<Texture2D>("Bullet"), 50, 50));
+        }
+        public void Tfil()
+        {
+            healthlist.Clear();
+            rangelist.Clear();
+        }
+
+        public void Tstl()
+        {
+            healthlist.Clear();
+            rangelist.Clear();
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(590, 202), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(305, 295), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(845, 349), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(875, 183), Content.Load<Texture2D>("Bullet"), 50, 50));
+        }
+        public void Tsetl()
+        {
+            healthlist.Clear();
+            rangelist.Clear();
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(10, 177), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(845, 60), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(845, 239), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(845, 413), Content.Load<Texture2D>("Bullet"), 50, 50));
         }
         public void gameoverload()
         {

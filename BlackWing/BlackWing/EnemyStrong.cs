@@ -56,7 +56,7 @@ namespace BlackWing
             {
                 newcharacter.health--;
             }
-         /*   if (newcharacter.BlackWingbox.X > strongbox.X)
+         /* if (newcharacter.BlackWingbox.X > strongbox.X)
             {
                 for (int i = 0; i < 3; i--)
                 strongbox.X--;
