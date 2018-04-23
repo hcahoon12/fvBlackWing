@@ -320,6 +320,118 @@ namespace BlackWing
                 }
                 if (titlescreenseen == true)
                 {
+                    if (keyState.IsKeyDown(Keys.D1))
+                    {
+                        titlescreenseen = false;
+                        Flseen = true;
+                        FirstLevelLoad();
+                        Ofl();
+                    }
+                    if (keyState.IsKeyDown(Keys.D2))
+                    {
+                        titlescreenseen = false;
+                        Slseen = true;
+                        SecondLevelLoad();
+                        Osl();
+                    }
+                    if (keyState.IsKeyDown(Keys.D3))
+                    {
+                        titlescreenseen = false;
+                        Tlseen = true;
+                        ThirdLevelLoad();
+                        Otl();
+                    }
+                    if (keyState.IsKeyDown(Keys.D4))
+                    {
+                        titlescreenseen = false;
+                        fiftlseen = true;
+                        FithLevelLoad();
+                        Ofol();
+                    }
+                    if (keyState.IsKeyDown(Keys.D5))
+                    {
+                        titlescreenseen = false;
+                        sixlseen = true;
+                        SixLevelLoad();
+                        Osil();
+                    }
+                    if (keyState.IsKeyDown(Keys.D6))
+                    {
+                        titlescreenseen = false;
+                        sevlseen = true;
+                        SevenLevelLoad();
+                        Osel();
+                    }
+                    if (keyState.IsKeyDown(Keys.D7))
+                    {
+                        titlescreenseen = false;
+                        elseen = true;
+                        EightLevelLoad();
+                        Oel();
+                    }
+                    if (keyState.IsKeyDown(Keys.D8))
+                    {
+                        titlescreenseen = false;
+                        nlseen = true;
+                        NineLevelLoad();
+                        Onl();
+                    }
+                    if (keyState.IsKeyDown(Keys.D9))
+                    {
+                        titlescreenseen = false;
+                        tenlseen = true;
+                        TenLevelLoad();
+                        Otenl();
+                    }
+                    if (keyState.IsKeyDown(Keys.D0))
+                    {
+                        titlescreenseen = false;
+                        elelseen = true;
+                        ElevenLevelLoad();
+                        Oelel();
+                    }
+                    if (keyState.IsKeyDown(Keys.NumPad7))
+                    {
+                        titlescreenseen = false;
+                        twelseen = true;
+                        TwelveLevelLoad();
+                        Otwl();
+                    }
+                    if (keyState.IsKeyDown(Keys.NumPad8))
+                    {
+                        titlescreenseen = false;
+                        thirtlseen = true;
+                        ThirteenLevelLoad();
+                        Othl();
+                    }
+                    if (keyState.IsKeyDown(Keys.NumPad9))
+                    {
+                        titlescreenseen = false;
+                        fourtlseen = true;
+                        FourteenLevelLoad();
+                        Oftl();
+                    }
+                    if (keyState.IsKeyDown(Keys.NumPad4))
+                    {
+                        titlescreenseen = false;
+                        fiftlseen = true;
+                        FithteenLevelLoad();
+                        Ofil();
+                    }
+                    if (keyState.IsKeyDown(Keys.NumPad5))
+                    {
+                        titlescreenseen = false;
+                        sixtlseen = true;
+                        SixteenLevelLoad();
+                        Ostl();
+                    }
+                    if (keyState.IsKeyDown(Keys.NumPad6))
+                    {
+                        titlescreenseen = false;
+                        sevtlseen = true;
+                        SeventeenLevelLoad();
+                        Osetl();
+                    }
                     if (blackWing.BlackWingbox.X >= 960)
                     {
                         blackWing.BlackWingbox.X = 0;
@@ -340,30 +452,32 @@ namespace BlackWing
                         Flseen = false;
                         Tlseen = true;
                         ThirdLevelLoad();
-                        Osl();
+                        Otl();
                     }
-                    if (blackWing.BlackWingbox.Y <= 0)
+                    if (blackWing.BlackWingbox.Y <= 0 && rangelist.Count == 0)
                     {
                         blackWing.BlackWingbox.X = 0;
                         blackWing.BlackWingbox.Y = 520;
                         Flseen = false;
                         Slseen = true;
                         SecondLevelLoad();
+                        Osl();
                     }
-                    if (blackWing.BlackWingbox.X > 180 && blackWing.BlackWingbox.X < 730 && blackWing.BlackWingbox.Y > 490)
+                    if (blackWing.BlackWingbox.X > 180 && blackWing.BlackWingbox.X < 730 && blackWing.BlackWingbox.Y > 490 && rangelist.Count == 0)
                     {
                         blackWing.health--;
                     }
                 }
                 else if (Slseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900)
+                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0)
                     {
                         blackWing.BlackWingbox.X = 0;
                         blackWing.BlackWingbox.Y = 520;
                         Slseen = false;
                         sevlseen = true;
                         SevenLevelLoad();
+                        Osel();
                     }
                 }
                 else if (Tlseen == true)
@@ -372,11 +486,12 @@ namespace BlackWing
                     {
                         blackWing.health = 0;
                     }
-                    if (blackWing.BlackWingbox.X > 320 && blackWing.BlackWingbox.X < 450 && keyState.IsKeyDown(Keys.Down))
+                    if (blackWing.BlackWingbox.X > 320 && blackWing.BlackWingbox.X < 450 && keyState.IsKeyDown(Keys.Down) && rangelist.Count == 0)
                     {
                         Tlseen = false;
                         Filseen = true;
                         FithLevelLoad();
+                        Ofil();
                         blackWing.BlackWingbox.X = 0;
                         blackWing.BlackWingbox.Y = 520;
                     }
@@ -384,40 +499,43 @@ namespace BlackWing
 
                 else if (Filseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900)
+                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0)
                     {
                         blackWing.BlackWingbox.X = 0;
                         blackWing.BlackWingbox.Y = 520;
                         Filseen = false;
                         sixlseen = true;
                         SixLevelLoad();
+                        Osil();
                     }
                 }
                 else if (sixlseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900)
+                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0)
                     {
                         blackWing.BlackWingbox.X = 0;
                         blackWing.BlackWingbox.Y = 520;
                         sixlseen = false;
                         nlseen = true;
                         NineLevelLoad();
+                        Onl();
                     }
                 }
                 else if (sevlseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900)
+                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0)
                     {
                         blackWing.BlackWingbox.X = 0;
                         blackWing.BlackWingbox.Y = 520;
                         sevlseen = false;
                         elseen = true;
                         EightLevelLoad();
+                        Oel();
                     }
                 }
                 else if (elseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900)
+                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0)
                     {
                         //cutscene would be dope
                         blackWing.BlackWingbox.X = 0;
@@ -425,125 +543,137 @@ namespace BlackWing
                         elelseen = false;
                         sevlseen = true;
                         SevenLevelLoad();
+                        Osl();
                     }
-                    if (blackWing.BlackWingbox.X > 800 && blackWing.BlackWingbox.X < 850 && keyState.IsKeyDown(Keys.Down))
+                    if (blackWing.BlackWingbox.X > 800 && blackWing.BlackWingbox.X < 850 && keyState.IsKeyDown(Keys.Down) && rangelist.Count == 0)
                     {
                         blackWing.BlackWingbox.X = 0;
                         blackWing.BlackWingbox.Y = 520;
                         elseen = false;
                         nlseen = true;
                         NineLevelLoad();
+                        Onl();
                     }
                 }
                 else if (nlseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900)
+                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0)
                     {
                         blackWing.BlackWingbox.X = 0;
                         blackWing.BlackWingbox.Y = 520;
                         tenlseen = true;
                         nlseen = false;
                         TenLevelLoad();
+                        Otenl();
 
                     }
                 }
                 else if (tenlseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900)
+                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0)
                     {
                         blackWing.BlackWingbox.X = 0;
                         blackWing.BlackWingbox.Y = 520;
                         tenlseen = false;
                         elelseen = true;
                         ElevenLevelLoad();
+                        Oelel();
                     }
                 }
                 else if (elelseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900)
+                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0)
                     {
                         blackWing.BlackWingbox.X = 0;
                         blackWing.BlackWingbox.Y = 520;
                         elelseen = false;
                         twelseen = true;
                         TwelveLevelLoad();
+                        Otwl();
                     }
                 }
                 else if (twelseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900)
+                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0)
                     {
                         blackWing.BlackWingbox.X = 0;
                         blackWing.BlackWingbox.Y = 520;
                         twelseen = false;
                         fourtlseen = true;
                         FourteenLevelLoad();
+                        Oftl();
                     }
-                    if (blackWing.BlackWingbox.Y <= 0)
+                    if (blackWing.BlackWingbox.Y <= 0 && rangelist.Count == 0)
                     {
                         blackWing.BlackWingbox.X = 0;
                         blackWing.BlackWingbox.Y = 520;
                         twelseen = false;
                         thirtlseen = true;
                         ThirteenLevelLoad();
+                        Othl();
                     }
                 }
                 else if (thirtlseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900)
+                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0)
                     {
                         blackWing.BlackWingbox.X = 0;
                         blackWing.BlackWingbox.Y = 520;
                         thirtlseen = false;
                         fourtlseen = true;
                         FourteenLevelLoad();
+                        Oftl();
                     }
                 }
                 else if (fourtlseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 && blackWing.BlackWingbox.Y < 400)
+                    if (blackWing.BlackWingbox.X >= 900 && blackWing.BlackWingbox.Y < 400 && rangelist.Count == 0)
                     {
                         blackWing.BlackWingbox.X = 0;
                         blackWing.BlackWingbox.Y = 520;
                         fourtlseen = false;
                         fiftlseen = true;
                         FithteenLevelLoad();
+                        Ofil();
                     }
-                    if (blackWing.BlackWingbox.X >= 900 && blackWing.BlackWingbox.Y > 400)
+                    if (blackWing.BlackWingbox.X >= 900 && blackWing.BlackWingbox.Y > 400 && rangelist.Count == 0)
                     {
                         blackWing.BlackWingbox.X = 0;
                         blackWing.BlackWingbox.Y = 520;
                         fourtlseen = false;
                         sixtlseen = true;
                         SixteenLevelLoad();
+                        Ostl();
                     }
                 }
                 else if (fiftlseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900)
+                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0)
                     {
                         blackWing.BlackWingbox.X = 0;
                         blackWing.BlackWingbox.Y = 520;
                         fiftlseen = false;
                         sevtlseen = true;
                         SeventeenLevelLoad();
+                        Osetl();
                     }
 
                 }
                 else if (sixtlseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900)
+                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0)
                     {
                         blackWing.BlackWingbox.X = 0;
                         blackWing.BlackWingbox.Y = 520;
                         sixtlseen = false;
                         sevtlseen = true;
                         SeventeenLevelLoad();
+                        Osetl();
                     }
                 }
                 else if (sevtlseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900)
+                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0)
                     {
                         blackWing.BlackWingbox.X = 0;
                         blackWing.BlackWingbox.Y = 520;
@@ -1163,7 +1293,7 @@ namespace BlackWing
                 {
                     spriteBatch.Draw(ELtexture, new Rectangle(0, 0, 960, 600), Color.White);
                  
-                    spriteBatch.DrawString(Ariel12, "Time to go back DOWN to Earth", new Vector2(0, 550), Color.Black);
+                    spriteBatch.DrawString(Ariel12, "Time to go back DOWN to Earth", new Vector2(0, 570), Color.Black);
                 }
                 else if (nlseen == true)
                 {
@@ -1262,7 +1392,7 @@ namespace BlackWing
                 else if (Tlseen == true)
                 {
                     spriteBatch.Draw(TLtexture, new Rectangle(0, 0, 960, 600), Color.White);
-                    spriteBatch.DrawString(Ariel12, "Pretend a dog named cave is on you what would you say?", new Vector2(0, 550), Color.Black);
+                    spriteBatch.DrawString(Ariel12, "Pretend a dog named cave is on you what would you say?", new Vector2(0, 570), Color.Black);
                 }
                 else if (Filseen == true)
                 {
@@ -1527,26 +1657,128 @@ namespace BlackWing
             Lines.Add(new Line(Content.Load<Texture2D>("White"), new Vector2(3, 245), 75, 3, Color.White));
         }
         //o means one player and the fl is first level
+      
         public void Ofl()
         {
             healthlist.Clear();
             rangelist.Clear();
+           // stronglist.Add(new EnemyStrong(Content.Load<Texture2D>("Enemystrong"), new Vector2(300, 300)));
             healthlist.Add(new PowerUps(Content.Load<Texture2D>("Powerup"), new Vector2(20, 73)));
-            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(320, 395), Content.Load<Texture2D>("Bullet"), 50, 50));
-            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(20, 320), Content.Load<Texture2D>("Bullet"), 50, 50));
-            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(750, 430), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(330, 395), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(20, 322), Content.Load<Texture2D>("Bullet"), 50, 50));
         }
         public void Osl()
         {
             healthlist.Clear();
             rangelist.Clear();
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(100, 83), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(750, 260), Content.Load<Texture2D>("Bullet"), 50, 50));
         }
+        public void Otl()
+        {
+            healthlist.Clear();
+            rangelist.Clear();
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(850, 347), Content.Load<Texture2D>("Bullet"), 50, 50));
+        }
+        public void Ofol()
+        {
+            healthlist.Clear();
+            rangelist.Clear();
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(740, 462), Content.Load<Texture2D>("Bullet"), 50, 50));
+        }
+        public void Osil()
+        {
+            healthlist.Clear();
+            rangelist.Clear();
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(690, 410), Content.Load<Texture2D>("Bullet"), 50, 50));
+        }
+        public void Osel()
+        {
+            healthlist.Clear();
+            rangelist.Clear();
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(690, 312), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(210, 338), Content.Load<Texture2D>("Bullet"), 50, 50));
+        }
+        public void Oel()
+        {
+            healthlist.Clear();
+            rangelist.Clear();
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(500, 425), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(270, 360), Content.Load<Texture2D>("Bullet"), 50, 50));
+        }
+        public void Onl()
+        {
+            healthlist.Clear();
+            rangelist.Clear();
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(590, 443), Content.Load<Texture2D>("Bullet"), 50, 50));
+        }
+        public void Otenl()
+        {
+            healthlist.Clear();
+            rangelist.Clear();
+        }
+        public void Oelel()
+        {
+            healthlist.Clear();
+            rangelist.Clear();
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(760, 523), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(760, 223), Content.Load<Texture2D>("Bullet"), 50, 50));
+           
+        }
+        public void Otwl()
+        {
+            healthlist.Clear();
+            rangelist.Clear();
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(820, 470), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(10, 210), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(190, 105), Content.Load<Texture2D>("Bullet"), 50, 50));
+        }
+        public void Othl()
+        {
+            healthlist.Clear();
+            rangelist.Clear();
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(395, 375), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(765, 288), Content.Load<Texture2D>("Bullet"), 50, 50));
+        }
+        public void Oftl()
+        {
+            healthlist.Clear();
+            rangelist.Clear();
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(155, 243), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(875, 343), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(405, 266), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(625, 172), Content.Load<Texture2D>("Bullet"), 50, 50));
+        }
+        public void Ofil()
+        {
+            healthlist.Clear();
+            rangelist.Clear();
+        }
+
+        public void Ostl()
+        {
+            healthlist.Clear();
+            rangelist.Clear();
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(590, 202), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(305, 292), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(875, 180), Content.Load<Texture2D>("Bullet"), 50, 50));
+        }
+        public void Osetl()
+        {
+            healthlist.Clear();
+            rangelist.Clear();
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(10, 177), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(845, 60), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(845, 239), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(845, 413), Content.Load<Texture2D>("Bullet"), 50, 50));
+        }
+     
         //T means two player 
         public void Tfl()
         {
             healthlist.Clear();
             rangelist.Clear();
-          //stronglist.Add(new EnemyStrong(Content.Load<Texture2D>("Enemystrong"), new Vector2(300, 300)));
+            stronglist.Add(new EnemyStrong(Content.Load<Texture2D>("Enemystrong"), new Vector2(300, 300)));
             healthlist.Add(new PowerUps(Content.Load<Texture2D>("Powerup"), new Vector2(20, 73)));
             rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(330, 395), Content.Load<Texture2D>("Bullet"), 50, 50));
             rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(20, 322), Content.Load<Texture2D>("Bullet"), 50, 50));
@@ -1650,9 +1882,9 @@ namespace BlackWing
             healthlist.Clear();
             rangelist.Clear();
             rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(590, 202), Content.Load<Texture2D>("Bullet"), 50, 50));
-            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(305, 295), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(305, 292), Content.Load<Texture2D>("Bullet"), 50, 50));
             rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(845, 349), Content.Load<Texture2D>("Bullet"), 50, 50));
-            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(875, 183), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(875, 180), Content.Load<Texture2D>("Bullet"), 50, 50));
         }
         public void Tsetl()
         {
