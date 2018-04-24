@@ -146,7 +146,7 @@ namespace BlackWing
             fifttexture = Content.Load<Texture2D>("bunkerlvl");
             sixttexture = Content.Load<Texture2D>("grass");
             sevttexture = Content.Load<Texture2D>("Final Level");
-            gotexture = Content.Load<Texture2D>("GameOver");
+            gotexture = Content.Load<Texture2D>("SOM");
             Ariel12 = Content.Load<SpriteFont>("file");
 
             blackWing.LoadContent(Content,"blackwing","blackwing2","starrrr");
@@ -1166,6 +1166,8 @@ namespace BlackWing
                 }
                 if(newcharacter.health <= 0 && blackWing.health <= 0)
                 {
+                    Flseen = false;
+
                     goseen = true;
                     gameoverload();
                 }
@@ -1334,7 +1336,8 @@ namespace BlackWing
                     spriteBatch.Draw(sevttexture, new Rectangle(0, 0, 960, 600), Color.White);
                     spriteBatch.DrawString(Ariel12, "Yup thats game over", new Vector2(0, 570), Color.Black);
                 }
-               if (goseen == true)
+
+                else if (goseen == true)
                 {
                     spriteBatch.Draw(gotexture, new Rectangle(0, 0, 960, 600), Color.Black);
                     spriteBatch.DrawString(Ariel12, "git good scrub", new Vector2(0, 570), Color.Black);
@@ -1783,6 +1786,8 @@ namespace BlackWing
             rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(330, 395), Content.Load<Texture2D>("Bullet"), 50, 50));
             rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(20, 322), Content.Load<Texture2D>("Bullet"), 50, 50));
             rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(750, 430), Content.Load<Texture2D>("Bullet"), 50, 50));
+          
+           
         }
         public void Tsl()
         {

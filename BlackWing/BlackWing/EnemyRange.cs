@@ -21,6 +21,8 @@ namespace BlackWing
         Texture2D BulletTexture;
         public int direction;
         public bool isVisible;
+        SpriteEffects Effect;
+
         public EnemyRange(Texture2D newTexture , Vector2 newPos, Texture2D newBulletTexture,int Width , int Height)
         {
             bulletlist = new List<Bullet>();
@@ -32,6 +34,7 @@ namespace BlackWing
             speed = 5;
             isVisible = true;        
             direction = -1;
+            Effect = SpriteEffects.None;
         }
   
         public void Update(BlackWing blackwing,BlackWing newcharacter, List<Line>Lines)
@@ -40,11 +43,12 @@ namespace BlackWing
             if(newcharacter.BlackWingbox.X > Rangebox.X || blackwing.BlackWingbox.X > Rangebox.X)
             {
                 direction = 1;
+                Effect = SpriteEffects.FlipHorizontally;
             }
             else if(newcharacter.BlackWingbox.X < Rangebox.X || blackwing.BlackWingbox.X < Rangebox.X)
             {
                 direction = -1;
-               
+                Effect = SpriteEffects.None;
             }
             //collision
             Rangebox = new Rectangle((int)Rangepos.X, (int)Rangepos.Y, 70, 70);
@@ -54,6 +58,8 @@ namespace BlackWing
                 EnemyShoot();
             }
             UpdateBullets(Lines);
+            //flip
+
         }
         public void UpdateBullets(List<Line> Lines)
         {
@@ -89,7 +95,7 @@ namespace BlackWing
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(RangeTexture, Rangebox, Color.White);
+            spriteBatch.Draw(RangeTexture, Rangebox, null, Color.White, 0f, new Vector2(), Effect, 0f);
             foreach (Bullet b in bulletlist)
             {
                 b.Draw(spriteBatch);
