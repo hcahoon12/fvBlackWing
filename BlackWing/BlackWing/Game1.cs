@@ -146,13 +146,12 @@ namespace BlackWing
             fifttexture = Content.Load<Texture2D>("bunkerlvl");
             sixttexture = Content.Load<Texture2D>("grass");
             sevttexture = Content.Load<Texture2D>("Final Level");
-            gotexture = Content.Load<Texture2D>("SOM");
+            //gotexture = Content.Load<Texture2D>("SOM");
             Ariel12 = Content.Load<SpriteFont>("file");
 
             blackWing.LoadContent(Content,"blackwing","blackwing2","starrrr");
             newcharacter.LoadContent(Content, "aquatowa", "aquatowa2", "fireball");
            
-
         }
 
         protected override void UnloadContent()
@@ -1747,10 +1746,10 @@ namespace BlackWing
         {
             healthlist.Clear();
             rangelist.Clear();
-            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(155, 243), Content.Load<Texture2D>("Bullet"), 50, 50));
-            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(875, 343), Content.Load<Texture2D>("Bullet"), 50, 50));
-            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(405, 266), Content.Load<Texture2D>("Bullet"), 50, 50));
-            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(625, 172), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("nazisdlr"), new Vector2(155, 243), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("nazisdlr"), new Vector2(875, 343), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("nazisdlr"), new Vector2(405, 266), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("nazisdlr"), new Vector2(625, 172), Content.Load<Texture2D>("Bullet"), 50, 50));
         }
         public void Ofil()
         {
@@ -1762,18 +1761,18 @@ namespace BlackWing
         {
             healthlist.Clear();
             rangelist.Clear();
-            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(590, 202), Content.Load<Texture2D>("Bullet"), 50, 50));
-            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(305, 292), Content.Load<Texture2D>("Bullet"), 50, 50));
-            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(875, 180), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("nazisdlr"), new Vector2(590, 202), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("nazisdlr"), new Vector2(305, 292), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("nazisdlr"), new Vector2(875, 180), Content.Load<Texture2D>("Bullet"), 50, 50));
         }
         public void Osetl()
         {
             healthlist.Clear();
             rangelist.Clear();
-            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(10, 177), Content.Load<Texture2D>("Bullet"), 50, 50));
-            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(845, 60), Content.Load<Texture2D>("Bullet"), 50, 50));
-            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(845, 239), Content.Load<Texture2D>("Bullet"), 50, 50));
-            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(845, 413), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("nazisdlr"), new Vector2(10, 177), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("nazisdlr"), new Vector2(845, 60), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("nazisdlr"), new Vector2(845, 239), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("nazisdlr"), new Vector2(845, 413), Content.Load<Texture2D>("Bullet"), 50, 50));
         }
      
         //T means two player 
@@ -1870,11 +1869,11 @@ namespace BlackWing
         {
             healthlist.Clear();
             rangelist.Clear();
-            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(200, 50), Content.Load<Texture2D>("Bullet"), 50, 50));
-            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(155, 243), Content.Load<Texture2D>("Bullet"), 50, 50));
-            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(875, 343), Content.Load<Texture2D>("Bullet"), 50, 50));
-            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(405, 266), Content.Load<Texture2D>("Bullet"), 50, 50));
-            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(625, 172), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("nazisdlr"), new Vector2(200, 50), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("nazisdlr"), new Vector2(155, 243), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("nazisdlr"), new Vector2(875, 343), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("nazisdlr"), new Vector2(405, 266), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("nazisdlr"), new Vector2(625, 172), Content.Load<Texture2D>("Bullet"), 50, 50));
         }
         public void Tfil()
         {
@@ -1886,19 +1885,19 @@ namespace BlackWing
         {
             healthlist.Clear();
             rangelist.Clear();
-            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(590, 202), Content.Load<Texture2D>("Bullet"), 50, 50));
-            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(305, 292), Content.Load<Texture2D>("Bullet"), 50, 50));
-            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(845, 349), Content.Load<Texture2D>("Bullet"), 50, 50));
-            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(875, 180), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("nazisdlr"), new Vector2(590, 202), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("nazisdlr"), new Vector2(305, 292), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("nazisdlr"), new Vector2(845, 349), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("nazisdlr"), new Vector2(875, 180), Content.Load<Texture2D>("Bullet"), 50, 50));
         }
         public void Tsetl()
         {
             healthlist.Clear();
             rangelist.Clear();
-            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(10, 177), Content.Load<Texture2D>("Bullet"), 50, 50));
-            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(845, 60), Content.Load<Texture2D>("Bullet"), 50, 50));
-            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(845, 239), Content.Load<Texture2D>("Bullet"), 50, 50));
-            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(845, 413), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("nazisdlr"), new Vector2(10, 177), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("nazisdlr"), new Vector2(845, 60), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("nazisdlr"), new Vector2(845, 239), Content.Load<Texture2D>("Bullet"), 50, 50));
+            rangelist.Add(new EnemyRange(Content.Load<Texture2D>("nazisdlr"), new Vector2(845, 413), Content.Load<Texture2D>("Bullet"), 50, 50));
         }
         public void gameoverload()
         {

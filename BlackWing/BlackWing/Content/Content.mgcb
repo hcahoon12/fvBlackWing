@@ -392,7 +392,7 @@
 /processorParam:TextureFormat=Color
 /build:nasalvl2.png
 
-#begin nazisldr.png
+#begin nazisdlr.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -402,7 +402,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:nazisldr.png
+/build:nazisdlr.png
 
 #begin Powerup.png
 /importer:TextureImporter
