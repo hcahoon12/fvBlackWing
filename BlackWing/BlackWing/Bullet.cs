@@ -28,17 +28,16 @@ namespace BlackWing
             if (direction < 0)
             {
                 xOffset = 0;
-                yOffset = 10;
+                yOffset = 30;
                 //left
             }
             else
             {
-                xOffset = 60;
-                yOffset = 10;
+                xOffset = 45;
+                yOffset = 30;
                 //right
             }
             boundingbox = new Rectangle(X + xOffset, Y + yOffset, 12, 12);
-            //boundingbox = new Rectangle((int)position.X, (int)position.Y, texture.Width, texture.Height);
             isVisible = true;
         }
         public void Update(List<Line> Lines)

@@ -10,20 +10,44 @@ using Microsoft.Xna.Framework.Content;
 
 namespace BlackWing
 {
-    class Enemy
+   public class Enemy
     {
         public Rectangle hitbox;
         bool collide;
-        Vector2 velocity;
+        private Vector2 velocity;
         int left;
+        public int health;
         public Enemy()
         {
             left = hitbox.Left;
         }
-        public void Update(KeyboardState keyState, List<Line> Lines)
+        public virtual void Update(BlackWing blackwing, BlackWing newcharacter, List<Line> Lines)
         {
-
-            for (int i = 0; i < Math.Abs(velocity.Y); i++)
+            for (int i = 0; i < blackwing.starlist.Count; i++)
+            {
+                if (blackwing.starlist[i].starbox.Intersects(hitbox))
+                {
+                    blackwing.starlist[i].isvisible = false;
+                    health--;
+                }
+            }
+            for (int i = 0; i < newcharacter.starlist.Count; i++)
+            {
+                if (newcharacter.starlist[i].starbox.Intersects(hitbox))
+                {
+                    newcharacter.starlist[i].isvisible = false;
+                    health--;
+                }
+            }
+            if (blackwing.BlackWingbox.Intersects(hitbox))
+            {
+                blackwing.health--;
+            }
+            if (newcharacter.BlackWingbox.Intersects(hitbox))
+            {
+                newcharacter.health--;
+            }
+                for (int i = 0; i < Math.Abs(velocity.Y); i++)
             {
                 collide = false;
                 if (velocity.Y >= 0)
@@ -65,9 +89,9 @@ namespace BlackWing
             {
                 hitbox.X = 0;
             }
-            if (hitbox.Y >= 600)
+            if (hitbox.Y >= 540)
             {
-                hitbox.Y = 600;
+                hitbox.Y = 540;
             }
             if (hitbox.Y <= 0)
             {

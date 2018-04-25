@@ -146,7 +146,7 @@ namespace BlackWing
             fifttexture = Content.Load<Texture2D>("bunkerlvl");
             sixttexture = Content.Load<Texture2D>("grass");
             sevttexture = Content.Load<Texture2D>("Final Level");
-            //gotexture = Content.Load<Texture2D>("SOM");
+            gotexture = Content.Load<Texture2D>("SOM");
             Ariel12 = Content.Load<SpriteFont>("file");
 
             blackWing.LoadContent(Content,"blackwing","blackwing2","starrrr");
@@ -224,7 +224,7 @@ namespace BlackWing
                 //player to enemy
                 for (int i = 0; i < blackWing.starlist.Count; i++)
                 {
-                    if (blackWing.starlist[i].starbox.Intersects(e.Rangebox))
+                    if (blackWing.starlist[i].starbox.Intersects(e.hitbox))
                     { 
                         blackWing.starlist[i].isvisible = false;
                         e.isVisible = false;
@@ -232,19 +232,19 @@ namespace BlackWing
                 }
                 for (int i = 0; i < newcharacter.starlist.Count; i++)
                 {
-                    if (newcharacter.starlist[i].starbox.Intersects(e.Rangebox))
+                    if (newcharacter.starlist[i].starbox.Intersects(e.hitbox))
                     {
                         newcharacter.starlist[i].isvisible = false;
                         e.isVisible = false;
                     }
                 }
                 //collison
-                if (e.Rangebox.Intersects(blackWing.BlackWingbox))
+                if (e.hitbox.Intersects(blackWing.BlackWingbox) && keyState.IsKeyDown(Keys.RightShift))
                 {
-                    blackWing.health--;
+                  
                     e.isVisible = false;
                 }
-                if (e.Rangebox.Intersects(newcharacter.BlackWingbox))
+                if (e.hitbox.Intersects(newcharacter.BlackWingbox))
                 {
                     newcharacter.health--;
                     e.isVisible = false;
@@ -462,7 +462,7 @@ namespace BlackWing
                         SecondLevelLoad();
                         Osl();
                     }
-                    if (blackWing.BlackWingbox.X > 180 && blackWing.BlackWingbox.X < 730 && blackWing.BlackWingbox.Y > 490 && rangelist.Count == 0)
+                    if (blackWing.BlackWingbox.X > 180 && blackWing.BlackWingbox.X < 730 && blackWing.BlackWingbox.Y > 490)
                     {
                         blackWing.health--;
                     }
@@ -680,7 +680,27 @@ namespace BlackWing
                 }
                 if (blackWing.health <= 0)
                 {
+                    
+                    Flseen = false;
+                    Tlseen = false;
+                    Slseen = false;
+                    Flseen = false;
+                    fiftlseen = false;
+                    sixlseen = false;
+                    sevlseen = false;
+                    elseen = false;
+                    nlseen = false;
+                    tenlseen = false;
+                    elelseen = false;
+                    twelseen = false;
+                    thirtlseen = false;
+                    fourtlseen = false;
+                    fiftlseen = false;
+                    sixtlseen = false;
+                    sevtlseen = false;
+
                     goseen = true;
+                    gameoverload();
                     if (keyState.IsKeyDown(Keys.Space))
                     {
                         blackWing.health = 5;
@@ -1166,6 +1186,22 @@ namespace BlackWing
                 if(newcharacter.health <= 0 && blackWing.health <= 0)
                 {
                     Flseen = false;
+                    Tlseen = false;
+                    Slseen = false;
+                    Flseen = false;
+                    fiftlseen = false;
+                    sixlseen = false;
+                    sevlseen = false;
+                    elseen = false;
+                    nlseen = false;
+                    tenlseen = false;
+                    elelseen = false;
+                    twelseen = false;
+                    thirtlseen = false;
+                    fourtlseen = false;
+                    fiftlseen = false;
+                    sixtlseen = false;
+                    sevtlseen = false;
 
                     goseen = true;
                     gameoverload();
@@ -1664,7 +1700,7 @@ namespace BlackWing
         {
             healthlist.Clear();
             rangelist.Clear();
-           // stronglist.Add(new EnemyStrong(Content.Load<Texture2D>("Enemystrong"), new Vector2(300, 300)));
+            stronglist.Add(new EnemyStrong(Content.Load<Texture2D>("Enemystrong"), new Vector2(300, 300)));
             healthlist.Add(new PowerUps(Content.Load<Texture2D>("Powerup"), new Vector2(20, 73)));
             rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(330, 395), Content.Load<Texture2D>("Bullet"), 50, 50));
             rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(20, 322), Content.Load<Texture2D>("Bullet"), 50, 50));
@@ -1780,7 +1816,7 @@ namespace BlackWing
         {
             healthlist.Clear();
             rangelist.Clear();
-            stronglist.Add(new EnemyStrong(Content.Load<Texture2D>("Enemystrong"), new Vector2(300, 300)));
+           // stronglist.Add(new EnemyStrong(Content.Load<Texture2D>("Enemystrong"), new Vector2(300, 300)));
             healthlist.Add(new PowerUps(Content.Load<Texture2D>("Powerup"), new Vector2(20, 73)));
             rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(330, 395), Content.Load<Texture2D>("Bullet"), 50, 50));
             rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(20, 322), Content.Load<Texture2D>("Bullet"), 50, 50));
