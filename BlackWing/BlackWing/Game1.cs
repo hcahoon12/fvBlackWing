@@ -51,7 +51,7 @@ namespace BlackWing
         bool twoplayer;
         //textures
         Texture2D HealthTexture;
-        Texture2D EmblemTexture;
+
         Texture2D titlescreentexture;
         Texture2D FLtexture;
       
@@ -128,8 +128,8 @@ namespace BlackWing
             //HealthTexture = Content.Load<Texture2D>("Health");
             selecttexture = Content.Load<Texture2D>("White");
             whitetexture = Content.Load<Texture2D>("Tutorial");
-            EmblemTexture = Content.Load<Texture2D>("Emblem");
-            titlescreentexture = Content.Load<Texture2D>("Heros War");
+          
+            titlescreentexture = Content.Load<Texture2D>("title screen");
             FLtexture = Content.Load<Texture2D>("startlvl");
             TLtexture = Content.Load<Texture2D>("Forest Level");
             FiLtexture = Content.Load<Texture2D>("Cave1");
@@ -221,34 +221,8 @@ namespace BlackWing
             foreach (EnemyRange e in rangelist)
             {
                 e.Update(blackWing, newcharacter, Lines);
-                //player to enemy
-                for (int i = 0; i < blackWing.starlist.Count; i++)
-                {
-                    if (blackWing.starlist[i].starbox.Intersects(e.hitbox))
-                    { 
-                        blackWing.starlist[i].isvisible = false;
-                        e.isVisible = false;
-                    }
-                }
-                for (int i = 0; i < newcharacter.starlist.Count; i++)
-                {
-                    if (newcharacter.starlist[i].starbox.Intersects(e.hitbox))
-                    {
-                        newcharacter.starlist[i].isvisible = false;
-                        e.isVisible = false;
-                    }
-                }
-                //collison
-                if (e.hitbox.Intersects(blackWing.BlackWingbox) && keyState.IsKeyDown(Keys.RightShift))
-                {
-                  
-                    e.isVisible = false;
-                }
-                if (e.hitbox.Intersects(newcharacter.BlackWingbox))
-                {
-                    newcharacter.health--;
-                    e.isVisible = false;
-                }
+               
+               
                 //check bullet collison 
                 for (int i = 0; i < e.bulletlist.Count; i++)
                 {
@@ -1151,7 +1125,7 @@ namespace BlackWing
                 }
                 if (blackWing.health <= 0)
                 {
-                  
+                    blackWing.BlackWingbox.X = -10000;
                     if (keyState.IsKeyDown(Keys.Space))
                     {
                         newcharacter.health = 5;
@@ -1168,7 +1142,7 @@ namespace BlackWing
                 }
                 if (newcharacter.health <= 0)
                 {
-                    
+                    newcharacter.BlackWingbox.X = -10000;
                     if (keyState.IsKeyDown(Keys.Space))
                     {
                         newcharacter.health = 5;
@@ -1295,7 +1269,6 @@ namespace BlackWing
               if (titlescreenseen == true)
                 {
                     spriteBatch.Draw(titlescreentexture, new Rectangle(0, 0, 960, 600), Color.White);
-                    spriteBatch.Draw(EmblemTexture, EmblemREC, Color.White);
                 }
                 else if (Flseen == true)
                 {
@@ -1415,7 +1388,6 @@ namespace BlackWing
                 if (titlescreenseen == true)
                 {
                     spriteBatch.Draw(titlescreentexture, new Rectangle(0, 0, 960, 600), Color.White);
-                    spriteBatch.Draw(EmblemTexture, EmblemREC, Color.White);
                 }
               else  if (Flseen == true)
                 {
@@ -1699,8 +1671,9 @@ namespace BlackWing
         public void Ofl()
         {
             healthlist.Clear();
+            stronglist.Clear();
             rangelist.Clear();
-            stronglist.Add(new EnemyStrong(Content.Load<Texture2D>("Enemystrong"), new Vector2(300, 300)));
+            //stronglist.Add(new EnemyStrong(Content.Load<Texture2D>("Enemystrong"), new Vector2(300, 300)));
             healthlist.Add(new PowerUps(Content.Load<Texture2D>("Powerup"), new Vector2(20, 73)));
             rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(330, 395), Content.Load<Texture2D>("Bullet"), 50, 50));
             rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(20, 322), Content.Load<Texture2D>("Bullet"), 50, 50));
@@ -1815,8 +1788,9 @@ namespace BlackWing
         public void Tfl()
         {
             healthlist.Clear();
+            stronglist.Clear();
             rangelist.Clear();
-           // stronglist.Add(new EnemyStrong(Content.Load<Texture2D>("Enemystrong"), new Vector2(300, 300)));
+            //stronglist.Add(new EnemyStrong(Content.Load<Texture2D>("Enemystrong"), new Vector2(300, 300)));
             healthlist.Add(new PowerUps(Content.Load<Texture2D>("Powerup"), new Vector2(20, 73)));
             rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(330, 395), Content.Load<Texture2D>("Bullet"), 50, 50));
             rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(20, 322), Content.Load<Texture2D>("Bullet"), 50, 50));

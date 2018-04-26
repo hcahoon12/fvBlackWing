@@ -61,7 +61,7 @@ namespace BlackWing
             iscoliding = false;
             this.speed = speed;
             position = new Vector2(300, 300);
-            stardelay = 3;
+            stardelay = 0;
             starlist = new List<Star>();
             maxhealth = Health;
             health = Health;
@@ -105,8 +105,9 @@ namespace BlackWing
             {
                 Shoot();
             }
-            UpdateStar(Lines);
           
+                UpdateStar(Lines);
+            
 
                 for (int i = 0; i < Math.Abs(velocity.Y); i++)
             {

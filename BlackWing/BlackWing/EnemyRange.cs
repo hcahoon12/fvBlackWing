@@ -17,7 +17,6 @@ namespace BlackWing
         public List<Bullet> bulletlist;
         public int health, speed, Bulletdelay;
         Texture2D BulletTexture;
-        public int direction;
         public bool isVisible;
         SpriteEffects Effect;
 
@@ -37,8 +36,32 @@ namespace BlackWing
   
         public override void Update(BlackWing blackwing,BlackWing newcharacter, List<Line>Lines)
         {
-         
-            if(newcharacter.BlackWingbox.X > hitbox.X || blackwing.BlackWingbox.X > hitbox.X)
+            for (int i = 0; i < blackwing.starlist.Count; i++)
+            {
+                if (blackwing.starlist[i].starbox.Intersects(hitbox))
+                {
+                    blackwing.starlist[i].isvisible = false;
+                    isVisible = false;
+                }
+            }
+            for (int i = 0; i < newcharacter.starlist.Count; i++)
+            {
+                if (newcharacter.starlist[i].starbox.Intersects(hitbox))
+                {
+                    newcharacter.starlist[i].isvisible = false;
+                    isVisible = false;
+                }
+            }
+            //collison
+            if (hitbox.Intersects(blackwing.BlackWingbox))
+            {
+                    isVisible = false;
+            }
+            if (hitbox.Intersects(newcharacter.BlackWingbox))
+            {
+                isVisible = false;
+            }
+            if (newcharacter.BlackWingbox.X > hitbox.X || blackwing.BlackWingbox.X > hitbox.X)
             {
                 direction = 1;
                 Effect = SpriteEffects.FlipHorizontally;
@@ -56,7 +79,7 @@ namespace BlackWing
                 EnemyShoot();
             }
             UpdateBullets(Lines);
-            //flip
+            base.Update(blackwing, newcharacter, Lines);
 
         }
         public void UpdateBullets(List<Line> Lines)
@@ -91,7 +114,7 @@ namespace BlackWing
                 Bulletdelay = 8;
             }
         }
-        public void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(RangeTexture, hitbox, null, Color.White, 0f, new Vector2(), Effect, 0f);
             foreach (Bullet b in bulletlist)

@@ -14,12 +14,15 @@ namespace BlackWing
     {
         public Rectangle hitbox;
         bool collide;
-        private Vector2 velocity;
-        int left;
+        public Vector2 velocity;
         public int health;
+        public int direction;
+        public int speed;
         public Enemy()
         {
-            left = hitbox.Left;
+            direction = -1;
+            velocity.X = 0;
+            velocity.Y = 0;
         }
         public virtual void Update(BlackWing blackwing, BlackWing newcharacter, List<Line> Lines)
         {
@@ -39,15 +42,7 @@ namespace BlackWing
                     health--;
                 }
             }
-            if (blackwing.BlackWingbox.Intersects(hitbox))
-            {
-                blackwing.health--;
-            }
-            if (newcharacter.BlackWingbox.Intersects(hitbox))
-            {
-                newcharacter.health--;
-            }
-                for (int i = 0; i < Math.Abs(velocity.Y); i++)
+            for (int i = 0; i < Math.Abs(velocity.Y); i++)
             {
                 collide = false;
                 if (velocity.Y >= 0)
@@ -58,29 +53,65 @@ namespace BlackWing
                 {
                     hitbox.Y--;
                 }
+
+                //downward collision
+                for (int l = 0; l < Lines.Count; l++)
+                {
+                    if (hitbox.Intersects(Lines[l].rectangle))
+                    {
+                       
+                        if (velocity.Y >= 0)
+                        {
+                            velocity.Y = 0;
+                            hitbox.Y--;
+                        }
+                     
+                            break;
+                    }
+                   
+
+                }
             }
-            for (int l = 0; l < Lines.Count; l++)
+            //left and right collision
+            for (int i = 0; i < Math.Abs(velocity.X); i++)
             {
-                if (hitbox.Intersects(Lines[l].rectangle))
+                collide = false;
+                if (velocity.X > 0)
                 {
-                    collide = true;
-                    break;
+                    hitbox.X++;
                 }
-                if (collide)
+                if (velocity.X < 0)
                 {
-                    if (velocity.Y >= 0)
-                    {
-                        velocity.Y = 0;
-                        hitbox.Y--;
-                    }
-                    else
-                    {
-                        velocity.Y = 0;
-                        hitbox.Y++;
-                    }
+                    hitbox.X--;
                 }
-              //left and right collision
+
+               
+                for (int l = 0; l < Lines.Count; l++)
+                {
+                    if (hitbox.Intersects(Lines[l].rectangle))
+                    {
+
+                        if (velocity.X > 0)
+                        {
+                            velocity.X = 0;
+                            hitbox.X--;
+                        }
+                        if(velocity.X < 0)
+                        {
+                            velocity.X = 0;
+                            hitbox.X++;
+                        }
+
+                        break;
+                    }
+
+
+                }
             }
+          
+       
+
+
             if (hitbox.X >= 810)
             {
                 hitbox.X = 810;
@@ -100,7 +131,7 @@ namespace BlackWing
             float K = 2.9f;
             velocity.Y += 0.17f * K;
         }
-        public void Draw(SpriteBatch spriteBatch)
+        public virtual void Draw(SpriteBatch spriteBatch)
         {
 
         }

@@ -14,42 +14,45 @@ namespace BlackWing
     {
         public Texture2D StrongTexture;
         public int StrongSpeed;
-        public int direction;
         public bool isVisible;
+        SpriteEffects Effect;
         public EnemyStrong(Texture2D newTexture, Vector2 newpos)
         {
+            Effect=SpriteEffects.None;
             health = 5;
             StrongTexture = newTexture;
             StrongSpeed = 3;
             direction = -1;
+            speed = 2;
             hitbox = new Rectangle((int)newpos.X, (int)newpos.Y, 70, 70);
             isVisible = true;
         }
         public override void Update(BlackWing blackwing, BlackWing newcharacter, List<Line> Lines)
         {
+           int guyToP1= Math.Abs(hitbox.X - blackwing.BlackWingbox.X);
 
-            
-            
-          if (newcharacter.BlackWingbox.X > hitbox.X)
+          if (newcharacter.BlackWingbox.X > hitbox.X )
             {
-                for (int i = 0; i < 3; i--)
-                hitbox.X--;
+                Effect = SpriteEffects.FlipHorizontally;
+                velocity.X =1;
                 direction = 1;
             }
-            if (newcharacter.BlackWingbox.X > hitbox.X)
+         else
             {
-                for (int i = 0; i < 3; i++)
-                    hitbox.X++;
+                Effect = SpriteEffects.None;
+                velocity.X = -1;
                 direction = -1;
             }
             if (blackwing.BlackWingbox.X > hitbox.X)
             {
-                hitbox.X++;
+                Effect = SpriteEffects.FlipHorizontally;
+                velocity.X = 1;
                 direction = 1;
             }
             else
             {
-                hitbox.X--;
+                Effect = SpriteEffects.None;
+                velocity.X = -1;
                 direction = -1;
 
             }
@@ -57,9 +60,10 @@ namespace BlackWing
             
             base.Update(blackwing,newcharacter,Lines);
         }
-        public void Draw(SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(StrongTexture, hitbox, Color.White);
+            spriteBatch.Draw(StrongTexture, hitbox, null, Color.White, 0f, new Vector2(), Effect, 0f);
+            base.Draw(spriteBatch);
         }
     }
 }
