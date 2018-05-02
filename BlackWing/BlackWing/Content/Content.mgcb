@@ -296,6 +296,18 @@
 /processorParam:TextureFormat=Color
 /build:Fireball2.png
 
+#begin FireSword.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:FireSword.png
+
 #begin Forest Level.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -487,6 +499,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:startlvl.png
+
+#begin Sword.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sword.png
 
 #begin title screen.png
 /importer:TextureImporter

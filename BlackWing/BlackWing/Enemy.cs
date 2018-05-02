@@ -112,17 +112,17 @@ namespace BlackWing
        
 
 
-            if (hitbox.X >= 810)
+            if (hitbox.X >= 890)
             {
-                hitbox.X = 810;
+                hitbox.X = 890;
             }
             if (hitbox.X <= 0)
             {
                 hitbox.X = 0;
             }
-            if (hitbox.Y >= 540)
+            if (hitbox.Y >= 520)
             {
-                hitbox.Y = 540;
+                hitbox.Y = 520;
             }
             if (hitbox.Y <= 0)
             {
@@ -130,6 +130,9 @@ namespace BlackWing
             }
             float K = 2.9f;
             velocity.Y += 0.17f * K;
+
+
+
         }
         public virtual void Draw(SpriteBatch spriteBatch)
         {

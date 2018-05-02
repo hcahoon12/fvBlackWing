@@ -16,7 +16,7 @@ namespace BlackWing
         //need list to be public
         public List<Star> starlist;
         public Vector2 position;
-        public Texture2D BlackWingTexture, startexture;
+        public Texture2D BlackWingTexture, startexture, swordTexture;
         public Texture2D AquaTexture;
         public Texture2D AquaTexture2;
         public Texture2D BlackWingTexture2;
@@ -28,34 +28,33 @@ namespace BlackWing
         Vector2 hposition;
         Texture2D HealthTexture;
         private int maxhealth;
-        
+        public List<Weapon> weaponlist;
         public float stardelay;
         public Rectangle Boundingbox;
         public bool iscoliding;
         ContentManager content;
-        int Direction;
+        public int Direction;
         bool blackwingright;
         bool blackwingleft;
         bool collide;
-        bool starcollide;
-        bool ismelee;
         Keys up;
         Keys right;
         Keys left;
         Keys shootbutton;
         Keys down;
-
-        public BlackWing(int speed, Vector2 newposition , int Health , Vector2 HPosition,Keys up,Keys right, Keys left, Keys shootbutton, Keys down)
+        Keys melee;
+        public float weapondelay;
+        
+        public BlackWing(int speed, Vector2 newposition , int Health , Vector2 HPosition,Keys up,Keys right, Keys left, Keys shootbutton, Keys down, Keys melee)
         {
             //melee
-
-            float MaxAttackTime = 0.33f;
-            float AttackTime;
+            
             this.right = right;
             this.left = left;
             this.up = up;
             this.down = down;
             this.shootbutton = shootbutton;
+            this.melee = melee;
             blackwingright = true;
             blackwingleft = false;
             iscoliding = false;
@@ -65,6 +64,7 @@ namespace BlackWing
             starlist = new List<Star>();
             maxhealth = Health;
             health = Health;
+            weapondelay = 0;
             hposition = HPosition;
             BlackWingbox = new Rectangle((int)newposition.X, (int)newposition.Y, 60, 60);
             jumped = true;
@@ -79,7 +79,7 @@ namespace BlackWing
         }
 
 
-        public  void LoadContent(ContentManager Content, string PTextureRight, string PTextureLeft, string shoottexture)
+        public  void LoadContent(ContentManager Content, string PTextureRight, string PTextureLeft, string shoottexture, string swordtexture)
         {
             BlackWingTexture = Content.Load<Texture2D>(PTextureRight);
             BlackWingTexture2 = Content.Load<Texture2D>(PTextureLeft);
@@ -87,19 +87,22 @@ namespace BlackWing
             AquaTexture2 = Content.Load<Texture2D>(PTextureLeft);
             HealthTexture = Content.Load<Texture2D>("RED");
             startexture = Content.Load<Texture2D>(shoottexture);
+            swordTexture = Content.Load<Texture2D>(swordtexture);
+
             content = Content;
         }
 
         public void Update(KeyboardState keyState, List<Line> Lines)
-        {
-       // public void Attack()
+        
         { 
             //Melee
-            if ((keyState.IsKeyDown(Keys.RightShift)))
+            if ((keyState.IsKeyDown(melee)))
                 {
-
+                    
+                    Attack();
+                
                 }
-        }
+        
             //shoot
             if ((keyState.IsKeyDown(shootbutton)))
             {
@@ -271,8 +274,31 @@ namespace BlackWing
                 }
             }
         }
+        public void Attack()
+        {
+            
+            if (weapondelay >= 0)
+            {
+                weapondelay--;
+            }
+            if (weapondelay <= 0)
+            {
+                Weapon newWeapon = new Weapon(swordTexture, BlackWingbox.X, BlackWingbox.Y, Direction);
+                //add to list
+                /*   if (weaponlist.Count() < 1)
+                   {
+                       weaponlist.Add(newWeapon);
+                   }
+                   */
+            }
 
-      
+            // reset delay
+            if (weapondelay == 0)
+            {
+                weapondelay = 6;
+            }
+        }
+
         public void Draw(SpriteBatch spriteBatch)
         {
             if (blackwingright == true)
@@ -293,6 +319,10 @@ namespace BlackWing
             {
                 if (health > 0)
                 {
+                  /*  foreach(Weapon W in weaponlist)
+                    {
+                        W.Draw(spriteBatch);
+                    }*/
                     foreach (Star S in starlist)
                         S.Draw(spriteBatch);
                     spriteBatch.Draw(BlackWingTexture2, new Rectangle(BlackWingbox.X, BlackWingbox.Y, 60, 60), Color.White);

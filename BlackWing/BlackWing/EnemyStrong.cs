@@ -24,14 +24,24 @@ namespace BlackWing
             StrongSpeed = 3;
             direction = -1;
             speed = 2;
-            hitbox = new Rectangle((int)newpos.X, (int)newpos.Y, 70, 70);
+            hitbox = new Rectangle((int)newpos.X, (int)newpos.Y, 80, 80);
             isVisible = true;
         }
         public override void Update(BlackWing blackwing, BlackWing newcharacter, List<Line> Lines)
         {
-           int guyToP1= Math.Abs(hitbox.X - blackwing.BlackWingbox.X);
-
-          if (newcharacter.BlackWingbox.X > hitbox.X )
+           
+            int guyToP1= Math.Abs(hitbox.X - blackwing.BlackWingbox.X);
+            if (hitbox.Intersects(blackwing.BlackWingbox))
+            {
+                blackwing.health -= 3;
+                isVisible = false;
+            }
+            if (hitbox.Intersects(newcharacter.BlackWingbox))
+            {
+                newcharacter.health -= 3;
+                isVisible = false;
+            }
+            if (newcharacter.BlackWingbox.X > hitbox.X )
             {
                 Effect = SpriteEffects.FlipHorizontally;
                 velocity.X =1;

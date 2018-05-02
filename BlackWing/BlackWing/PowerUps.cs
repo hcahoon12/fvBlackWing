@@ -31,7 +31,7 @@ namespace BlackWing
         {
             
             //collision
-            powerrec = new Rectangle((int)healthpos.X, (int)healthpos.Y, 30, 30);
+            powerrec = new Rectangle((int)healthpos.X, (int)healthpos.Y, 25, 25);
         }
             public void Draw(SpriteBatch spriteBatch)
         {
