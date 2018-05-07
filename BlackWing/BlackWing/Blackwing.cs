@@ -44,7 +44,7 @@ namespace BlackWing
         Keys down;
         Keys melee;
         public float weapondelay;
-        
+
         public BlackWing(int speed, Vector2 newposition , int Health , Vector2 HPosition,Keys up,Keys right, Keys left, Keys shootbutton, Keys down, Keys melee)
         {
             //melee
@@ -94,7 +94,7 @@ namespace BlackWing
 
         public void Update(KeyboardState keyState, List<Line> Lines)
         
-        { 
+        {
             //Melee
             if ((keyState.IsKeyDown(melee)))
                 {
@@ -149,7 +149,7 @@ namespace BlackWing
             if ((keyState.IsKeyDown(up)) && jumped == false)
             {
              
-                for (int i = 0; i < speed*2-2; i++)
+                for (int i = 0; i < 12; i++)
                 {
                     //collsion
                     collide = false;

@@ -26,6 +26,8 @@ namespace BlackWing
         }
         public virtual void Update(BlackWing blackwing, BlackWing newcharacter, List<Line> Lines)
         {
+
+        
             for (int i = 0; i < blackwing.starlist.Count; i++)
             {
                 if (blackwing.starlist[i].starbox.Intersects(hitbox))
@@ -108,10 +110,6 @@ namespace BlackWing
 
                 }
             }
-          
-       
-
-
             if (hitbox.X >= 890)
             {
                 hitbox.X = 890;
@@ -120,9 +118,9 @@ namespace BlackWing
             {
                 hitbox.X = 0;
             }
-            if (hitbox.Y >= 520)
+            if (hitbox.Y >= 530)
             {
-                hitbox.Y = 520;
+                hitbox.Y = 530;
             }
             if (hitbox.Y <= 0)
             {
@@ -130,9 +128,6 @@ namespace BlackWing
             }
             float K = 2.9f;
             velocity.Y += 0.17f * K;
-
-
-
         }
         public virtual void Draw(SpriteBatch spriteBatch)
         {

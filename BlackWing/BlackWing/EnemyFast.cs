@@ -10,27 +10,69 @@ using Microsoft.Xna.Framework.Content;
 
 namespace BlackWing
 {
-    class EnemyFast
+    class EnemyFast:Enemy
     {
         public Texture2D FastTexture;
         public Vector2 FastPos;
-        public float FastSpeed;
-        public bool isVisible = true;
-        public EnemyFast()
-        {
+        public bool isVisible;
 
-        }
-        public void LoadContent(ContentManager Content)
+        SpriteEffects Effect;
+        public EnemyFast(Texture2D newTexture, Vector2 newpos)
         {
-            FastTexture = Content.Load<Texture2D>("EnemyFast");
+             
+        isVisible = true;
+            health = 2;
+            Effect = SpriteEffects.None;
+            FastPos = newpos;
+            FastTexture = newTexture;
+            hitbox = new Rectangle((int)newpos.X, (int)newpos.Y, 55,45);
         }
-        public void Update()
+        public override void Update(BlackWing blackwing, BlackWing newcharacter, List<Line> Lines)
         {
+             
+            if (hitbox.Intersects(blackwing.BlackWingbox))
+            {
+                blackwing.health -= 1;
+                isVisible = false;
+            }
+            if (hitbox.Intersects(newcharacter.BlackWingbox))
+            {
+                newcharacter.health -= 1;
+                isVisible = false;
+            }
+            if (newcharacter.BlackWingbox.X > hitbox.X)
+            {
+                Effect = SpriteEffects.FlipHorizontally;
+                velocity.X = 4;
+                direction = 1;
+            }
+            else
+            {
+                Effect = SpriteEffects.None;
+                velocity.X = -4;
+                direction = -1;
+            }
+            if (blackwing.BlackWingbox.X > hitbox.X)
+            {
+                Effect = SpriteEffects.FlipHorizontally;
+                velocity.X = 4;
+                direction = 1;
+            }
+            else
+            {
+                Effect = SpriteEffects.None;
+                velocity.X = -4;
+                direction = -1;
 
+            }
+         
+            base.Update(blackwing, newcharacter, Lines);
         }
-        public void Draw(SpriteBatch spriteBatch)
+    
+        public override void Draw(SpriteBatch spriteBatch)
         {
-
+        spriteBatch.Draw(FastTexture, hitbox, null, Color.White, 0f, new Vector2(), Effect, 0f);
+        base.Draw(spriteBatch);
         }
     }
 }

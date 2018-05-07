@@ -13,18 +13,16 @@ namespace BlackWing
     public class EnemyStrong:Enemy
     {
         public Texture2D StrongTexture;
-        public int StrongSpeed;
         public bool isVisible;
         SpriteEffects Effect;
         public EnemyStrong(Texture2D newTexture, Vector2 newpos)
         {
             Effect=SpriteEffects.None;
-            health = 5;
+            health = 4;
             StrongTexture = newTexture;
-            StrongSpeed = 3;
             direction = -1;
             speed = 2;
-            hitbox = new Rectangle((int)newpos.X, (int)newpos.Y, 80, 80);
+            hitbox = new Rectangle((int)newpos.X, (int)newpos.Y, 70,70);
             isVisible = true;
         }
         public override void Update(BlackWing blackwing, BlackWing newcharacter, List<Line> Lines)
@@ -44,28 +42,29 @@ namespace BlackWing
             if (newcharacter.BlackWingbox.X > hitbox.X )
             {
                 Effect = SpriteEffects.FlipHorizontally;
-                velocity.X =1;
+                velocity.X =2;
                 direction = 1;
             }
          else
             {
                 Effect = SpriteEffects.None;
-                velocity.X = -1;
+                velocity.X = -2;
                 direction = -1;
             }
             if (blackwing.BlackWingbox.X > hitbox.X)
             {
                 Effect = SpriteEffects.FlipHorizontally;
-                velocity.X = 1;
+                velocity.X = 2;
                 direction = 1;
             }
             else
             {
                 Effect = SpriteEffects.None;
-                velocity.X = -1;
+                velocity.X = -2;
                 direction = -1;
 
             }
+
             //still cant figure out enemy movement
             
             base.Update(blackwing,newcharacter,Lines);
