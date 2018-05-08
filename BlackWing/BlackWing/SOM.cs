@@ -58,18 +58,21 @@ namespace BlackWing
                 }
                 else
                 {
-
-                    //closer to p2 xpos
-                    if (newcharacter.BlackWingbox.X >= somrec.X)
+                    if (guytoother < 400)
                     {
-                        Effect = SpriteEffects.FlipHorizontally;
-                        somrec.X -= 4;
 
-                    }
-                    else
-                    {
-                        somrec.X += 4;
-                        Effect = SpriteEffects.None;
+                        //closer to p2 xpos
+                        if (newcharacter.BlackWingbox.X >= somrec.X)
+                        {
+                            Effect = SpriteEffects.FlipHorizontally;
+                            somrec.X -= 4;
+
+                        }
+                        else
+                        {
+                            somrec.X += 4;
+                            Effect = SpriteEffects.None;
+                        }
                     }
                 }
               
