@@ -25,7 +25,7 @@ namespace BlackWing
         List<EnemyRange> rangelist = new List<EnemyRange>();
         List<EnemyStrong> stronglist = new List<EnemyStrong>();
         List<PowerUps> healthlist = new List<PowerUps>();
-
+        List<SOM> somlist = new List<SOM>();
         public int killcounter;
         public bool iskilled;
         //screens
@@ -200,6 +200,14 @@ namespace BlackWing
                 {
                     newcharacter.health++;
                     p.isVisible = false;
+                }
+            }
+            foreach(SOM s in somlist)
+            {
+                s.Update(blackWing, newcharacter);
+                if(s.health <= 0)
+                {
+                    s.isVisible = false;
                 }
             }
             foreach(EnemyFast f in fastlist)
@@ -1217,6 +1225,7 @@ namespace BlackWing
                 if (blackWing.health <= 0)
                 {
                     blackWing.BlackWingbox.X = -10000;
+                    blackWing.BlackWingbox.Y = 100000;
                     if (keyState.IsKeyDown(Keys.Space))
                     {
                         newcharacter.health = 5;
@@ -1233,6 +1242,7 @@ namespace BlackWing
                 }
                 if (newcharacter.health <= 0)
                 {
+                    newcharacter.BlackWingbox.Y = 10000;
                     newcharacter.BlackWingbox.X = -10000;
                     if (keyState.IsKeyDown(Keys.Space))
                     {
@@ -1303,6 +1313,14 @@ namespace BlackWing
                 {
                     rangelist.RemoveAt(i);
                     i--;
+                }
+            }
+            for(int s = 0; s<somlist.Count; s++)
+            {
+                if (!somlist[s].isVisible)
+                {
+                    somlist.RemoveAt(s);
+                    s--;
                 }
             }
             for (int i = 0; i < stronglist.Count; i++)
@@ -1464,6 +1482,10 @@ namespace BlackWing
                 {
                     e.Draw(spriteBatch);
                 }
+                foreach(SOM s in somlist)
+                {
+                    s.Draw(spriteBatch);
+                }
                 foreach(EnemyFast f in fastlist)
                 {
                     f.Draw(spriteBatch);
@@ -1586,6 +1608,10 @@ namespace BlackWing
                 foreach (EnemyFast f in fastlist)
                 {
                     f.Draw(spriteBatch);
+                }
+                foreach(SOM s in somlist)
+                {
+                    s.Draw(spriteBatch);
                 }
                 if (newcharacter.health > 0)
                 {
@@ -1852,10 +1878,9 @@ namespace BlackWing
             rangelist.Clear();
             stronglist.Clear();
             fastlist.Clear();
-            fastlist.Add(new EnemyFast(Content.Load<Texture2D>("Enemyfast"), new Vector2(400, 65)));
+            fastlist.Add(new EnemyFast(Content.Load<Texture2D>("Enemyfast"), new Vector2(400, 580)));
             stronglist.Add(new EnemyStrong(Content.Load<Texture2D>("Enemystrong"), new Vector2(650, 580)));
             fastlist.Add(new EnemyFast(Content.Load<Texture2D>("Enemyfast"), new Vector2(650, 580)));
-            //stronglist.Add(new EnemyStrong(Content.Load<Texture2D>("Enemystrong"), new Vector2(800, 580)));
         }
         public void Oelel()
         {
@@ -1936,7 +1961,7 @@ namespace BlackWing
             rangelist.Clear();
             stronglist.Clear();
             fastlist.Clear();
-            fastlist.Add(new EnemyFast(Content.Load<Texture2D>("Enemyfast"), new Vector2(450, 200)));
+            fastlist.Add(new EnemyFast(Content.Load<Texture2D>("Enemyfast"), new Vector2(550, 200)));
             healthlist.Add(new PowerUps(Content.Load<Texture2D>("Powerup"), new Vector2(25, 220)));
             stronglist.Add(new EnemyStrong(Content.Load<Texture2D>("Enemystrong"), new Vector2(450, 580)));
             rangelist.Add(new EnemyRange(Content.Load<Texture2D>("nazisdlr"), new Vector2(10, 177), Content.Load<Texture2D>("Bullet"), 50, 50));
@@ -1952,6 +1977,8 @@ namespace BlackWing
             stronglist.Clear();
             rangelist.Clear();
             fastlist.Clear();
+            somlist.Clear();
+            somlist.Add(new SOM(new Vector2(400, 400), (Content.Load<Texture2D>("SOM"))));
             healthlist.Add(new PowerUps(Content.Load<Texture2D>("Powerup"), new Vector2(20, 78)));
             rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(330, 395), Content.Load<Texture2D>("Bullet"), 50, 50));
             rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(20, 322), Content.Load<Texture2D>("Bullet"), 50, 50));
@@ -2132,11 +2159,12 @@ namespace BlackWing
             fastlist.Clear();
             stronglist.Add(new EnemyStrong(Content.Load<Texture2D>("Enemystrong"), new Vector2(450, 580)));
             healthlist.Add(new PowerUps(Content.Load<Texture2D>("Powerup"), new Vector2(25, 220)));
-            fastlist.Add(new EnemyFast(Content.Load<Texture2D>("Enemyfast"), new Vector2(450, 200)));
+            fastlist.Add(new EnemyFast(Content.Load<Texture2D>("Enemyfast"), new Vector2(550, 200)));
             rangelist.Add(new EnemyRange(Content.Load<Texture2D>("nazisdlr"), new Vector2(10, 177), Content.Load<Texture2D>("Bullet"), 50, 50));
             rangelist.Add(new EnemyRange(Content.Load<Texture2D>("nazisdlr"), new Vector2(845, 60), Content.Load<Texture2D>("Bullet"), 50, 50));
             rangelist.Add(new EnemyRange(Content.Load<Texture2D>("nazisdlr"), new Vector2(845, 239), Content.Load<Texture2D>("Bullet"), 50, 50));
             rangelist.Add(new EnemyRange(Content.Load<Texture2D>("nazisdlr"), new Vector2(845, 413), Content.Load<Texture2D>("Bullet"), 50, 50));
+
         }
         public void gameoverload()
         {

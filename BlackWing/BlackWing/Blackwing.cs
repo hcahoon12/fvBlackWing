@@ -113,7 +113,7 @@ namespace BlackWing
             
 
                 for (int i = 0; i < Math.Abs(velocity.Y); i++)
-            {
+                {
                 collide = false;
                 if (velocity.Y >= 0)
                 {
@@ -194,7 +194,6 @@ namespace BlackWing
                         {
                             BlackWingbox.X += 1;
                         }
-                    //Enemies
 
                     Direction = -1;
                 }
