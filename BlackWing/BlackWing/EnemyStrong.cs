@@ -28,7 +28,6 @@ namespace BlackWing
         public override void Update(BlackWing blackwing, BlackWing newcharacter, List<Line> Lines)
         {
            
-            int guyToP1= Math.Abs(hitbox.X - blackwing.BlackWingbox.X);
             if (hitbox.Intersects(blackwing.BlackWingbox))
             {
                 blackwing.health -= 3;
@@ -39,19 +38,8 @@ namespace BlackWing
                 newcharacter.health -= 3;
                 isVisible = false;
             }
-            if (newcharacter.BlackWingbox.X > hitbox.X )
-            {
-                Effect = SpriteEffects.FlipHorizontally;
-                velocity.X =2;
-                direction = 1;
-            }
-         else
-            {
-                Effect = SpriteEffects.None;
-                velocity.X = -2;
-                direction = -1;
-            }
-            if (blackwing.BlackWingbox.X > hitbox.X)
+           
+            if (blackwing.BlackWingbox.X > hitbox.X || newcharacter.BlackWingbox.X > hitbox.X)
             {
                 Effect = SpriteEffects.FlipHorizontally;
                 velocity.X = 2;
@@ -64,9 +52,8 @@ namespace BlackWing
                 direction = -1;
 
             }
+         
 
-            //still cant figure out enemy movement
-            
             base.Update(blackwing,newcharacter,Lines);
         }
         public override void Draw(SpriteBatch spriteBatch)

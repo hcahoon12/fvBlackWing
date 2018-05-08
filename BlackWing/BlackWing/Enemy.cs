@@ -26,8 +26,7 @@ namespace BlackWing
         }
         public virtual void Update(BlackWing blackwing, BlackWing newcharacter, List<Line> Lines)
         {
-
-        
+           
             for (int i = 0; i < blackwing.starlist.Count; i++)
             {
                 if (blackwing.starlist[i].starbox.Intersects(hitbox))

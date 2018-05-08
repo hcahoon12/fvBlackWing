@@ -10,23 +10,40 @@ using Microsoft.Xna.Framework.Content;
 
 namespace BlackWing
 {
-    class SOM
+    public class SOM
     {
+        public Rectangle somrec;
         public Texture2D SOMTexture;
         public Vector2 SOMPos;
-        public float SOMSpeed;
         public bool isVisible = true;
-        public SOM()
+        public Vector2 Velocity;
+        Random rand = new Random();
+        int randx, randy;
+        public SOM(Vector2 position, Texture2D texture)
         {
-
-        }
-        public void LoadContent(ContentManager Content)
-        {
-            SOMTexture = Content.Load<Texture2D>("S.O.M");
+            SOMTexture = texture;
+            randx = rand.Next(0, 900);
+            randy = rand.Next(0, 600);
+            SOMPos = position;
         }
         public void Update()
         {
-
+            if(somrec.X>= 900)
+            {
+                somrec.X = 900;
+            }
+           if(somrec.X<= 0)
+            {
+                somrec.X = 0;
+            }
+           if(somrec.Y>= 600)
+            {
+                somrec.Y = 600;
+            }
+           if(somrec.Y<= 0)
+            {
+                somrec.Y = 0;
+            }
         }
         public void Draw(SpriteBatch spriteBatch)
         {

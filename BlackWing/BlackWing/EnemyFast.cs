@@ -65,7 +65,7 @@ namespace BlackWing
                 direction = -1;
 
             }
-         
+           
             base.Update(blackwing, newcharacter, Lines);
         }
     
