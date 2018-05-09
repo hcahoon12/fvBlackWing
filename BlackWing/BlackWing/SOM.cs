@@ -40,7 +40,19 @@ namespace BlackWing
             {
                 if(guytoother > guytoplayer)
                 {
-                    if (guytoplayer < 400)
+                    if (blackwing.BlackWingbox.Y < somrec.Y)
+                    {
+                        somrec.Y -= 3;
+                    }
+                    else
+                    {
+                        somrec.Y += 3;
+                    }
+                    if (guytoplayer > 400)
+                    {
+                        somrec.X-=3;
+                    }
+                    if (guytoplayer <= 400)
                     {
                         //closer to p1 Xpos
                         if (blackwing.BlackWingbox.X >= somrec.X)
@@ -58,7 +70,19 @@ namespace BlackWing
                 }
                 else
                 {
-                    if (guytoother < 400)
+                    if (newcharacter.BlackWingbox.Y < somrec.Y)
+                    {
+                        somrec.Y -= 3;
+                    }
+                    else
+                    {
+                        somrec.Y += 3;
+                    }
+                    if (guytoother > 400)
+                    {
+                        somrec.X-= 3;
+                    }
+                    if (guytoother <= 400)
                     {
 
                         //closer to p2 xpos
@@ -76,19 +100,9 @@ namespace BlackWing
                     }
                 }
               
-                if (guytoplayer >= 400)
-                {
-                    somrec.X--;
-                }
+              
                 
-                if (blackwing.BlackWingbox.Y < somrec.Y || newcharacter.BlackWingbox.Y < somrec.Y)
-                {
-                    somrec.Y -= 3;
-                }
-                else
-                {
-                    somrec.Y += 3;
-                }
+            
 
                 if (somrec.Intersects(blackwing.BlackWingbox))
                 {
@@ -104,25 +118,48 @@ namespace BlackWing
             //HEALTH LOW
             else
             {
-                if (blackwing.BlackWingbox.X >= somrec.X || newcharacter.BlackWingbox.X >= somrec.X)
+                if (guytoother > guytoplayer)
                 {
-                    Effect = SpriteEffects.FlipHorizontally;
-                    somrec.X += 4;
+                    if (blackwing.BlackWingbox.X >= somrec.X)
+                    {
+                        Effect = SpriteEffects.FlipHorizontally;
+                        somrec.X += 4;
+                    }
+                    else
+                    {
+                        somrec.X -= 4;
+                        Effect = SpriteEffects.None;
+                    }
+                    if (blackwing.BlackWingbox.Y < somrec.Y)
+                    {
+                        somrec.Y -= 3;
+                    }
+                    else
+                    {
+                        somrec.Y += 3;
+                    }
                 }
-                else
+                if (guytoplayer> guytoother)
                 {
-                    somrec.X -= 4;
-                    Effect = SpriteEffects.None;
+                    if (newcharacter.BlackWingbox.X >= somrec.X)
+                    {
+                        Effect = SpriteEffects.FlipHorizontally;
+                        somrec.X += 4;
+                    }
+                    else
+                    {
+                        somrec.X -= 4;
+                        Effect = SpriteEffects.None;
+                    }
+                    if (newcharacter.BlackWingbox.Y < somrec.Y)
+                    {
+                        somrec.Y -= 4;
+                    }
+                    else
+                    {
+                        somrec.Y += 4;
+                    }
                 }
-                if (blackwing.BlackWingbox.Y < somrec.Y || newcharacter.BlackWingbox.Y < somrec.Y)
-                {
-                    somrec.Y -= 6;
-                }
-                else
-                {
-                    somrec.Y += 6;
-                }
-
                 if (somrec.Intersects(blackwing.BlackWingbox))
                 {
                     blackwing.BlackWingbox.X -= 700;
