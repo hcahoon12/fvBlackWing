@@ -18,15 +18,11 @@ namespace BlackWing
         public bool isVisible = true;
         public Vector2 Velocity;
         public int health;
-        Random rand = new Random();
-        int randx, randy;
         SpriteEffects Effect;
         public SOM(Vector2 position, Texture2D texture)
         {
             Effect = SpriteEffects.None;
             SOMTexture = texture;
-            randx = rand.Next(0, 900);
-            randy = rand.Next(0, 600);
             SOMPos = position;
             health = 10;
             isVisible = true;
@@ -100,10 +96,6 @@ namespace BlackWing
                     }
                 }
               
-              
-                
-            
-
                 if (somrec.Intersects(blackwing.BlackWingbox))
                 {
                     blackwing.BlackWingbox.X -= 300;

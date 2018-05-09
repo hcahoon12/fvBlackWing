@@ -53,7 +53,6 @@ namespace BlackWing
         bool singleplayer;
         bool twoplayer;
         //textures
-        Texture2D HealthTexture;
         Texture2D titlescreentexture;
         Texture2D FLtexture;
         Texture2D SLtexture;
