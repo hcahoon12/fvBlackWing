@@ -144,7 +144,7 @@ namespace BlackWing
             sixttexture = Content.Load<Texture2D>("grass");
             sevttexture = Content.Load<Texture2D>("Final Level");
             gotexture = Content.Load<Texture2D>("SOM");
-            lastleveltexture = Content.Load<Texture2D>("Final Level");
+            lastleveltexture = Content.Load<Texture2D>("lastlevel-pixilart");
             Ariel12 = Content.Load<SpriteFont>("file");
             blackWing.LoadContent(Content,"blackwing","blackwing2","starrrr","Sword");
             newcharacter.LoadContent(Content, "aquatowa", "aquatowa2", "fireball", "Firesword");
@@ -456,6 +456,8 @@ namespace BlackWing
                     {
                         titlescreenseen = false;
                         lastlevelseen = true;
+                        LastLevelLoad();
+                        OLL();
                     }
                     if (blackWing.BlackWingbox.X >= 960)
                     {
@@ -701,7 +703,7 @@ namespace BlackWing
                     if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0)
                     {
                         blackWing.BlackWingbox.X = 0;
-                        blackWing.BlackWingbox.Y = 520;
+                        blackWing.BlackWingbox.Y = 435;
                         sevtlseen = false;
                         lastlevelseen = true;
                         LastLevelLoad();
@@ -710,10 +712,10 @@ namespace BlackWing
                 }
                 else if (lastlevelseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0)
+                    if (blackWing.BlackWingbox.X >= 900)
                     {
                         blackWing.BlackWingbox.X = 0;
-                        blackWing.BlackWingbox.Y = 520;
+                        blackWing.BlackWingbox.Y = 435;
                     }
                 }
                 if (blackWing.health <= 0)
@@ -947,6 +949,8 @@ namespace BlackWing
                     {
                         titlescreenseen = false;
                         lastlevelseen = true;
+                        LastLevelLoad();
+                        TLL();
                     }
                     if (blackWing.BlackWingbox.X >= 960 || newcharacter.BlackWingbox.X >= 960)
                     {
@@ -1242,9 +1246,9 @@ namespace BlackWing
                     if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0 || newcharacter.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0)
                     {
                         newcharacter.BlackWingbox.X = 100;
-                        newcharacter.BlackWingbox.Y = 550;
+                        newcharacter.BlackWingbox.Y = 435;
                         blackWing.BlackWingbox.X = 0;
-                        blackWing.BlackWingbox.Y = 550;
+                        blackWing.BlackWingbox.Y = 435;
                         sevtlseen = false;
                         lastlevelseen = true;
                         LastLevelLoad();
@@ -1253,10 +1257,12 @@ namespace BlackWing
                 }
                 else if (lastlevelseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0)
+                    if (blackWing.BlackWingbox.X >= 900 && newcharacter.BlackWingbox.X >= 900)
                     {
                         blackWing.BlackWingbox.X = 0;
-                        blackWing.BlackWingbox.Y = 520;
+                        blackWing.BlackWingbox.Y = 435;
+                        newcharacter.BlackWingbox.X = 0;
+                        newcharacter.BlackWingbox.Y = 435;
                     }
                 }
                 if (blackWing.health <= 0)
@@ -1469,7 +1475,6 @@ namespace BlackWing
                 else if (elelseen == true)
                 {
                     spriteBatch.Draw(eleltexture, new Rectangle(0, 0, 960, 600), Color.White);
-                    spriteBatch.DrawString(Ariel12, "", new Vector2(0, 550), Color.Black);
                 }
                 else if (twelseen == true)
                 {
@@ -1499,7 +1504,7 @@ namespace BlackWing
                 }
               else if(lastlevelseen == true)
                 {
-                    spriteBatch.Draw(sevttexture, new Rectangle(0, 0, 960, 600), Color.White);
+                    spriteBatch.Draw(lastleveltexture, new Rectangle(0, 0, 960, 600), Color.White);
                 }
                 else if (goseen == true)
                 {
@@ -1626,7 +1631,7 @@ namespace BlackWing
                 }
                 else if(lastlevelseen == true)
                 {
-                    spriteBatch.Draw(sevttexture, new Rectangle(0, 0, 960, 600), Color.White);
+                    spriteBatch.Draw(lastleveltexture, new Rectangle(0, 0, 960, 600), Color.White);
                 }
                 else if (goseen == true)
                 {
@@ -1834,6 +1839,10 @@ namespace BlackWing
         {
             healthlist.Clear();
             Lines.Clear();
+            Lines.Add(new Line(Content.Load<Texture2D>("CYAN"), new Vector2(28, 495), 905, 8, Color.White));
+            Lines.Add(new Line(Content.Load<Texture2D>("CYAN"), new Vector2(28, 355), 150, 4, Color.White));
+            Lines.Add(new Line(Content.Load<Texture2D>("CYAN"), new Vector2(793, 355), 140, 4, Color.White));
+            Lines.Add(new Line(Content.Load<Texture2D>("CYAN"), new Vector2(390, 0), 170, 6, Color.White));
         }
         //o means one player and the fl is first level
         public void Ofl()
@@ -2020,7 +2029,7 @@ namespace BlackWing
         }
      public void OLL()
         {
-            somlist.Add(new SOM(new Vector2(400, 400), (Content.Load<Texture2D>("SOM"))));
+            somlist.Add(new SOM(Content.Load<Texture2D>("SOM"), new Vector2(800, 430), Content.Load<Texture2D>("Waterball"), 50, 50));
         }
         //T means two player 
         public void Tfl()
@@ -2219,7 +2228,7 @@ namespace BlackWing
         }
         public void TLL()
         {
-            somlist.Add(new SOM(new Vector2(400, 400), (Content.Load<Texture2D>("SOM"))));
+            somlist.Add((new SOM(Content.Load<Texture2D>("SOM"), new Vector2(800, 430), Content.Load<Texture2D>("Waterball"), 50, 50)));
         }
         public void gameoverload()
         {

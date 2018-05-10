@@ -79,6 +79,7 @@
     <Compile Include="EnemyFast.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Line.cs" />
+    <Compile Include="makegame.cs" />
     <Compile Include="PowerUps.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

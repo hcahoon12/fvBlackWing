@@ -72,7 +72,6 @@ namespace BlackWing
                 Effect = SpriteEffects.None;
             }
             //collision
-            
             EnemyShoot();
             if (Bulletdelay == 0)
             {
@@ -96,7 +95,7 @@ namespace BlackWing
         }
         public void EnemyShoot()
         {
-            if (Bulletdelay >= 0)
+            if (Bulletdelay > 0)
             {
                 Bulletdelay--;
             }
