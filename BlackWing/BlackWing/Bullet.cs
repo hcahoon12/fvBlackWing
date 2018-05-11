@@ -55,7 +55,6 @@ namespace BlackWing
             {
                 isVisible = false;
             }
-
         }
         public void Draw(SpriteBatch spritebatch)
         {

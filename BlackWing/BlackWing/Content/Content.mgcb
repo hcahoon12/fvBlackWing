@@ -356,6 +356,18 @@
 /processorParam:TextureFormat=Color
 /build:GREY.png
 
+#begin lastlevel-pixilart.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:lastlevel-pixilart.png
+
 #begin map.tif
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -536,18 +548,6 @@
 /processorParam:TextureFormat=Color
 /build:Tutorial.png
 
-#begin White.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:White.png
-
 #begin Waterball.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -560,7 +560,7 @@
 /processorParam:TextureFormat=Color
 /build:Waterball.png
 
-#begin lastlevel-pixilart.png
+#begin White.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -570,5 +570,5 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:lastlevel-pixilart.png
+/build:White.png
 

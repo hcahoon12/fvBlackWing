@@ -152,7 +152,6 @@ namespace BlackWing
         }
         protected override void Update(GameTime gameTime)
         {
-
             //Mouse input
             MouseState newState = Mouse.GetState();
             KeyboardState keyState = Keyboard.GetState();
@@ -207,7 +206,7 @@ namespace BlackWing
             }
             foreach(SOM s in somlist)
             {
-                s.Update(blackWing, newcharacter);
+                s.Update(blackWing, newcharacter, Lines);
                 if(s.health <= 0)
                 {
                     s.isVisible = false;
@@ -472,7 +471,7 @@ namespace BlackWing
 
                 else if (Flseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0)
+                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0 && stronglist.Count == 0)
                     {
                         blackWing.BlackWingbox.X = 0;
                         blackWing.BlackWingbox.Y = 520;
@@ -481,7 +480,7 @@ namespace BlackWing
                         ThirdLevelLoad();
                         Otl();
                     }
-                    if (blackWing.BlackWingbox.Y <= 0 && rangelist.Count == 0 && fastlist.Count == 0)
+                    if (blackWing.BlackWingbox.Y <= 0 && rangelist.Count == 0 && fastlist.Count == 0 && stronglist.Count == 0)
                     {
                         blackWing.BlackWingbox.X = 0;
                         blackWing.BlackWingbox.Y = 520;
@@ -497,7 +496,7 @@ namespace BlackWing
                 }
                 else if (Slseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0)
+                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0 && stronglist.Count == 0)
                     {
                         blackWing.BlackWingbox.X = 0;
                         blackWing.BlackWingbox.Y = 520;
@@ -513,7 +512,7 @@ namespace BlackWing
                     {
                         blackWing.health = 0;
                     }
-                    if (blackWing.BlackWingbox.X > 320 && blackWing.BlackWingbox.X < 450 && keyState.IsKeyDown(Keys.Down) && rangelist.Count == 0 && fastlist.Count == 0)
+                    if (blackWing.BlackWingbox.X > 320 && blackWing.BlackWingbox.X < 450 && keyState.IsKeyDown(Keys.Down) && rangelist.Count == 0 && fastlist.Count == 0 && stronglist.Count == 0)
                     {
                         Tlseen = false;
                         Filseen = true;
@@ -526,7 +525,7 @@ namespace BlackWing
 
                 else if (Filseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0)
+                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0 && stronglist.Count == 0)
                     {
                         blackWing.BlackWingbox.X = 0;
                         blackWing.BlackWingbox.Y = 520;
@@ -538,7 +537,7 @@ namespace BlackWing
                 }
                 else if (sixlseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0)
+                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0 && stronglist.Count == 0)
                     {
                         blackWing.BlackWingbox.X = 0;
                         blackWing.BlackWingbox.Y = 520;
@@ -550,7 +549,7 @@ namespace BlackWing
                 }
                 else if (sevlseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0)
+                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0 && stronglist.Count == 0)
                     {
                         blackWing.BlackWingbox.X = 0;
                         blackWing.BlackWingbox.Y = 520;
@@ -562,7 +561,7 @@ namespace BlackWing
                 }
                 else if (elseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0)
+                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0 && stronglist.Count == 0)
                     {
                         //cutscene would be dope
                         blackWing.BlackWingbox.X = 0;
@@ -572,7 +571,7 @@ namespace BlackWing
                         SevenLevelLoad();
                         Osl();
                     }
-                    if (blackWing.BlackWingbox.X > 800 && blackWing.BlackWingbox.X < 850 && keyState.IsKeyDown(Keys.Down) && rangelist.Count == 0 && fastlist.Count == 0)
+                    if (blackWing.BlackWingbox.X > 800 && blackWing.BlackWingbox.X < 850 && keyState.IsKeyDown(Keys.Down) && rangelist.Count == 0 && fastlist.Count == 0 && stronglist.Count == 0)
                     {
                         blackWing.BlackWingbox.X = 0;
                         blackWing.BlackWingbox.Y = 520;
@@ -584,7 +583,7 @@ namespace BlackWing
                 }
                 else if (nlseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0)
+                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0 && stronglist.Count == 0)
                     {
                         blackWing.BlackWingbox.X = 0;
                         blackWing.BlackWingbox.Y = 520;
@@ -597,7 +596,7 @@ namespace BlackWing
                 }
                 else if (tenlseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0)
+                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0 && stronglist.Count == 0)
                     {
                         blackWing.BlackWingbox.X = 0;
                         blackWing.BlackWingbox.Y = 520;
@@ -609,7 +608,7 @@ namespace BlackWing
                 }
                 else if (elelseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0)
+                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0 && stronglist.Count == 0)
                     {
                         blackWing.BlackWingbox.X = 0;
                         blackWing.BlackWingbox.Y = 520;
@@ -621,7 +620,7 @@ namespace BlackWing
                 }
                 else if (twelseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0)
+                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0 && stronglist.Count == 0)
                     {
                         blackWing.BlackWingbox.X = 0;
                         blackWing.BlackWingbox.Y = 520;
@@ -630,7 +629,7 @@ namespace BlackWing
                         FourteenLevelLoad();
                         Oftl();
                     }
-                    if (blackWing.BlackWingbox.Y <= 0 && rangelist.Count == 0 && fastlist.Count == 0)
+                    if (blackWing.BlackWingbox.Y <= 0 && rangelist.Count == 0 && fastlist.Count == 0 && stronglist.Count == 0)
                     {
                         blackWing.BlackWingbox.X = 0;
                         blackWing.BlackWingbox.Y = 520;
@@ -642,7 +641,7 @@ namespace BlackWing
                 }
                 else if (thirtlseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0)
+                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0 && stronglist.Count == 0)
                     {
                         blackWing.BlackWingbox.X = 0;
                         blackWing.BlackWingbox.Y = 520;
@@ -654,7 +653,7 @@ namespace BlackWing
                 }
                 else if (fourtlseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 && blackWing.BlackWingbox.Y < 400 && rangelist.Count == 0 && fastlist.Count == 0)
+                    if (blackWing.BlackWingbox.X >= 900 && blackWing.BlackWingbox.Y < 400 && rangelist.Count == 0 && fastlist.Count == 0 && stronglist.Count == 0)
                     {
                         blackWing.BlackWingbox.X = 0;
                         blackWing.BlackWingbox.Y = 520;
@@ -663,7 +662,7 @@ namespace BlackWing
                         FithteenLevelLoad();
                         Ofil();
                     }
-                    if (blackWing.BlackWingbox.X >= 900 && blackWing.BlackWingbox.Y > 400 && rangelist.Count == 0 && fastlist.Count == 0)
+                    if (blackWing.BlackWingbox.X >= 900 && blackWing.BlackWingbox.Y > 400 && rangelist.Count == 0 && fastlist.Count == 0 && stronglist.Count == 0)
                     {
                         blackWing.BlackWingbox.X = 0;
                         blackWing.BlackWingbox.Y = 520;
@@ -675,7 +674,7 @@ namespace BlackWing
                 }
                 else if (fiftlseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0)
+                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0 && stronglist.Count == 0)
                     {
                         blackWing.BlackWingbox.X = 0;
                         blackWing.BlackWingbox.Y = 520;
@@ -688,7 +687,7 @@ namespace BlackWing
                 }
                 else if (sixtlseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0)
+                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0 && stronglist.Count == 0)
                     {
                         blackWing.BlackWingbox.X = 0;
                         blackWing.BlackWingbox.Y = 520;
@@ -700,7 +699,7 @@ namespace BlackWing
                 }
                 else if (sevtlseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0)
+                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0 && stronglist.Count == 0)
                     {
                         blackWing.BlackWingbox.X = 0;
                         blackWing.BlackWingbox.Y = 435;
@@ -971,7 +970,7 @@ namespace BlackWing
                 }
                 if (Flseen == true)
                 { 
-                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0 || newcharacter.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0)
+                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0 && stronglist.Count == 0 || newcharacter.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0 && stronglist.Count == 0)
                     {
                         newcharacter.BlackWingbox.X = 100;
                         newcharacter.BlackWingbox.Y = 550;
@@ -982,7 +981,7 @@ namespace BlackWing
                         ThirdLevelLoad();
                         Ttl();
                     }
-                    if (blackWing.BlackWingbox.Y <= 0 && rangelist.Count == 0 && fastlist.Count == 0 || newcharacter.BlackWingbox.Y <= 0 && rangelist.Count == 0 && fastlist.Count == 0)
+                    if (blackWing.BlackWingbox.Y <= 0 && rangelist.Count == 0 && fastlist.Count == 0 && stronglist.Count == 0 || newcharacter.BlackWingbox.Y <= 0 && rangelist.Count == 0 && fastlist.Count == 0 && stronglist.Count == 0)
                     {
                         newcharacter.BlackWingbox.X = 100;
                         newcharacter.BlackWingbox.Y = 550;
@@ -1004,7 +1003,7 @@ namespace BlackWing
                 }
                 else if (Slseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0 || newcharacter.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0)
+                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0 && stronglist.Count == 0 || newcharacter.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0 && stronglist.Count == 0)
                     {
                         newcharacter.BlackWingbox.X = 100;
                         newcharacter.BlackWingbox.Y = 550;
@@ -1026,7 +1025,7 @@ namespace BlackWing
                     {
                         newcharacter.health = 0;
                     }
-                    if (blackWing.BlackWingbox.X > 320 && blackWing.BlackWingbox.X < 450 && keyState.IsKeyDown(Keys.Down) && rangelist.Count == 0 && fastlist.Count == 0 || newcharacter.BlackWingbox.X > 320 && newcharacter.BlackWingbox.X < 450 && keyState.IsKeyDown(Keys.S) && rangelist.Count == 0 && fastlist.Count == 0)
+                    if (blackWing.BlackWingbox.X > 320 && blackWing.BlackWingbox.X < 450 && keyState.IsKeyDown(Keys.Down) && rangelist.Count == 0 && fastlist.Count == 0 && stronglist.Count == 0 || newcharacter.BlackWingbox.X > 320 && newcharacter.BlackWingbox.X < 450 && keyState.IsKeyDown(Keys.S) && rangelist.Count == 0 && fastlist.Count == 0 && stronglist.Count == 0)
                     {
                         Tlseen = false;
                         Filseen = true;
@@ -1040,7 +1039,7 @@ namespace BlackWing
                 }
                 else if (Filseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0 || newcharacter.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0)
+                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0 && stronglist.Count == 0 || newcharacter.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0 && stronglist.Count == 0)
                     {
                         newcharacter.BlackWingbox.X = 100;
                         newcharacter.BlackWingbox.Y = 550;
@@ -1054,7 +1053,7 @@ namespace BlackWing
                 }
                 else if (sixlseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0 || newcharacter.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0)
+                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0 && stronglist.Count == 0 || newcharacter.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0 && stronglist.Count == 0)
                     {
                         newcharacter.BlackWingbox.X = 100;
                         newcharacter.BlackWingbox.Y = 550;
@@ -1068,7 +1067,7 @@ namespace BlackWing
                 }
                 else if (sevlseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0 || newcharacter.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0)
+                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0 && stronglist.Count == 0 || newcharacter.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0 && stronglist.Count == 0)
                     {
                         newcharacter.BlackWingbox.X = 100;
                         newcharacter.BlackWingbox.Y = 550;
@@ -1082,7 +1081,7 @@ namespace BlackWing
                 }
                 else if (elseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0 || newcharacter.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0)
+                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0 && stronglist.Count == 0 || newcharacter.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0 && stronglist.Count == 0)
                     {
                         //cutscene would be dope
                         newcharacter.BlackWingbox.X = 100;
@@ -1094,7 +1093,7 @@ namespace BlackWing
                         SevenLevelLoad();
                         Tsel();
                     }
-                    if (blackWing.BlackWingbox.X > 800 && blackWing.BlackWingbox.X < 850 && keyState.IsKeyDown(Keys.Down) && rangelist.Count == 0 && fastlist.Count == 0 || newcharacter.BlackWingbox.X > 800 && newcharacter.BlackWingbox.X < 850 && keyState.IsKeyDown(Keys.S) && rangelist.Count == 0 && fastlist.Count == 0)
+                    if (blackWing.BlackWingbox.X > 800 && blackWing.BlackWingbox.X < 850 && keyState.IsKeyDown(Keys.Down) && rangelist.Count == 0 && fastlist.Count == 0 && stronglist.Count == 0 || newcharacter.BlackWingbox.X > 800 && newcharacter.BlackWingbox.X < 850 && keyState.IsKeyDown(Keys.S) && rangelist.Count == 0 && fastlist.Count == 0 && stronglist.Count == 0)
                     {
                         newcharacter.BlackWingbox.X = 100;
                         newcharacter.BlackWingbox.Y = 550;
@@ -1108,7 +1107,7 @@ namespace BlackWing
                 }
                 else if (nlseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0 || newcharacter.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0)
+                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0 && stronglist.Count == 0 || newcharacter.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0 && stronglist.Count == 0)
                     {
                         newcharacter.BlackWingbox.X = 100;
                         newcharacter.BlackWingbox.Y = 550;
@@ -1122,7 +1121,7 @@ namespace BlackWing
                 }
                 else if (tenlseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0 || newcharacter.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0)
+                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0 && stronglist.Count == 0 || newcharacter.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0 && stronglist.Count == 0)
                     {
                         newcharacter.BlackWingbox.X = 100;
                         newcharacter.BlackWingbox.Y = 550;
@@ -1136,7 +1135,7 @@ namespace BlackWing
                 }
                 else if (elelseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0 || newcharacter.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0)
+                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0 && stronglist.Count == 0 || newcharacter.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0 && stronglist.Count == 0)
                     {
                         newcharacter.BlackWingbox.X = 100;
                         newcharacter.BlackWingbox.Y = 550;
@@ -1150,7 +1149,7 @@ namespace BlackWing
                 }
                 else if (twelseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0 || newcharacter.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0)
+                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0 && stronglist.Count == 0 || newcharacter.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0 && stronglist.Count == 0)
                     {
                         newcharacter.BlackWingbox.X = 100;
                         newcharacter.BlackWingbox.Y = 550;
@@ -1161,7 +1160,7 @@ namespace BlackWing
                         FourteenLevelLoad();
                         Tftl();
                     }
-                    if (blackWing.BlackWingbox.Y <= 0 && rangelist.Count == 0 && fastlist.Count == 0 || newcharacter.BlackWingbox.Y <= 0 && rangelist.Count == 0 && fastlist.Count == 0)
+                    if (blackWing.BlackWingbox.Y <= 0 && rangelist.Count == 0 && fastlist.Count == 0 && stronglist.Count == 0 || newcharacter.BlackWingbox.Y <= 0 && rangelist.Count == 0 && fastlist.Count == 0 && stronglist.Count == 0)
                     {
                         newcharacter.BlackWingbox.X = 100;
                         newcharacter.BlackWingbox.Y = 550;
@@ -1175,7 +1174,7 @@ namespace BlackWing
                 }
                 else if (thirtlseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0 || newcharacter.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0)
+                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0 && stronglist.Count == 0 || newcharacter.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0 && stronglist.Count == 0)
                     {
                         newcharacter.BlackWingbox.X = 100;
                         newcharacter.BlackWingbox.Y = 550;
@@ -1189,7 +1188,7 @@ namespace BlackWing
                 }
                 else if (fourtlseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 && blackWing.BlackWingbox.Y < 400 && rangelist.Count == 0 && fastlist.Count == 0 || newcharacter.BlackWingbox.X >= 900 && newcharacter.BlackWingbox.Y < 400 && rangelist.Count == 0 && fastlist.Count == 0)
+                    if (blackWing.BlackWingbox.X >= 900 && blackWing.BlackWingbox.Y < 400 && rangelist.Count == 0 && fastlist.Count == 0 && stronglist.Count == 0 || newcharacter.BlackWingbox.X >= 900 && newcharacter.BlackWingbox.Y < 400 && rangelist.Count == 0 && fastlist.Count == 0 && stronglist.Count == 0)
                     {
                         newcharacter.BlackWingbox.X = 100;
                         newcharacter.BlackWingbox.Y = 550;
@@ -1200,7 +1199,7 @@ namespace BlackWing
                         FithteenLevelLoad();
                         Tfil();
                     }
-                    if (blackWing.BlackWingbox.X >= 900 && blackWing.BlackWingbox.Y > 400 && rangelist.Count == 0 && fastlist.Count == 0 || newcharacter.BlackWingbox.X >= 900 && newcharacter.BlackWingbox.Y > 400 && rangelist.Count == 0 && fastlist.Count == 0)
+                    if (blackWing.BlackWingbox.X >= 900 && blackWing.BlackWingbox.Y > 400 && rangelist.Count == 0 && fastlist.Count == 0 && stronglist.Count == 0 || newcharacter.BlackWingbox.X >= 900 && newcharacter.BlackWingbox.Y > 400 && rangelist.Count == 0 && fastlist.Count == 0 && stronglist.Count == 0)
                     {
                         newcharacter.BlackWingbox.X = 100;
                         newcharacter.BlackWingbox.Y = 550;
@@ -1214,7 +1213,7 @@ namespace BlackWing
                 }
                 else if (fiftlseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0 || newcharacter.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0)
+                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0 && stronglist.Count == 0 || newcharacter.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0 && stronglist.Count == 0)
                     {
                         newcharacter.BlackWingbox.X = 100;
                         newcharacter.BlackWingbox.Y = 550;
@@ -1229,7 +1228,7 @@ namespace BlackWing
                 }
                 else if (sixtlseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0 || newcharacter.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0)
+                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0 && stronglist.Count == 0 || newcharacter.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0 && stronglist.Count == 0)
                     {
                         newcharacter.BlackWingbox.X = 100;
                         newcharacter.BlackWingbox.Y = 550;
@@ -1243,7 +1242,7 @@ namespace BlackWing
                 }
                 else if (sevtlseen == true)
                 {
-                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0 || newcharacter.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0)
+                    if (blackWing.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0 && stronglist.Count == 0 || newcharacter.BlackWingbox.X >= 900 && rangelist.Count == 0 && fastlist.Count == 0 && stronglist.Count == 0)
                     {
                         newcharacter.BlackWingbox.X = 100;
                         newcharacter.BlackWingbox.Y = 435;
@@ -1550,7 +1549,7 @@ namespace BlackWing
                 */
             else if (twoplayer == true)
             {
-                
+               
                 if (titlescreenseen == true)
                 {
                     spriteBatch.Draw(titlescreentexture, new Rectangle(0, 0, 960, 600), Color.White);
@@ -1851,6 +1850,7 @@ namespace BlackWing
             stronglist.Clear();
             rangelist.Clear();
             fastlist.Clear();
+            somlist.Clear();
             healthlist.Add(new PowerUps(Content.Load<Texture2D>("Powerup"), new Vector2(20, 78)));
             rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(330, 395), Content.Load<Texture2D>("Bullet"), 50, 50));
             rangelist.Add(new EnemyRange(Content.Load<Texture2D>("EnemyRange"), new Vector2(20, 322), Content.Load<Texture2D>("Bullet"), 50, 50));
@@ -2228,7 +2228,7 @@ namespace BlackWing
         }
         public void TLL()
         {
-            somlist.Add((new SOM(Content.Load<Texture2D>("SOM"), new Vector2(800, 430), Content.Load<Texture2D>("Waterball"), 50, 50)));
+            somlist.Add((new SOM(Content.Load<Texture2D>("SOM"), new Vector2(800, 430), Content.Load<Texture2D>("Waterball"), 90, 90)));
         }
         public void gameoverload()
         {

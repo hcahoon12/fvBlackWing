@@ -34,13 +34,19 @@ namespace BlackWing
             bulletdelay = 40;
             somrec = new Rectangle((int)position.X, (int)position.Y, 60, 60);
         }
-        public void Update(BlackWing blackwing, BlackWing newcharacter)
+        public void Update(BlackWing blackwing, BlackWing newcharacter, List<Line>Lines)
         {
             int guytoplayer = Math.Abs(blackwing.BlackWingbox.X - somrec.X);
             int guytoother = Math.Abs(newcharacter.BlackWingbox.X - somrec.X);
             if (health > 5)
             {
-               
+                EnemyShoot();
+                if (bulletdelay == 0)
+                {
+                    EnemyShoot();
+                }
+                UpdateBullets(Lines);
+
                 if (guytoother > guytoplayer)
                 {
                     if (blackwing.BlackWingbox.Y < somrec.Y)
@@ -70,16 +76,17 @@ namespace BlackWing
                             Effect = SpriteEffects.None;
                         }
                     }
+                   
                 }
                 else
                 {
                     if (newcharacter.BlackWingbox.Y < somrec.Y)
                     {
-                        somrec.Y -= 3;
+                        somrec.Y -= 2;
                     }
                     else
                     {
-                        somrec.Y += 3;
+                        somrec.Y += 2;
                     }
                     if (guytoother > 400)
                     {
@@ -102,12 +109,7 @@ namespace BlackWing
                         }
                     }
                 }
-                EnemyShoot();
-                if (bulletdelay == 0)
-                {
-                    EnemyShoot();
-                }
-                UpdateBullets();
+            
                 for (int i = 0; i < bulletlist.Count; i++)
                 {
                     if (blackwing.BlackWingbox.Intersects(bulletlist[i].boundingbox))
@@ -138,6 +140,7 @@ namespace BlackWing
             //HEALTH LOW
             else
             {
+
                 if (guytoother > guytoplayer)
                 {
                     if (blackwing.BlackWingbox.X >= somrec.X)
@@ -225,10 +228,11 @@ namespace BlackWing
             }
 
         }
-        public void UpdateBullets()
+        public void UpdateBullets(List<Line> Lines)
         {
             for (int i = 0; i < bulletlist.Count; i++)
             {
+                bulletlist[i].Update(Lines);
                 if (!bulletlist[i].isVisible)
                 {
                     bulletlist.RemoveAt(i);
