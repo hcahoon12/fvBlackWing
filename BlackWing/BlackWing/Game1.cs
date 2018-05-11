@@ -2029,7 +2029,7 @@ namespace BlackWing
         }
      public void OLL()
         {
-            somlist.Add(new SOM(Content.Load<Texture2D>("SOM"), new Vector2(800, 430), Content.Load<Texture2D>("Waterball"), 50, 50));
+            somlist.Add(new SOM(Content.Load<Texture2D>("SOM"), new Vector2(800, 430), Content.Load<Texture2D>("WaterBall"), 60, 50));
         }
         //T means two player 
         public void Tfl()
@@ -2228,7 +2228,7 @@ namespace BlackWing
         }
         public void TLL()
         {
-            somlist.Add((new SOM(Content.Load<Texture2D>("SOM"), new Vector2(800, 430), Content.Load<Texture2D>("WaterBall"), 90, 90)));
+            somlist.Add((new SOM(Content.Load<Texture2D>("SOM"), new Vector2(800, 430), Content.Load<Texture2D>("WaterBall"), 60, 50)));
         }
         public void gameoverload()
         {
