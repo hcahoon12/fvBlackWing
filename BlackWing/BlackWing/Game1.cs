@@ -2228,7 +2228,7 @@ namespace BlackWing
         }
         public void TLL()
         {
-            somlist.Add((new SOM(Content.Load<Texture2D>("SOM"), new Vector2(800, 430), Content.Load<Texture2D>("Waterball"), 90, 90)));
+            somlist.Add((new SOM(Content.Load<Texture2D>("SOM"), new Vector2(800, 430), Content.Load<Texture2D>("WaterBall"), 90, 90)));
         }
         public void gameoverload()
         {
